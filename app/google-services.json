@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "83743849283",
+    "project_id": "cinevo-9dd14",
+    "storage_bucket": "cinevo-9dd14.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83743849283:android:a8d80864bcdf7fbb7acdf6",
+        "android_client_info": {
+          "package_name": "cinevo.streambox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg8RD6zRp17DSM4CGvOUm0fwVufXpueQ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83743849283:android:69e2a1cfd60f80607acdf6",
+        "android_client_info": {
+          "package_name": "mycinevo.streambox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg8RD6zRp17DSM4CGvOUm0fwVufXpueQ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

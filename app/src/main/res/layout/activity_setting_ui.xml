@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/_10sdp"
+    android:paddingStart="@dimen/_15sdp"
+    android:paddingEnd="@dimen/_15sdp"
+    android:background="@drawable/bg_dark"
+    android:id="@+id/theme_bg"
+    tools:context=".activity.Setting.SettingUIActivity">
+
+    <RelativeLayout
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3">
+
+        <ImageView
+            android:id="@+id/iv_back_page"
+            android:layout_width="@dimen/_33sdp"
+            android:layout_height="@dimen/_33sdp"
+            android:padding="@dimen/_5sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_player_back"
+            app:tint="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:contentDescription="@string/todo"
+            android:focusable="true"
+            android:focusableInTouchMode="false"
+            android:background="@drawable/focused_img_selector"
+            android:layout_marginEnd="@dimen/_10sdp"/>
+
+        <ImageView
+            android:id="@+id/iv_app_logo"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/iv_back_page"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_setting"
+            android:padding="@dimen/_4sdp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_toEndOf="@+id/iv_app_logo"
+            android:text="@string/ui_setting"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_11ssp"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:id="@+id/ll_btn_save"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="false"
+            android:background="@drawable/focused_save_btn"
+            android:orientation="horizontal"
+            tools:ignore="RelativeOverlap">
+
+            <ImageView
+                android:id="@+id/tv_save"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:padding="@dimen/_7sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_save"
+                app:tint="@color/white"
+                android:contentDescription="@string/todo"/>
+
+            <ProgressBar
+                android:id="@+id/pb_save"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:padding="@dimen/_6sdp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/white"
+                android:visibility="gone"/>
+
+            <TextView
+                android:text="@string/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:layout_marginEnd="@dimen/_10sdp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:baselineAligned="false"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@drawable/bg_card_sub"
+        android:backgroundTint="?ns_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="0dp"
+                android:layout_weight="1.6"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_20sdp"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/cbox_card_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Show Movie/ Series Name"
+                        android:textSize="@dimen/_12ssp"
+                        tools:ignore="InefficientWeight"
+                        android:textColor="@color/white"
+                        android:background="@drawable/focused_edt"
+                        android:padding="@dimen/_6sdp"/>
+
+                    <CheckBox
+                        android:id="@+id/cbox_cast"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Show Movie Cast Details"
+                        android:textSize="@dimen/_12ssp"
+                        tools:ignore="InefficientWeight"
+                        android:textColor="@color/white"
+                        android:background="@drawable/focused_edt"
+                        android:padding="@dimen/_6sdp"/>
+
+                    <CheckBox
+                        android:id="@+id/cbox_download"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Show Download Button"
+                        android:textSize="@dimen/_12ssp"
+                        tools:ignore="InefficientWeight"
+                        android:textColor="@color/white"
+                        android:background="@drawable/focused_edt"
+                        android:padding="@dimen/_6sdp"/>
+
+                    <TextView
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Player UI"
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/white"
+                        android:padding="@dimen/_4sdp"/>
+
+                    <CheckBox
+                        android:id="@+id/cbox_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Show Subtitle Button"
+                        android:textSize="@dimen/_12ssp"
+                        tools:ignore="InefficientWeight"
+                        android:textColor="@color/white"
+                        android:background="@drawable/focused_edt"
+                        android:padding="@dimen/_6sdp"/>
+
+                    <CheckBox
+                        android:id="@+id/cbox_vr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Show VR Button"
+                        android:textSize="@dimen/_12ssp"
+                        tools:ignore="InefficientWeight"
+                        android:textColor="@color/white"
+                        android:background="@drawable/focused_edt"
+                        android:padding="@dimen/_6sdp"/>
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+            <View
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
+                android:background="#12FFFFFF"
+                android:backgroundTint="?ns_title"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shimmering Effect"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/white"
+                    android:padding="@dimen/_4sdp"/>
+
+                <CheckBox
+                    android:id="@+id/cbox_shimmering_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home Page"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/white"
+                    tools:ignore="InefficientWeight"
+                    android:background="@drawable/focused_edt"
+                    android:padding="@dimen/_6sdp"/>
+
+                <CheckBox
+                    android:id="@+id/cbox_shimmering_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Details Page"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/white"
+                    tools:ignore="InefficientWeight"
+                    android:background="@drawable/focused_edt"
+                    android:padding="@dimen/_6sdp"/>
+
+                <CheckBox
+                    android:id="@+id/cbox_shimmering_splash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Splash Screen"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/white"
+                    tools:ignore="InefficientWeight"
+                    android:background="@drawable/focused_edt"
+                    android:padding="@dimen/_6sdp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

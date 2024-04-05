@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:gravity="center"
+    android:keepScreenOn="true">
+
+    <mycinevo.streambox.util.player.CustomPlayerView
+        android:id="@+id/nSoftsPlayerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:controller_layout_id="@layout/custom_controls_live"
+        android:animateLayoutChanges="true"
+        app:surface_type="texture_view"/>
+
+    <androidx.nemosofts.view.SmoothProgressBar
+        android:id="@+id/pb_player"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        app:cpb_color="#FFee44"
+        app:cpb_colors="@array/progress_colors"
+        app:cpb_max_sweep_angle="300"
+        app:cpb_min_sweep_angle="10"
+        app:cpb_rotation_speed="1.0"
+        app:cpb_stroke_width="@dimen/_2sdp"
+        app:cpb_sweep_speed="1.0" />
+
+    <ImageView
+        android:id="@+id/iv_reset"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_centerInParent="true"
+        android:alpha="0.8"
+        android:background="@drawable/focused_btn_play"
+        android:contentDescription="@string/app_name"
+        android:focusable="true"
+        android:focusableInTouchMode="false"
+        android:paddingStart="@dimen/_5sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_3sdp"
+        android:src="@drawable/ic_reset"
+        app:tint="@color/white"
+        android:visibility="gone"/>
+
+</RelativeLayout>

@@ -1,0 +1,179 @@
+<resources>
+    <string name="app_name">Cinevo</string>
+
+    <!-- Push notification ID-->
+    <string name="onesignal_app_id">a3af5079-afad-43a6-aa11-fbcee9e9bb1a</string>
+
+    <string name="categories">Categories</string>
+    <string name="expiration">Expiration :</string>
+    <string name="logged_in">Logged in :</string>
+    <string name="live_tv_home">LIVE TV</string>
+    <string name="movies_home">MOVIES</string>
+    <string name="live_with_epg_home">LIVE WITH EPG</string>
+    <string name="catch_up_home">CATCH UP</string>
+    <string name="series_home">SERIES</string>
+    <string name="multiple_screen">MULTISCREEN</string>
+    <string name="favourite">Favourite</string>
+    <string name="recently">Recently Watched</string>
+    <string name="recently_add">Recently added</string>
+    <string name="search_categories">Search in categories</string>
+
+    <!-- SelectPlayerActivity -->
+    <string name="login_with_xtream_codes">XTREAM CODES</string>
+    <string name="play_single_stream">PLAY SINGLE STREAM</string>
+    <string name="list_users">LIST USERS</string>
+    <string name="login_with_device_id">LOGIN WITH DEVICE ID</string>
+    <string name="m3u_playlist">M3U PLAYLIST</string>
+    <string name="_1_stream">1-STREAM</string>
+    <string name="by_using_this_application">By using this application, you agree to agree to the</string>
+
+    <!--Dialog-->
+    <string name="exit">Exit</string>
+    <string name="cancel">Cancel</string>
+    <string name="sure_exit">Are you sure you want to exit app?</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="its_time_to_upgrade">Its time to Upgrade to the latest version of our application to get the best experience.</string>
+    <string name="do_it_now">DO IT NOW</string>
+    <string name="maintenance">Maintenance</string>
+    <string name="temporarily_down_for_maintenance">Temporarily Down for Maintenance</string>
+    <string name="we_are_performing_scheduled">we are performing scheduled maintenance. we should be back online shortly.</string>
+    <string name="try_again_later">Try again later</string>
+    <string name="sniffing_detected">Sniffing Detected</string>
+    <string name="turn_off_all_sniffers_tools">Turn off all sniffers Tools and Vpn tools to access app</string>
+    <string name="developer_mode">Developer Mode</string>
+    <string name="turn_off_developer_mode">Turn off Developer Mode to access the app</string>
+    <string name="sure_delete">Are you sure you want to delete this?</string>
+    <string name="unlock">Unlock</string>
+    <string name="adults_content">Adults content</string>
+    <string name="warning_adults_only">Warning Adults Only</string>
+    <string name="select_recently_limit">Select Recently Limit</string>
+    <string name="live_not_downloaded">Live TV Not Downloaded</string>
+    <string name="want_to_download">You need to download live tv in order to use this feature. Do you want to download now?</string>
+    <string name="select_reload_hours">Select auto reload hours</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+
+    <!--MSG-->
+    <string name="err_pass_end_space">Please do not add space at end</string>
+    <string name="err_cannot_empty">Field cannot be empty</string>
+    <string name="err_password_sort">This password is too shor</string>
+    <string name="err_internet_not_connected">Please connect to internet</string>
+    <string name="err_connect_net_try">Please connect to internet and try again</string>
+    <string name="err_unauthorized_access">Unauthorized Access</string>
+    <string name="retry">Retry</string>
+    <string name="err_server_not_connected">Server not connected</string>
+    <string name="err_login_not_incorrect">Login details are incorrect</string>
+    <string name="err_server_error">Server Error</string>
+    <string name="logout_success">Logout Successful</string>
+    <string name="added_success">Added successfully.</string>
+    <string name="err_no_data_found">No Data Found</string>
+    <string name="err_no_episodes_found">No Episodes Found</string>
+    <string name="fav_success">Added to Favourite</string>
+    <string name="fav_remove_success">Removed from Favourite</string>
+    <string name="play">PLAY</string>
+    <string name="resume">RESUME</string>
+    <string name="trailer">TRAILER</string>
+    <string name="err_password">password incorrect. please try again.</string>
+    <string name="error_old_password">Please Enter Old Password</string>
+    <string name="error_password">Please Enter Password</string>
+    <string name="error_cpassword">Please Enter Confirm Password</string>
+    <string name="error_pass_not_match">Confirm Password not matched</string>
+    <string name="error_old_pass_not_match">Old Password not matched</string>
+    <string name="error_pass_end_space">Please do not add space at end</string>
+    <string name="error_category_list">Unfortunately, there is no content under this category list</string>
+    <string name="please_wait_a_minute">Please wait a minute</string>
+
+    <!--Profile -->
+    <string name="card_holder_name">Card Holder name</string>
+    <string name="xxxxxxxxx">xxxxxxxxx</string>
+    <string name="expiry_date">Expiry date</string>
+    <string name="xxxx_xx_xx">xxxx-xx-xx</string>
+    <string name="subscription_info">Subscription info</string>
+    <string name="card_connections">Connections</string>
+
+    <!--Login/User -->
+    <string name="enter_login_details">Enter Your Login Details</string>
+    <string name="any_name">Any name</string>
+    <string name="user_name">User name</string>
+    <string name="user_password">Password</string>
+    <string name="url_here_com_port">http://url_here.com:port</string>
+    <string name="add_user">ADD USER</string>
+    <string name="user_list_any_name">nemosofts</string>
+    <string name="user_list_user_name">Username: </string>
+    <string name="user_list_url">URL: </string>
+    <string name="no_users_to_list_yet">No users to list yet</string>
+    <string name="you_haven_created_any_user">You haven\'t created any user\'s yet.</string>
+
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="app_theme">App Theme</string>
+    <string name="clear_cache">Clear Cache</string>
+    <string name="notifications">Notifications</string>
+    <string name="wifi_setting">Wifi Setting</string>
+    <string name="date_time">Date and time</string>
+    <string name="profile">Profile</string>
+    <string name="stream_format">Stream Format</string>
+    <string name="speed_test">Speed test</string>
+    <string name="show_multi_screen_popup">Show Multi-Screen Popup</string>
+    <string name="choose_multi_screen_layout">Choose Multi-Screen Layout</string>
+    <string name="multi_screen_settings">Multi-Screen Settings</string>
+    <string name="general_setting">General Setting</string>
+    <string name="ui_setting">UI Setting</string>
+    <string name="autoplay_next_episode">Autoplay Next Episode</string>
+    <string name="recently_added_limit_movie_series">Recently Added Limit (Movie, Series)</string>
+    <string name="recently_added_limit_live_tv">Recently Added Limit (Live TV)</string>
+    <string name="set_playlist_agent">Set Playlist Agent</string>
+    <string name="post_notification">Post Notification</string>
+    <string name="auto_reload_data">Automatically Reload Data Every</string>
+    <string name="splash_screen_music">Splash Screen Music</string>
+    <string name="save">SAVE</string>
+    <string name="ui">UI</string>
+
+    <!--Movie Details-->
+    <string name="directed_by">Directed By:</string>
+    <string name="release_date">Release Date:</string>
+    <string name="duration">Duration:</string>
+    <string name="genre">Genre:</string>
+    <string name="cast">Cast:</string>
+
+    <!-- Single Stream -->
+    <string name="add_video">ADD VIDEO</string>
+    <string name="play_single_stream_url">Play Single Stream</string>
+    <string name="stream_name_extension">http://url_here.com/stream_name.extension</string>
+    <string name="stream_list">STREAM LIST</string>
+    <string name="n_a">N/A</string>
+
+    <!-- Add playlist  -->
+    <string name="add_m3u_playlist">Add M3U Playlist</string>
+    <string name="browse">BROWSE</string>
+    <string name="m3u_url">M3U URL</string>
+    <string name="file">FILE</string>
+    <string name="add_playlist">ADD PLAYLIST</string>
+    <string name="select_playlist">Select Playlist</string>
+    <string name="err_file_invalid">Your file is invalid</string>
+
+    <!-- Single Stream -->
+    <string name="radio">Radio</string>
+    <string name="error_no_radio_selected">no radio selected</string>
+    <string name="filter">Filters</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="external">External</string>
+
+    <!--Feedback-->
+    <string name="feedback">Feedback</string>
+    <string name="please_describe_the_problem">Please describe the problem…</string>
+    <string name="submit">Submit</string>
+
+    <!-- Download -->
+    <string name="delete">Delete</string>
+    <string name="file_deleted">File Deleted</string>
+    <string name="downloads">Downloads</string>
+    <string name="downloaded">Downloaded</string>
+    <string name="downloading">Downloading</string>
+    <string name="already_download">Already Downloaded</string>
+    <string name="err_cannot_use_features">Cannot use some of the features without requested permission</string>
+
+    <!--Don't Change language-->
+    <string name="todo">TODO</string>
+
+</resources>
