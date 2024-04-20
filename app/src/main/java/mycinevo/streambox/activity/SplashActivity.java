@@ -1,5 +1,7 @@
 package mycinevo.streambox.activity;
 
+import static mycinevo.streambox.util.helper.Helper.hideNavigationKeys;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -62,6 +65,7 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
         if (Boolean.TRUE.equals(Callback.isLandscape)){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
+        hideNavigationKeys(getWindow());
         IfSupported.IsRTL(this);
         IfSupported.IsScreenshot(this);
         IfSupported.hideStatusBar(this);
@@ -301,4 +305,5 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }

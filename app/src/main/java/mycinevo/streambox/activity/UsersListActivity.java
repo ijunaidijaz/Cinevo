@@ -1,5 +1,7 @@
 package mycinevo.streambox.activity;
 
+import static mycinevo.streambox.util.helper.Helper.hideNavigationKeys;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -57,6 +59,7 @@ public class UsersListActivity extends AppCompatActivity {
         if (Boolean.TRUE.equals(Callback.isLandscape)){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
+        hideNavigationKeys(getWindow());
         IfSupported.IsRTL(this);
         IfSupported.IsScreenshot(this);
         IfSupported.hideStatusBar(this);

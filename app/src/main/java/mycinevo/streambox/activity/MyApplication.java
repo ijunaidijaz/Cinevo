@@ -3,6 +3,7 @@ package mycinevo.streambox.activity;
 import android.content.Context;
 import android.os.StrictMode;
 
+import androidx.core.view.WindowCompat;
 import androidx.multidex.MultiDex;
 import androidx.nemosofts.Application;
 import androidx.nemosofts.theme.ThemeEngine;
@@ -57,5 +58,8 @@ public class MyApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+    private void hideSystemUI() {
+
     }
 }
