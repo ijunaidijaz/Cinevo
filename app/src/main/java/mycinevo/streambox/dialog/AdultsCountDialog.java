@@ -13,15 +13,15 @@ import java.util.Objects;
 
 import mycinevo.streambox.R;
 import mycinevo.streambox.util.IfSupported;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class AdultsCountDialog {
 
-    private final SharedPref sharedPref;
+    private final SPHelper spHelper;
     private final Dialog dialog;
 
     public AdultsCountDialog(Context context) {
-        sharedPref = new SharedPref(context);
+        spHelper = new SPHelper(context);
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_adults_count);
@@ -32,7 +32,7 @@ public class AdultsCountDialog {
         EditText etPassword = dialog.findViewById(R.id.et_password_2);
         EditText etConfirmPassword = dialog.findViewById(R.id.et_password_3);
 
-        if (sharedPref.getAdultPassword().isEmpty()){
+        if (spHelper.getAdultPassword().isEmpty()){
             etPasswordOld.setVisibility(View.GONE);
         } else {
             etPasswordOld.setVisibility(View.VISIBLE);
@@ -48,7 +48,7 @@ public class AdultsCountDialog {
                     etPasswordOld.setError(context.getResources().getString(R.string.error_pass_end_space));
                     etPasswordOld.requestFocus();
                 }
-                else if (sharedPref.getAdultPassword().equals(etPasswordOld.getText().toString())){
+                else if (spHelper.getAdultPassword().equals(etPasswordOld.getText().toString())){
                     if(etPassword.getText().toString().trim().isEmpty()) {
                         etPassword.setError(context.getResources().getString(R.string.err_cannot_empty));
                         etPassword.requestFocus();
@@ -65,7 +65,7 @@ public class AdultsCountDialog {
                         etConfirmPassword.setError(context.getResources().getString(R.string.error_pass_not_match));
                         etConfirmPassword.requestFocus();
                     } else {
-                        sharedPref.setAdultPassword(etPassword.getText().toString());
+                        spHelper.setAdultPassword(etPassword.getText().toString());
                         dismissDialog();
                     }
                 } else {
@@ -89,7 +89,7 @@ public class AdultsCountDialog {
                     etConfirmPassword.setError(context.getResources().getString(R.string.error_pass_not_match));
                     etConfirmPassword.requestFocus();
                 } else {
-                    sharedPref.setAdultPassword(etPassword.getText().toString());
+                    spHelper.setAdultPassword(etPassword.getText().toString());
                     dismissDialog();
                 }
             }

@@ -13,12 +13,12 @@ import mycinevo.streambox.item.ItemEpisodes;
 import mycinevo.streambox.item.ItemInfoSeasons;
 import mycinevo.streambox.item.ItemSeasons;
 import mycinevo.streambox.util.ApplicationUtil;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import okhttp3.RequestBody;
 
 public class LoadSeriesID extends AsyncTask<String, String, String> {
 
-    private final SharedPref sharedPref;
+    private final SPHelper spHelper;
     private final SeriesIDListener listener;
     private final RequestBody requestBody;
     private final ArrayList<ItemInfoSeasons> arrayListInfo = new ArrayList<>();
@@ -28,7 +28,7 @@ public class LoadSeriesID extends AsyncTask<String, String, String> {
     public LoadSeriesID(Context ctx, SeriesIDListener listener, RequestBody requestBody) {
         this.listener = listener;
         this.requestBody = requestBody;
-        sharedPref = new SharedPref(ctx);
+        spHelper = new SPHelper(ctx);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class LoadSeriesID extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            String json = ApplicationUtil.responsePost(sharedPref.getAPI(), requestBody);
+            String json = ApplicationUtil.responsePost(spHelper.getAPI(), requestBody);
             JSONObject jsonObject = new JSONObject(json);
 
             if (jsonObject.has("info")) {

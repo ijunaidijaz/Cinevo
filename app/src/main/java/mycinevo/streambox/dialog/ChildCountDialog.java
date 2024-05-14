@@ -12,18 +12,18 @@ import java.util.Objects;
 
 import mycinevo.streambox.R;
 import mycinevo.streambox.util.IfSupported;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class ChildCountDialog {
 
-    private final SharedPref sharedPref;
     private Dialog dialog;
+    private final SPHelper spHelper;
     private final ChildCountListener countListener;
 
     public ChildCountDialog(Context context, int pos,  ChildCountListener listener) {
         this.countListener = listener;
-        sharedPref = new SharedPref(context);
-        if (sharedPref.getAdultPassword().isEmpty()){
+        spHelper = new SPHelper(context);
+        if (spHelper.getAdultPassword().isEmpty()){
             countListener.onUnLock(pos);
         } else {
             dialog = new Dialog(context);
@@ -37,7 +37,7 @@ public class ChildCountDialog {
                     et_password.setError(context.getString(R.string.err_cannot_empty));
                     et_password.requestFocus();
                 } else {
-                    if (sharedPref.getAdultPassword().equals(et_password.getText().toString())){
+                    if (spHelper.getAdultPassword().equals(et_password.getText().toString())){
                         countListener.onUnLock(pos);
                         dismissDialog();
                     } else {

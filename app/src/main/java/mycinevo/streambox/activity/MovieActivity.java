@@ -218,7 +218,7 @@ public class MovieActivity extends AppCompatActivity {
         if (ApplicationUtil.geIsAdultsCount(arrayListCat.get(pos).getName())){
             new ChildCountDialog(this, pos, position -> getData());
         } else {
-            getData();
+            new Handler().postDelayed(this::getData, 0);
         }
         EditText edt_search = findViewById(R.id.edt_search);
         edt_search.setOnEditorActionListener((v, actionId, event) -> {

@@ -48,7 +48,7 @@ import mycinevo.streambox.item.ItemSeries;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
@@ -58,7 +58,7 @@ public class DetailsSeriesActivity extends AppCompatActivity {
     private int playback = 0;
     private Helper helper;
     private DBHelper dbHelper;
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private String series_id = "0", series_name="", series_rating="", series_cover="";
     private TextView tv_page_title, tv_directed, tv_release, tv_genre, tv_plot;
     private ImageView iv_series;
@@ -106,7 +106,7 @@ public class DetailsSeriesActivity extends AppCompatActivity {
 
         helper = new Helper(this);
         dbHelper = new DBHelper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
 
         helper = new Helper(this, (position, type) -> {
             @SuppressLint("UnsafeOptInUsageError") Intent intent = new Intent(DetailsSeriesActivity.this, PlayerEpisodesActivity.class);
@@ -219,7 +219,7 @@ public class DetailsSeriesActivity extends AppCompatActivity {
                         }
                     }
                 }
-            }, helper.getAPIRequestID("get_series_info","series_id", series_id, sharedPref.getUserName(), sharedPref.getPassword()));
+            }, helper.getAPIRequestID("get_series_info","series_id", series_id, spHelper.getUserName(), spHelper.getPassword()));
             loadSeriesID.execute();
         } else {
             Toasty.makeText(DetailsSeriesActivity.this, getString(R.string.err_internet_not_connected), Toasty.ERROR);
@@ -227,7 +227,7 @@ public class DetailsSeriesActivity extends AppCompatActivity {
     }
 
     private void removeShimmer() {
-        if (Boolean.TRUE.equals(sharedPref.getIsShimmeringDetails())){
+        if (Boolean.TRUE.equals(spHelper.getIsShimmeringDetails())){
             shimmer.setVisibility(View.GONE);
             shimmer.removeAllViews();
         } else {
@@ -238,7 +238,7 @@ public class DetailsSeriesActivity extends AppCompatActivity {
     }
 
     private void addShimmer() {
-        if (Boolean.TRUE.equals(sharedPref.getIsShimmeringDetails())){
+        if (Boolean.TRUE.equals(spHelper.getIsShimmeringDetails())){
             ll_page.setVisibility(View.GONE);
             shimmer.setVisibility(View.VISIBLE);
             shimmer.removeAllViews();
@@ -341,7 +341,7 @@ public class DetailsSeriesActivity extends AppCompatActivity {
 
         try {
             ItemSeries itemSeries = new ItemSeries(series_name,series_id,series_cover,series_rating);
-            dbHelper.addToSeries(DBHelper.TABLE_RECENT_SERIES, itemSeries, sharedPref.getMovieLimit());
+            dbHelper.addToSeries(DBHelper.TABLE_RECENT_SERIES, itemSeries, spHelper.getMovieLimit());
         } catch (Exception e) {
             e.printStackTrace();
         }

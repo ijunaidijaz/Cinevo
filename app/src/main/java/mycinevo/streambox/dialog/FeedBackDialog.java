@@ -19,14 +19,14 @@ import mycinevo.streambox.callback.Callback;
 import mycinevo.streambox.interfaces.StatusListener;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class FeedBackDialog {
 
     private final Helper helper;
-    private final SharedPref sharedPref;
+    private final SPHelper spHelper;
     private Dialog dialog;
     private final Activity ctx;
     private final NSoftsProgressDialog progressDialog;
@@ -34,12 +34,12 @@ public class FeedBackDialog {
     public FeedBackDialog(@NonNull Activity ctx) {
         this.ctx = ctx;
         helper = new Helper(ctx);
-        sharedPref = new SharedPref(ctx);
+        spHelper = new SPHelper(ctx);
         progressDialog = new NSoftsProgressDialog(ctx);
     }
 
     public void showDialog(String title) {
-        if(sharedPref.isLogged()) {
+        if(spHelper.isLogged()) {
             dialog = new Dialog(ctx);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_feed_back);
@@ -82,7 +82,7 @@ public class FeedBackDialog {
                     }
                     dismissDialog();
                 }
-            }, helper.getAPIRequestNSofts(Callback.METHOD_REPORT, reportTitle, reportMessages, sharedPref.getUserName(), sharedPref.getPassword()));
+            }, helper.getAPIRequestNSofts(Callback.METHOD_REPORT, reportTitle, reportMessages, spHelper.getUserName(), spHelper.getPassword()));
             loadFav.execute();
         } else {
             Toast.makeText(ctx, ctx.getString(R.string.err_internet_not_connected), Toast.LENGTH_SHORT).show();

@@ -38,6 +38,7 @@ public class LoadLogin extends AsyncTask<String, String, String> {
     protected String doInBackground(String... strings) {
         try {
             String json = ApplicationUtil.responsePost(api_url+"/player_api.php", requestBody);
+
             JSONObject mainJson = new JSONObject(json);
 
             JSONObject user_info = mainJson.getJSONObject("user_info");
@@ -74,7 +75,6 @@ public class LoadLogin extends AsyncTask<String, String, String> {
             timestamp_now = server_info.getInt("timestamp_now");
             time_now = server_info.getString("time_now");
             timezone = server_info.getString("timezone");
-
             return "1";
         } catch (Exception ee) {
             ee.printStackTrace();

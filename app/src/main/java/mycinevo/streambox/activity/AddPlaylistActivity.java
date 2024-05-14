@@ -33,21 +33,22 @@ import mycinevo.streambox.R;
 import mycinevo.streambox.activity.UI.PlaylistActivity;
 import mycinevo.streambox.asyncTask.LoadPlaylist;
 import mycinevo.streambox.callback.Callback;
-import mycinevo.streambox.dialog.ExitDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.Toasty;
 import mycinevo.streambox.interfaces.LoadPlaylistListener;
 import mycinevo.streambox.item.ItemPlaylist;
 import mycinevo.streambox.item.ItemUsersDB;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.NetworkUtils;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.JSHelper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class AddPlaylistActivity extends AppCompatActivity {
 
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private DBHelper dbHelper;
     private JSHelper jsHelper;
     private EditText et_any_name;
@@ -77,7 +78,7 @@ public class AddPlaylistActivity extends AppCompatActivity {
 
         jsHelper = new JSHelper(this);
         dbHelper = new DBHelper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
 
         et_any_name = findViewById(R.id.et_any_name);
         et_url = findViewById(R.id.et_url);
@@ -121,8 +122,8 @@ public class AddPlaylistActivity extends AppCompatActivity {
 
     private void openPlaylistActivity() {
         Toast.makeText(AddPlaylistActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
-        sharedPref.setLoginType(Callback.TAG_LOGIN_PLAYLIST);
-        sharedPref.setAnyName(et_any_name.getText().toString());
+        spHelper.setLoginType(Callback.TAG_LOGIN_PLAYLIST);
+        spHelper.setAnyName(et_any_name.getText().toString());
         Intent intent = new Intent(AddPlaylistActivity.this, PlaylistActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -133,7 +134,7 @@ public class AddPlaylistActivity extends AppCompatActivity {
         tv_browse.setText("");
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("audio/*");
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"audio/mpegurl", "audio/x-mpegurl", "application/x-mpegurl"});
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, ApplicationUtil.SUPPORTED_EXTENSIONS_PLAYLIST);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         try {
             startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.select_playlist)), PICK_REQUEST);
@@ -175,7 +176,15 @@ public class AddPlaylistActivity extends AppCompatActivity {
                 focusView.requestFocus();
             }
         } else {
-            loadPlaylistData();
+            if (Boolean.TRUE.equals(isFile)){
+                loadPlaylistData();
+            } else {
+                if (NetworkUtils.isConnected(this)){
+                    loadPlaylistData();
+                } else {
+                    Toasty.makeText(AddPlaylistActivity.this, getString(R.string.err_internet_not_connected), Toasty.ERROR);
+                }
+            }
         }
     }
 
@@ -319,7 +328,7 @@ public class AddPlaylistActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_BACK)){
-            new ExitDialog(AddPlaylistActivity.this);
+            DialogUtil.ExitDialog(AddPlaylistActivity.this);
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -328,6 +337,6 @@ public class AddPlaylistActivity extends AppCompatActivity {
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
-        new ExitDialog(AddPlaylistActivity.this);
+        DialogUtil.ExitDialog(AddPlaylistActivity.this);
     }
 }

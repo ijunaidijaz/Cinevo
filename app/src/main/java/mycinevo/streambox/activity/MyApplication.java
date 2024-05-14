@@ -5,7 +5,6 @@ import android.os.StrictMode;
 
 import androidx.multidex.MultiDex;
 import androidx.nemosofts.Application;
-import androidx.nemosofts.theme.ThemeEngine;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.onesignal.OneSignal;
@@ -35,12 +34,6 @@ public class MyApplication extends Application {
 
         // OneSignal Initialization
         OneSignal.initWithContext(this, getString(R.string.onesignal_app_id));
-
-        ThemeEngine themeEngine = new ThemeEngine(getApplicationContext());
-        if (themeEngine.getThemePage() != 1){
-            themeEngine.setThemeMode(true);
-            themeEngine.setThemePage(1);
-        }
     }
 
     @Override

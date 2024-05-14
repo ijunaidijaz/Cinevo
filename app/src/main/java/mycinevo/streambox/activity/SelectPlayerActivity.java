@@ -20,11 +20,11 @@ import mycinevo.streambox.BuildConfig;
 import mycinevo.streambox.R;
 import mycinevo.streambox.adapter.AdapterSelect;
 import mycinevo.streambox.callback.Callback;
-import mycinevo.streambox.dialog.ExitDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.item.ItemSelect;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 
 @UnstableApi
 public class SelectPlayerActivity extends AppCompatActivity {
@@ -41,7 +41,7 @@ public class SelectPlayerActivity extends AppCompatActivity {
 
         findViewById(R.id.theme_bg).setBackgroundResource(ApplicationUtil.openThemeBg(this));
 
-        SharedPref sharedPref = new SharedPref(this);
+        SPHelper spHelper = new SPHelper(this);
 
         RecyclerView rv = findViewById(R.id.rv_list);
         GridLayoutManager grid = new GridLayoutManager(this, 2);
@@ -51,23 +51,27 @@ public class SelectPlayerActivity extends AppCompatActivity {
         rv.setHasFixedSize(true);
 
         ArrayList<ItemSelect> arrayList = new ArrayList<>();
-        if (Boolean.TRUE.equals(sharedPref.getIsSelect(SharedPref.TAG_SELECT_XUI))){
+        if (Boolean.TRUE.equals(spHelper.getIsSelect(SPHelper.TAG_SELECT_XUI))){
             arrayList.add(new ItemSelect(getString(R.string.login_with_xtream_codes), R.drawable.ic_folder_connection,false));
         }
-        if (Boolean.TRUE.equals(sharedPref.getIsSelect(SharedPref.TAG_SELECT_STREAM))){
+        if (Boolean.TRUE.equals(spHelper.getIsSelect(SPHelper.TAG_SELECT_STREAM))){
             arrayList.add(new ItemSelect(getString(R.string._1_stream), R.drawable.ic_mist_line,false));
         }
-        if (Boolean.TRUE.equals(sharedPref.getIsSelect(SharedPref.TAG_SELECT_PLAYLIST))){
+        if (Boolean.TRUE.equals(spHelper.getIsSelect(SPHelper.TAG_SELECT_PLAYLIST))){
             arrayList.add(new ItemSelect(getString(R.string.m3u_playlist), R.drawable.ic_play_list,false));
         }
-        if (Boolean.TRUE.equals(sharedPref.getIsSelect(SharedPref.TAG_SELECT_DEVICE))){
+        if (Boolean.TRUE.equals(spHelper.getIsSelect(SPHelper.TAG_SELECT_DEVICE))){
             arrayList.add(new ItemSelect(getString(R.string.login_with_device_id), R.drawable.ic_devices,false));
         }
-        if (Boolean.TRUE.equals(sharedPref.getIsSelect(SharedPref.TAG_SELECT_SINGLE))){
+        if (Boolean.TRUE.equals(spHelper.getIsSelect(SPHelper.TAG_SELECT_SINGLE))){
             arrayList.add(new ItemSelect(getString(R.string.play_single_stream), R.drawable.ic_movie,false));
         }
         arrayList.add(new ItemSelect(getString(R.string.list_users), R.drawable.ic_user_octagon,true));
-        arrayList.add(new ItemSelect(getString(R.string.downloads), R.drawable.iv_downloading,true));
+        arrayList.add(new ItemSelect(getString(R.string._downloads), R.drawable.iv_downloading,true));
+
+//        if (Boolean.TRUE.equals(sharedPref.getIsSelect(SharedPref.TAG_SELECT_SUBSCRIPTION))){
+//            arrayList.add(new ItemSelect(getString(R.string._subscription), R.drawable.ic_shopping_cart,true));
+//        }
 
         AdapterSelect adapterSelect = new AdapterSelect(arrayList, (item, position) -> select(arrayList.get(position).getTitle()));
         rv.setAdapter(adapterSelect);
@@ -120,8 +124,10 @@ public class SelectPlayerActivity extends AppCompatActivity {
             intent.putExtra("from", "");
             startActivity(intent);
             finish();
-        } else if (title.equals(getString(R.string.downloads))){
+        } else if (title.equals(getString(R.string._downloads))){
             startActivity(new Intent(SelectPlayerActivity.this, DownloadActivity.class));
+        } else if (title.equals(getString(R.string._subscription))){
+            startActivity(new Intent(SelectPlayerActivity.this, SubscriptionActivity.class));
         }
     }
 
@@ -154,7 +160,7 @@ public class SelectPlayerActivity extends AppCompatActivity {
         if (ApplicationUtil.isTvBox(SelectPlayerActivity.this)){
             super.onBackPressed();
         } else {
-            new ExitDialog(SelectPlayerActivity.this);
+            DialogUtil.ExitDialog(SelectPlayerActivity.this);
         }
     }
 }

@@ -29,14 +29,14 @@ import mycinevo.streambox.activity.PlayerSingleURLActivity;
 import mycinevo.streambox.activity.SelectPlayerActivity;
 import mycinevo.streambox.adapter.AdapterSingleURL;
 import mycinevo.streambox.callback.Callback;
-import mycinevo.streambox.dialog.ExitDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.PopupAdsDialog;
 import mycinevo.streambox.dialog.Toasty;
 import mycinevo.streambox.item.ItemSingleURL;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 
 @UnstableApi
@@ -148,7 +148,7 @@ public class SingleStreamActivity extends AppCompatActivity implements View.OnCl
         AdapterSingleURL adapter;
         adapter = new AdapterSingleURL(this,arrayList, (itemCat, position) -> {
             if (NetworkUtils.isConnected(this)){
-                new SharedPref(this).setLoginType(Callback.TAG_LOGIN_SINGLE_STREAM);
+                new SPHelper(this).setLoginType(Callback.TAG_LOGIN_SINGLE_STREAM);
                 Intent intent = new Intent(SingleStreamActivity.this, PlayerSingleURLActivity.class);
                 intent.putExtra("channel_title", arrayList.get(position).getAnyName());
                 intent.putExtra("channel_url", arrayList.get(position).getSingleURL());
@@ -198,7 +198,7 @@ public class SingleStreamActivity extends AppCompatActivity implements View.OnCl
             case R.id.iv_file_download ->
                     startActivity(new Intent(SingleStreamActivity.this, DownloadActivity.class));
             case R.id.ll_url_add -> {
-                new SharedPref(this).setLoginType(Callback.TAG_LOGIN);
+                new SPHelper(this).setLoginType(Callback.TAG_LOGIN);
                 Intent intent = new Intent(SingleStreamActivity.this, SelectPlayerActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("from", "");
@@ -230,11 +230,20 @@ public class SingleStreamActivity extends AppCompatActivity implements View.OnCl
     }
 
     @Override
+    public void onResume() {
+        if (Boolean.TRUE.equals(Callback.is_recreate)) {
+            Callback.is_recreate = false;
+            recreate();
+        }
+        super.onResume();
+    }
+
+    @Override
     public void onBackPressed() {
         if (ApplicationUtil.isTvBox(SingleStreamActivity.this)) {
             super.onBackPressed();
         } else {
-            new ExitDialog(SingleStreamActivity.this);
+            DialogUtil.ExitDialog(SingleStreamActivity.this);
         }
     }
 }

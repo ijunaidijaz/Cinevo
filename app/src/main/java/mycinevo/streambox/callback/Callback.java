@@ -95,4 +95,6 @@ public class Callback implements Serializable {
     public static List<ItemPoster> arrayListPoster = new ArrayList<>();
 
     public static Boolean isDataUpdate = false;
+    public static boolean is_recreate = false;
+    public static boolean is_recreate_ui = false;
 }

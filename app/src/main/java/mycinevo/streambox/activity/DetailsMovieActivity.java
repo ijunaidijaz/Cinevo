@@ -63,7 +63,7 @@ import mycinevo.streambox.item.ItemVideoDownload;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
@@ -74,7 +74,7 @@ public class DetailsMovieActivity extends AppCompatActivity {
     private int playback = 0;
     private Helper helper;
     private DBHelper dbHelper;
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private ItemInfoMovies itemMovies;
     private ItemMoviesData itemData;
     private ImageView iv_poster;
@@ -121,7 +121,7 @@ public class DetailsMovieActivity extends AppCompatActivity {
 
         helper = new Helper(this);
         dbHelper = new DBHelper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
 
         ll_page = findViewById(R.id.ll_page);
         shimmer = findViewById(R.id.fl_shimmer);
@@ -243,7 +243,7 @@ public class DetailsMovieActivity extends AppCompatActivity {
                     }
 
                 }
-            }, helper.getAPIRequestID("get_vod_info","vod_id" ,stream_id, sharedPref.getUserName(), sharedPref.getPassword()));
+            }, helper.getAPIRequestID("get_vod_info","vod_id" ,stream_id, spHelper.getUserName(), spHelper.getPassword()));
             loadSeriesID.execute();
         } else {
             Toasty.makeText(DetailsMovieActivity.this, getString(R.string.err_internet_not_connected), Toasty.ERROR);
@@ -251,7 +251,7 @@ public class DetailsMovieActivity extends AppCompatActivity {
     }
 
     private void removeShimmer() {
-        if (Boolean.TRUE.equals(sharedPref.getIsShimmeringDetails())){
+        if (Boolean.TRUE.equals(spHelper.getIsShimmeringDetails())){
             shimmer.setVisibility(View.GONE);
             shimmer.removeAllViews();
         } else {
@@ -262,7 +262,7 @@ public class DetailsMovieActivity extends AppCompatActivity {
     }
 
     private void addShimmer() {
-        if (Boolean.TRUE.equals(sharedPref.getIsShimmeringDetails())){
+        if (Boolean.TRUE.equals(spHelper.getIsShimmeringDetails())){
             ll_page.setVisibility(View.GONE);
             shimmer.setVisibility(View.VISIBLE);
             shimmer.removeAllViews();
@@ -287,10 +287,10 @@ public class DetailsMovieActivity extends AppCompatActivity {
         } else {
             findViewById(R.id.ll_download).setVisibility(View.GONE);
         }
-        if (!sharedPref.getIsDownload()){
+        if (!spHelper.getIsDownload()){
             findViewById(R.id.ll_download).setVisibility(View.GONE);
         } else {
-            if (!sharedPref.getIsDownloadUser()){
+            if (!spHelper.getIsDownloadUser()){
                 findViewById(R.id.ll_download).setVisibility(View.GONE);
             }
         }
@@ -324,7 +324,7 @@ public class DetailsMovieActivity extends AppCompatActivity {
                             if (Boolean.FALSE.equals(dbHelper.checkDownload(DBHelper.TABLE_DOWNLOAD_MOVIES, stream_id, ApplicationUtil.containerExtension(itemData.getContainerExtension())))) {
                                 try{
                                     itemData.setDownload(true);
-                                    String channelUrl = sharedPref.getServerURL()+"movie/"+sharedPref.getUserName()+"/"+sharedPref.getPassword()+"/"+stream_id+"."+itemData.getContainerExtension();
+                                    String channelUrl = spHelper.getServerURL()+"movie/"+ spHelper.getUserName()+"/"+ spHelper.getPassword()+"/"+stream_id+"."+itemData.getContainerExtension();
                                     ItemVideoDownload download  = new ItemVideoDownload(stream_name, stream_id, stream_icon, channelUrl, ApplicationUtil.containerExtension(itemData.getContainerExtension()));
                                     helper.download(download, DBHelper.TABLE_DOWNLOAD_MOVIES);
                                     new Handler().postDelayed(this::seekUpdating, 0);
@@ -343,7 +343,7 @@ public class DetailsMovieActivity extends AppCompatActivity {
         });
         setBlur();
 
-        if (sharedPref.getIsCast()){
+        if (spHelper.getIsCast()){
             if (itemMovies.getTmdbID().isEmpty()){
                 findViewById(R.id.tv_top_cast).setVisibility(View.GONE);
                 findViewById(R.id.rv_cast).setVisibility(View.GONE);
@@ -375,7 +375,7 @@ public class DetailsMovieActivity extends AppCompatActivity {
             @Override
             protected String doInBackground(String... strings) {
                 try {
-                    String json = ApplicationUtil.okhttpGet(movie_id, sharedPref.getTmdbKEY());
+                    String json = ApplicationUtil.okhttpGet(movie_id, spHelper.getTmdbKEY());
                     JSONObject jsonObject = new JSONObject(json);
 
                     JSONArray c =  jsonObject.getJSONArray("cast");

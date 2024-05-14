@@ -16,8 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.nemosofts.AppCompat;
 import androidx.nemosofts.AppCompatActivity;
-
-import com.facebook.shimmer.ShimmerFrameLayout;
+import androidx.nemosofts.view.ShimmerFrameLayout;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -34,16 +33,14 @@ import mycinevo.streambox.activity.NotificationsActivity;
 import mycinevo.streambox.activity.ProfileActivity;
 import mycinevo.streambox.activity.RadioActivity;
 import mycinevo.streambox.activity.SeriesActivity;
-import mycinevo.streambox.activity.Setting.SettingActivity;
+import mycinevo.streambox.activity.SettingActivity;
 import mycinevo.streambox.activity.UsersListActivity;
 import mycinevo.streambox.asyncTask.LoadLive;
 import mycinevo.streambox.asyncTask.LoadLogin;
 import mycinevo.streambox.asyncTask.LoadMovies;
 import mycinevo.streambox.asyncTask.LoadSeries;
 import mycinevo.streambox.callback.Callback;
-import mycinevo.streambox.dialog.DownloadDataDialog;
-import mycinevo.streambox.dialog.ExitDialog;
-import mycinevo.streambox.dialog.LiveDownloadDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.PopupAdsDialog;
 import mycinevo.streambox.dialog.Toasty;
 import mycinevo.streambox.interfaces.LiveListener;
@@ -52,7 +49,7 @@ import mycinevo.streambox.interfaces.SuccessListener;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.util.helper.JSHelper;
@@ -62,7 +59,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
 
     private DBHelper dbHelper;
     private Helper helper;
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private JSHelper jsHelper;
     private NSoftsProgressDialog progressDialog;
     private TextView tv_tv_auto_renew, tv_movie_auto_renew, tv_series_auto_renew;
@@ -89,7 +86,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.theme_bg).setBackgroundResource(ApplicationUtil.openThemeBg(this));
 
         helper = new Helper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
         dbHelper = new DBHelper(this);
         jsHelper = new JSHelper(this);
 
@@ -118,16 +115,16 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
         getInfo();
         setListenerHome();
 
-        changeIcon(sharedPref.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
-        changeIcon(sharedPref.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE, true);
-        changeIcon(sharedPref.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES, true);
+        changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
+        changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE, true);
+        changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES, true);
 
-        if (sharedPref.isLogged()){
+        if (spHelper.isLogged()){
             TextView tv_user_name = findViewById(R.id.tv_user_name);
-            String user_name = getString(R.string.user_list_user_name)+" "+sharedPref.getAnyName();
+            String user_name = getString(R.string.user_list_user_name)+" "+ spHelper.getAnyName();
             tv_user_name.setText(user_name);
 
-            String exp_date = getString(R.string.expiration)+" "+ ApplicationUtil.convertIntToDate(sharedPref.getExpDate(), "MMMM dd, yyyy");
+            String exp_date = getString(R.string.expiration)+" "+ ApplicationUtil.convertIntToDate(spHelper.getExpDate(), "MMMM dd, yyyy");
             TextView tv_exp_date = findViewById(R.id.tv_exp_date);
             tv_exp_date.setText(exp_date);
         }
@@ -160,31 +157,33 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.ll_movie_auto_renew).setOnClickListener(this);
         findViewById(R.id.ll_series_auto_renew).setOnClickListener(this);
 
-        if (!sharedPref.getIsDownload()){
+        if (!spHelper.getIsDownload()){
             findViewById(R.id.iv_file_download).setVisibility(View.GONE);
         }
-        if (Boolean.FALSE.equals(sharedPref.getIsRadio())){
+        if (Boolean.FALSE.equals(spHelper.getIsRadio())){
             findViewById(R.id.iv_radio).setVisibility(View.GONE);
         }
 
         findViewById(R.id.select_live).setOnLongClickListener(v -> {
-            if (!sharedPref.getCurrent(Callback.TAG_TV).isEmpty()) {
-                new DownloadDataDialog(OneUIActivity.this, Callback.TAG_TV, type -> getLive());
+            if (!spHelper.getCurrent(Callback.TAG_TV).isEmpty()) {
+                DialogUtil.DownloadDataDialog(OneUIActivity.this, Callback.TAG_TV, type -> getLive());
             }
             return false;
         });
         findViewById(R.id.select_movie).setOnLongClickListener(v -> {
-            if (!sharedPref.getCurrent(Callback.TAG_MOVIE).isEmpty()) {
-                new DownloadDataDialog(OneUIActivity.this, Callback.TAG_TV, type -> getMovies());
+            if (!spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty()) {
+                DialogUtil.DownloadDataDialog(OneUIActivity.this, Callback.TAG_TV, type -> getMovies());
             }
             return false;
         });
         findViewById(R.id.select_serials).setOnLongClickListener(v -> {
-            if (!sharedPref.getCurrent(Callback.TAG_SERIES).isEmpty()) {
-                new DownloadDataDialog(OneUIActivity.this, Callback.TAG_TV, type -> getSeries());
+            if (!spHelper.getCurrent(Callback.TAG_SERIES).isEmpty()) {
+                DialogUtil.DownloadDataDialog(OneUIActivity.this, Callback.TAG_TV, type -> getSeries());
             }
             return false;
         });
+
+
     }
 
     private void chalkedData() {
@@ -211,8 +210,8 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                                 findViewById(R.id.vw_multiple_screen).setVisibility(View.GONE);
                                 pb_live.setVisibility(View.GONE);
                             }
-                            sharedPref.setCurrentDate(Callback.TAG_TV);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, false);
+                            spHelper.setCurrentDate(Callback.TAG_TV);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, false);
                             handlerLive.postDelayed(this, 10);
                         }
                     }
@@ -239,8 +238,8 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                                 findViewById(R.id.vw_movie).setVisibility(View.GONE);
                                 pb_movie.setVisibility(View.GONE);
                             }
-                            sharedPref.setCurrentDate(Callback.TAG_MOVIE);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE, false);
+                            spHelper.setCurrentDate(Callback.TAG_MOVIE);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE, false);
                             handlerMovie.postDelayed(this, 10);
                         }
                     }
@@ -267,8 +266,8 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                                 findViewById(R.id.vw_serials).setVisibility(View.GONE);
                                 pb_serials.setVisibility(View.GONE);
                             }
-                            sharedPref.setCurrentDate(Callback.TAG_SERIES);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES, false);
+                            spHelper.setCurrentDate(Callback.TAG_SERIES);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES, false);
                             handlerSeries.postDelayed(this, 10);
                         }
                     }
@@ -287,14 +286,14 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
             switch (type) {
                 case "date_tv" -> {
                     iv_tv_auto_renew.setImageDrawable(getResources().getDrawable(id));
-                    tv_tv_auto_renew.setText(Boolean.TRUE.equals(isDownload) ? "" : "Last updated: " + ApplicationUtil.calculateTimeSpan(sharedPref.getCurrent(Callback.TAG_TV)));
+                    tv_tv_auto_renew.setText(Boolean.TRUE.equals(isDownload) ? "" : "Last updated: " + ApplicationUtil.calculateTimeSpan(spHelper.getCurrent(Callback.TAG_TV)));
                     if (is_view) {
                         findViewById(R.id.vw_live_tv).setVisibility(visibility);
                         findViewById(R.id.vw_live_epg).setVisibility(visibility);
                         findViewById(R.id.vw_catch_up).setVisibility(visibility);
                         findViewById(R.id.vw_multiple_screen).setVisibility(visibility);
                     }
-                    if (Boolean.TRUE.equals(isDownload) || Boolean.FALSE.equals(sharedPref.getIsShimmeringHome())){
+                    if (Boolean.TRUE.equals(isDownload) || Boolean.FALSE.equals(spHelper.getIsShimmeringHome())){
                         shimmer_live.setVisibility(View.GONE);
                     } else {
                         shimmer_live.setVisibility(View.VISIBLE);
@@ -302,11 +301,11 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                 }
                 case "date_movies" -> {
                     iv_movie_auto_renew.setImageDrawable(getResources().getDrawable(id));
-                    tv_movie_auto_renew.setText(Boolean.TRUE.equals(isDownload) ? "" : "Last updated: " + ApplicationUtil.calculateTimeSpan(sharedPref.getCurrent(Callback.TAG_MOVIE)));
+                    tv_movie_auto_renew.setText(Boolean.TRUE.equals(isDownload) ? "" : "Last updated: " + ApplicationUtil.calculateTimeSpan(spHelper.getCurrent(Callback.TAG_MOVIE)));
                     if (is_view) {
                         findViewById(R.id.vw_movie).setVisibility(visibility);
                     }
-                    if (Boolean.TRUE.equals(isDownload) || Boolean.FALSE.equals(sharedPref.getIsShimmeringHome())){
+                    if (Boolean.TRUE.equals(isDownload) || Boolean.FALSE.equals(spHelper.getIsShimmeringHome())){
                         shimmer_movie.setVisibility(View.GONE);
                     } else {
                         shimmer_movie.setVisibility(View.VISIBLE);
@@ -314,11 +313,11 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                 }
                 case "date_series" -> {
                     iv_series_auto_renew.setImageDrawable(getResources().getDrawable(id));
-                    tv_series_auto_renew.setText(Boolean.TRUE.equals(isDownload) ? "" : "Last updated: " + ApplicationUtil.calculateTimeSpan(sharedPref.getCurrent(Callback.TAG_SERIES)));
+                    tv_series_auto_renew.setText(Boolean.TRUE.equals(isDownload) ? "" : "Last updated: " + ApplicationUtil.calculateTimeSpan(spHelper.getCurrent(Callback.TAG_SERIES)));
                     if (is_view) {
                         findViewById(R.id.vw_serials).setVisibility(visibility);
                     }
-                    if (Boolean.TRUE.equals(isDownload) || Boolean.FALSE.equals(sharedPref.getIsShimmeringHome())){
+                    if (Boolean.TRUE.equals(isDownload) || Boolean.FALSE.equals(spHelper.getIsShimmeringHome())){
                         shimmer_serials.setVisibility(View.GONE);
                     } else {
                         shimmer_serials.setVisibility(View.VISIBLE);
@@ -379,21 +378,21 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
             case R.id.iv_settings ->
                     startActivity(new Intent(OneUIActivity.this, SettingActivity.class));
             case R.id.select_live -> {
-                if (sharedPref.getCurrent(Callback.TAG_TV).isEmpty()) {
+                if (spHelper.getCurrent(Callback.TAG_TV).isEmpty()) {
                     getLive();
                 } else {
                     startActivity(new Intent(OneUIActivity.this, LiveTvActivity.class));
                 }
             }
             case R.id.select_movie -> {
-                if (sharedPref.getCurrent(Callback.TAG_MOVIE).isEmpty()) {
+                if (spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty()) {
                     getMovies();
                 } else {
                     startActivity(new Intent(OneUIActivity.this, MovieActivity.class));
                 }
             }
             case R.id.select_serials -> {
-                if (sharedPref.getCurrent(Callback.TAG_SERIES).isEmpty()) {
+                if (spHelper.getCurrent(Callback.TAG_SERIES).isEmpty()) {
                     getSeries();
                 } else {
                     startActivity(new Intent(OneUIActivity.this, SeriesActivity.class));
@@ -423,26 +422,28 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void sign_out() {
-        Intent intent = new Intent(OneUIActivity.this, UsersListActivity.class);
-        if (sharedPref.isLogged()) {
-            new JSHelper(this).removeAllData();
-            dbHelper.removeAllData();
-            sharedPref.removeSignOut();
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.putExtra("from", "");
-            Toast.makeText(OneUIActivity.this, getString(R.string.logout_success), Toast.LENGTH_SHORT).show();
-        } else {
-            intent.putExtra("from", "app");
-        }
-        startActivity(intent);
-        finish();
+        DialogUtil.LogoutDialog(OneUIActivity.this, () -> {
+            Intent intent = new Intent(OneUIActivity.this, UsersListActivity.class);
+            if (spHelper.isLogged()) {
+                new JSHelper(OneUIActivity.this).removeAllData();
+                dbHelper.removeAllData();
+                spHelper.removeSignOut();
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("from", "");
+                Toast.makeText(OneUIActivity.this, getString(R.string.logout_success), Toast.LENGTH_SHORT).show();
+            } else {
+                intent.putExtra("from", "app");
+            }
+            startActivity(intent);
+            finish();
+        });
     }
 
     private boolean isDownloadLive() {
-        if (!sharedPref.getCurrent(Callback.TAG_TV).isEmpty()){
+        if (!spHelper.getCurrent(Callback.TAG_TV).isEmpty()){
             return true;
         } else {
-            new LiveDownloadDialog(this, this::getLive);
+            DialogUtil.LiveDownloadDialog(this, this::getLive);
             return false;
         }
     }
@@ -458,13 +459,13 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onEnd(String success, String username, String password, String message, int auth, String status, String exp_date, String is_trial, String active_cons, String created_at, String max_connections, String allowed_output_formats, boolean xui, String version, int revision, String url, String port, String https_port, String server_protocol, String rtmp_port, int timestamp_now, String time_now, String timezone) {
                         if (!isFinishing()){
-                            sharedPref.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
+                            spHelper.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
                                     xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
                             );
-                            sharedPref.setIsLogged(true);
+                            spHelper.setIsLogged(true);
                         }
                     }
-                },sharedPref.getServerURL(), helper.getAPIRequestLogin(sharedPref.getUserName(), sharedPref.getPassword()));
+                }, spHelper.getServerURL(), helper.getAPIRequestLogin(spHelper.getUserName(), spHelper.getPassword()));
                 login.execute();
             }
         } catch (Exception e) {
@@ -536,14 +537,14 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                                     }
                                 }
                             }, 10);
-                            sharedPref.setCurrentDate(Callback.TAG_SERIES);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES,false);
+                            spHelper.setCurrentDate(Callback.TAG_SERIES);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES,false);
                             Toast.makeText(OneUIActivity.this, getString(R.string.added_success), Toast.LENGTH_SHORT).show();
                         }  else {
-                            sharedPref.setCurrentDateEmpty(Callback.TAG_SERIES);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES,true);
+                            spHelper.setCurrentDateEmpty(Callback.TAG_SERIES);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES,true);
                             pb_serials.setVisibility(View.GONE);
-                            Toasty.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toasty.ERROR);
+                            Toast.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -597,14 +598,14 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                                     }
                                 }
                             }, 10);
-                            sharedPref.setCurrentDate(Callback.TAG_MOVIE);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE,false);
+                            spHelper.setCurrentDate(Callback.TAG_MOVIE);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE,false);
                             Toast.makeText(OneUIActivity.this, getString(R.string.added_success), Toast.LENGTH_SHORT).show();
                         }  else {
-                            sharedPref.setCurrentDateEmpty(Callback.TAG_MOVIE);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE,true);
+                            spHelper.setCurrentDateEmpty(Callback.TAG_MOVIE);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE,true);
                             pb_movie.setVisibility(View.GONE);
-                            Toasty.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toasty.ERROR);
+                            Toast.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -664,14 +665,14 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                                     }
                                 }
                             }, 10);
-                            sharedPref.setCurrentDate(Callback.TAG_TV);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, false);
+                            spHelper.setCurrentDate(Callback.TAG_TV);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, false);
                             Toast.makeText(OneUIActivity.this, getString(R.string.added_success), Toast.LENGTH_SHORT).show();
                         }  else {
-                            sharedPref.setCurrentDateEmpty(Callback.TAG_TV);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
+                            spHelper.setCurrentDateEmpty(Callback.TAG_TV);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
                             pb_live.setVisibility(View.GONE);
-                            Toasty.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toasty.ERROR);
+                            Toast.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -679,8 +680,8 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void onCancel(String message) {
                     if (!isFinishing()){
-                        sharedPref.setCurrentDateEmpty(Callback.TAG_TV);
-                        changeIcon(sharedPref.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
+                        spHelper.setCurrentDateEmpty(Callback.TAG_TV);
+                        changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
                         pb_live.setVisibility(View.GONE);
                         Toast.makeText(OneUIActivity.this, message.isEmpty() ? "" : message, Toast.LENGTH_SHORT).show();
                     }
@@ -727,7 +728,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
         if (ApplicationUtil.isTvBox(OneUIActivity.this)) {
             super.onBackPressed();
         } else {
-            new ExitDialog(OneUIActivity.this);
+            DialogUtil.ExitDialog(OneUIActivity.this);
         }
     }
 
@@ -735,9 +736,13 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
     public void onResume() {
         if (Boolean.TRUE.equals(Callback.isDataUpdate)) {
             Callback.isDataUpdate = false;
-            changeIcon(sharedPref.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
-            changeIcon(sharedPref.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE, true);
-            changeIcon(sharedPref.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES, true);
+            changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
+            changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE, true);
+            changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES, true);
+        }
+        if (Boolean.TRUE.equals(Callback.is_recreate)) {
+            Callback.is_recreate = false;
+            recreate();
         }
         super.onResume();
     }

@@ -1,5 +1,7 @@
 package mycinevo.streambox.util;
 
+import android.annotation.SuppressLint;
+
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -12,6 +14,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+@SuppressLint("CustomX509TrustManager")
 public class HttpsTrustManager implements X509TrustManager {
 
     private static TrustManager[] trustManagers;

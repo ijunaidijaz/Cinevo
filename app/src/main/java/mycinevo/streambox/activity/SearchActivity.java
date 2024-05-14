@@ -41,7 +41,7 @@ import mycinevo.streambox.item.ItemMovies;
 import mycinevo.streambox.item.ItemSeries;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -60,6 +60,8 @@ public class SearchActivity extends AppCompatActivity {
         IfSupported.IsRTL(this);
         IfSupported.IsScreenshot(this);
         IfSupported.hideStatusBar(this);
+
+        findViewById(R.id.theme_bg).setBackgroundResource(ApplicationUtil.openThemeBg(this));
 
         findViewById(R.id.iv_back_page).setOnClickListener(view -> finish());
         if (ApplicationUtil.isTvBox(this)){
@@ -196,7 +198,7 @@ public class SearchActivity extends AppCompatActivity {
     private void setAdapterToMovies(ArrayList<ItemMovies> arrayListMovies) {
         AdapterMovie adapter = new AdapterMovie(this, arrayListMovies, (itemCat, position) -> {
             Intent intent;
-            if (new SharedPref(this).getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
+            if (new SPHelper(this).getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
                 intent = new Intent(SearchActivity.this, PlayerSingleURLActivity.class);
                 intent.putExtra("channel_title", arrayListMovies.get(0).getName());
                 intent.putExtra("channel_url", arrayListMovies.get(0).getStreamID());

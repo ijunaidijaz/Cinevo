@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import mycinevo.streambox.interfaces.GetSeriesListener;
 import mycinevo.streambox.item.ItemSeries;
@@ -31,7 +32,12 @@ public class GetSeriesSearch extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            itemSeries.addAll(jsHelper.getSeriesSearch(searchText));
+            ArrayList<ItemSeries> arrayList = new ArrayList<>(jsHelper.getSeriesSearch(searchText));
+            Collections.reverse(arrayList);
+            int limit = Math.min(20, arrayList.size());
+            for (int j = 0; j < limit; j++) {
+                itemSeries.add(arrayList.get(j));
+            }
             return "1";
         } catch (Exception e) {
             e.printStackTrace();

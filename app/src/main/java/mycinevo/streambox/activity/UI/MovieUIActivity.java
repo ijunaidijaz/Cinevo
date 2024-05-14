@@ -40,7 +40,7 @@ import mycinevo.streambox.activity.NotificationsActivity;
 import mycinevo.streambox.activity.ProfileActivity;
 import mycinevo.streambox.activity.RadioActivity;
 import mycinevo.streambox.activity.SeriesActivity;
-import mycinevo.streambox.activity.Setting.SettingActivity;
+import mycinevo.streambox.activity.SettingActivity;
 import mycinevo.streambox.activity.UsersListActivity;
 import mycinevo.streambox.asyncTask.LoadLive;
 import mycinevo.streambox.asyncTask.LoadLogin;
@@ -48,8 +48,7 @@ import mycinevo.streambox.asyncTask.LoadMovies;
 import mycinevo.streambox.asyncTask.LoadPoster;
 import mycinevo.streambox.asyncTask.LoadSeries;
 import mycinevo.streambox.callback.Callback;
-import mycinevo.streambox.dialog.ExitDialog;
-import mycinevo.streambox.dialog.LiveDownloadDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.Toasty;
 import mycinevo.streambox.interfaces.LiveListener;
 import mycinevo.streambox.interfaces.LoginListener;
@@ -59,7 +58,7 @@ import mycinevo.streambox.item.ItemPoster;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.util.helper.JSHelper;
@@ -69,7 +68,7 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
 
     private DBHelper dbHelper;
     private Helper helper;
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private NSoftsProgressDialog progressDialog;
     private ProgressBar pb_live, pb_movie, pb_serials;
     private final Handler handlerLive = new Handler();
@@ -99,7 +98,7 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
         theme_bg = ApplicationUtil.openThemeBg(this);
 
         helper = new Helper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
         dbHelper = new DBHelper(this);
 
         progressDialog = new NSoftsProgressDialog(MovieUIActivity.this);
@@ -123,9 +122,9 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
         getInfo();
         setListenerHome();
 
-        changeIcon(sharedPref.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
-        changeIcon(sharedPref.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE, true);
-        changeIcon(sharedPref.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES, true);
+        changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
+        changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE, true);
+        changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES, true);
 
         loadLogin();
         chalkedData();
@@ -233,12 +232,31 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.select_multiple_screen).setOnClickListener(this);
         findViewById(R.id.select_catch_up).setOnClickListener(this);
 
-        if (!sharedPref.getIsDownload()){
+        if (!spHelper.getIsDownload()){
             findViewById(R.id.iv_file_download).setVisibility(View.GONE);
         }
-        if (Boolean.FALSE.equals(sharedPref.getIsRadio())){
+        if (Boolean.FALSE.equals(spHelper.getIsRadio())){
             findViewById(R.id.iv_radio).setVisibility(View.GONE);
         }
+
+        findViewById(R.id.select_live).setOnLongClickListener(v -> {
+            if (!spHelper.getCurrent(Callback.TAG_TV).isEmpty()) {
+                DialogUtil.DownloadDataDialog(MovieUIActivity.this, Callback.TAG_TV, type -> getLive());
+            }
+            return false;
+        });
+        findViewById(R.id.select_movie).setOnLongClickListener(v -> {
+            if (!spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty()) {
+                DialogUtil.DownloadDataDialog(MovieUIActivity.this, Callback.TAG_TV, type -> getMovies());
+            }
+            return false;
+        });
+        findViewById(R.id.select_serials).setOnLongClickListener(v -> {
+            if (!spHelper.getCurrent(Callback.TAG_SERIES).isEmpty()) {
+                DialogUtil.DownloadDataDialog(MovieUIActivity.this, Callback.TAG_TV, type -> getSeries());
+            }
+            return false;
+        });
     }
 
     @SuppressLint({"NonConstantResourceId", "UnsafeOptInUsageError"})
@@ -260,21 +278,21 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.iv_settings ->
                     startActivity(new Intent(MovieUIActivity.this, SettingActivity.class));
             case R.id.select_live -> {
-                if (sharedPref.getCurrent(Callback.TAG_TV).isEmpty()) {
+                if (spHelper.getCurrent(Callback.TAG_TV).isEmpty()) {
                     getLive();
                 } else {
                     startActivity(new Intent(MovieUIActivity.this, LiveTvActivity.class));
                 }
             }
             case R.id.select_movie -> {
-                if (sharedPref.getCurrent(Callback.TAG_MOVIE).isEmpty()) {
+                if (spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty()) {
                     getMovies();
                 } else {
                     startActivity(new Intent(MovieUIActivity.this, MovieActivity.class));
                 }
             }
             case R.id.select_serials -> {
-                if (sharedPref.getCurrent(Callback.TAG_SERIES).isEmpty()) {
+                if (spHelper.getCurrent(Callback.TAG_SERIES).isEmpty()) {
                     getSeries();
                 } else {
                     startActivity(new Intent(MovieUIActivity.this, SeriesActivity.class));
@@ -304,10 +322,10 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private boolean isDownloadLive() {
-        if (!sharedPref.getCurrent(Callback.TAG_TV).isEmpty()){
+        if (!spHelper.getCurrent(Callback.TAG_TV).isEmpty()){
             return true;
         } else {
-            new LiveDownloadDialog(this, this::getLive);
+            DialogUtil.LiveDownloadDialog(this, this::getLive);
             return false;
         }
     }
@@ -326,13 +344,13 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
                                   int revision, String url, String port, String https_port, String server_protocol, String rtmp_port, int timestamp_now,
                                   String time_now, String timezone) {
                     if (!isFinishing() && (success.equals("1"))) {
-                        sharedPref.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
+                        spHelper.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
                                 xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
                         );
-                        sharedPref.setIsLogged(true);
+                        spHelper.setIsLogged(true);
                     }
                 }
-            },sharedPref.getServerURL(), helper.getAPIRequestLogin(sharedPref.getUserName(),sharedPref.getPassword()));
+            }, spHelper.getServerURL(), helper.getAPIRequestLogin(spHelper.getUserName(), spHelper.getPassword()));
             login.execute();
         }
     }
@@ -361,8 +379,8 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
                                 findViewById(R.id.vw_multiple_screen).setVisibility(View.GONE);
                                 pb_live.setVisibility(View.GONE);
                             }
-                            sharedPref.setCurrentDate(Callback.TAG_TV);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, false);
+                            spHelper.setCurrentDate(Callback.TAG_TV);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, false);
                             handlerLive.postDelayed(this, 10);
                         }
                     }
@@ -389,8 +407,8 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
                                 findViewById(R.id.vw_movie).setVisibility(View.GONE);
                                 pb_movie.setVisibility(View.GONE);
                             }
-                            sharedPref.setCurrentDate(Callback.TAG_MOVIE);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE, false);
+                            spHelper.setCurrentDate(Callback.TAG_MOVIE);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE, false);
                             handlerMovie.postDelayed(this, 10);
                         }
                     }
@@ -417,8 +435,8 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
                                 findViewById(R.id.vw_serials).setVisibility(View.GONE);
                                 pb_serials.setVisibility(View.GONE);
                             }
-                            sharedPref.setCurrentDate(Callback.TAG_SERIES);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES, false);
+                            spHelper.setCurrentDate(Callback.TAG_SERIES);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES, false);
                             handlerSeries.postDelayed(this, 10);
                         }
                     }
@@ -459,19 +477,21 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void sign_out() {
-        Intent intent = new Intent(MovieUIActivity.this, UsersListActivity.class);
-        if (sharedPref.isLogged()) {
-            new JSHelper(this).removeAllData();
-            dbHelper.removeAllData();
-            sharedPref.removeSignOut();
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.putExtra("from", "");
-            Toast.makeText(MovieUIActivity.this, getString(R.string.logout_success), Toast.LENGTH_SHORT).show();
-        } else {
-            intent.putExtra("from", "app");
-        }
-        startActivity(intent);
-        finish();
+        DialogUtil.LogoutDialog(MovieUIActivity.this, () -> {
+            Intent intent = new Intent(MovieUIActivity.this, UsersListActivity.class);
+            if (spHelper.isLogged()) {
+                new JSHelper(this).removeAllData();
+                dbHelper.removeAllData();
+                spHelper.removeSignOut();
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("from", "");
+                Toast.makeText(MovieUIActivity.this, getString(R.string.logout_success), Toast.LENGTH_SHORT).show();
+            } else {
+                intent.putExtra("from", "app");
+            }
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void loadVibrantColor() {
@@ -564,14 +584,14 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
                                     }
                                 }
                             }, 10);
-                            sharedPref.setCurrentDate(Callback.TAG_SERIES);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES,false);
+                            spHelper.setCurrentDate(Callback.TAG_SERIES);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES,false);
                             Toast.makeText(MovieUIActivity.this, getString(R.string.added_success), Toast.LENGTH_SHORT).show();
                         }  else {
-                            sharedPref.setCurrentDateEmpty(Callback.TAG_SERIES);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES,true);
+                            spHelper.setCurrentDateEmpty(Callback.TAG_SERIES);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES,true);
                             pb_serials.setVisibility(View.GONE);
-                            Toasty.makeText(MovieUIActivity.this, getString(R.string.err_server_not_connected), Toasty.ERROR);
+                            Toast.makeText(MovieUIActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -624,14 +644,14 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
                                     }
                                 }
                             }, 10);
-                            sharedPref.setCurrentDate(Callback.TAG_MOVIE);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE,false);
+                            spHelper.setCurrentDate(Callback.TAG_MOVIE);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE,false);
                             Toast.makeText(MovieUIActivity.this, getString(R.string.added_success), Toast.LENGTH_SHORT).show();
                         }  else {
-                            sharedPref.setCurrentDateEmpty(Callback.TAG_MOVIE);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE,true);
+                            spHelper.setCurrentDateEmpty(Callback.TAG_MOVIE);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE,true);
                             pb_movie.setVisibility(View.GONE);
-                            Toasty.makeText(MovieUIActivity.this, getString(R.string.err_server_not_connected), Toasty.ERROR);
+                            Toast.makeText(MovieUIActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -691,14 +711,14 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
                                     }
                                 }
                             }, 10);
-                            sharedPref.setCurrentDate(Callback.TAG_TV);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, false);
+                            spHelper.setCurrentDate(Callback.TAG_TV);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, false);
                             Toast.makeText(MovieUIActivity.this, getString(R.string.added_success), Toast.LENGTH_SHORT).show();
                         }  else {
-                            sharedPref.setCurrentDateEmpty(Callback.TAG_TV);
-                            changeIcon(sharedPref.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
+                            spHelper.setCurrentDateEmpty(Callback.TAG_TV);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
                             pb_live.setVisibility(View.GONE);
-                            Toasty.makeText(MovieUIActivity.this, getString(R.string.err_server_not_connected), Toasty.ERROR);
+                            Toast.makeText(MovieUIActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -706,8 +726,8 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
                 @Override
                 public void onCancel(String message) {
                     if (!isFinishing()){
-                        sharedPref.setCurrentDateEmpty(Callback.TAG_TV);
-                        changeIcon(sharedPref.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
+                        spHelper.setCurrentDateEmpty(Callback.TAG_TV);
+                        changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
                         Toast.makeText(MovieUIActivity.this, message.isEmpty() ? "" : message, Toast.LENGTH_SHORT).show();
                         pb_live.setVisibility(View.GONE);
                     }
@@ -734,6 +754,10 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
     protected void onResume() {
         super.onResume();
         handler.post(runnableCode);
+        if (Boolean.TRUE.equals(Callback.is_recreate)) {
+            Callback.is_recreate = false;
+            recreate();
+        }
     }
 
     @Override
@@ -762,7 +786,7 @@ public class MovieUIActivity extends AppCompatActivity implements View.OnClickLi
         if (ApplicationUtil.isTvBox(MovieUIActivity.this)) {
             super.onBackPressed();
         } else {
-            new ExitDialog(MovieUIActivity.this);
+            DialogUtil.ExitDialog(MovieUIActivity.this);
         }
     }
 }

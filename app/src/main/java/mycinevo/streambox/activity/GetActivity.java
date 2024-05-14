@@ -25,7 +25,7 @@ import mycinevo.streambox.item.ItemUsersDB;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.util.helper.JSHelper;
@@ -35,7 +35,7 @@ public class GetActivity extends AppCompatActivity {
 
     private Helper helper;
     private DBHelper dbHelper;
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private NSoftsProgressDialog progressDialog;
 
     @Override
@@ -51,7 +51,7 @@ public class GetActivity extends AppCompatActivity {
         findViewById(R.id.theme_bg).setBackgroundResource(ApplicationUtil.openThemeBg(this));
 
         helper = new Helper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
         dbHelper = new DBHelper(this);
 
         progressDialog = new NSoftsProgressDialog(GetActivity.this);
@@ -108,10 +108,10 @@ public class GetActivity extends AppCompatActivity {
                 @Override
                 public void onStart() {
                     progressDialog.show();
-                    if (sharedPref.isLogged()) {
+                    if (spHelper.isLogged()) {
                         new JSHelper(GetActivity.this).removeAllData();
                         dbHelper.removeAllData();
-                        sharedPref.removeSignOut();
+                        spHelper.removeSignOut();
                     }
                 }
 
@@ -128,8 +128,8 @@ public class GetActivity extends AppCompatActivity {
 
                                 Toast.makeText(GetActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
 
-                                sharedPref.setLoginType(Callback.TAG_LOGIN_PLAYLIST);
-                                sharedPref.setAnyName(anyName);
+                                spHelper.setLoginType(Callback.TAG_LOGIN_PLAYLIST);
+                                spHelper.setAnyName(anyName);
                                 Intent intent = new Intent(GetActivity.this, PlaylistActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
@@ -153,10 +153,10 @@ public class GetActivity extends AppCompatActivity {
                 @Override
                 public void onStart() {
                     progressDialog.show();
-                    if (sharedPref.isLogged()) {
+                    if (spHelper.isLogged()) {
                         new JSHelper(GetActivity.this).removeAllData();
                         dbHelper.removeAllData();
-                        sharedPref.removeSignOut();
+                        spHelper.removeSignOut();
                     }
                 }
 
@@ -169,34 +169,34 @@ public class GetActivity extends AppCompatActivity {
                                 if (Boolean.TRUE.equals(login_type.equals("xtream"))){
                                     dbHelper.addToUserDB(new ItemUsersDB("", any_name, user_name, user_pass, dms_url,"xui")
                                     );
-                                    sharedPref.setLoginDetails(
+                                    spHelper.setLoginDetails(
                                             username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
                                             xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
                                     );
-                                    sharedPref.setLoginType(Callback.TAG_LOGIN_ONE_UI);
+                                    spHelper.setLoginType(Callback.TAG_LOGIN_ONE_UI);
                                 } else {
                                     dbHelper.addToUserDB(new ItemUsersDB("", any_name, user_name, user_pass, dms_url,"stream")
                                     );
-                                    sharedPref.setLoginDetails(
+                                    spHelper.setLoginDetails(
                                             username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
                                             xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
                                     );
-                                    sharedPref.setLoginType(Callback.TAG_LOGIN_STREAM);
+                                    spHelper.setLoginType(Callback.TAG_LOGIN_STREAM);
                                 }
                                 if (!allowed_output_formats.isEmpty()){
                                     if (allowed_output_formats.contains("m3u8")){
-                                        sharedPref.setLiveFormat(2);
+                                        spHelper.setLiveFormat(2);
                                     } else {
-                                        sharedPref.setLiveFormat(1);
+                                        spHelper.setLiveFormat(1);
                                     }
                                 } else {
-                                    sharedPref.setLiveFormat(0);
+                                    spHelper.setLiveFormat(0);
                                 }
 
-                                sharedPref.setAnyName(any_name);
-                                sharedPref.setIsFirst(false);
-                                sharedPref.setIsLogged(true);
-                                sharedPref.setIsAutoLogin(true);
+                                spHelper.setAnyName(any_name);
+                                spHelper.setIsFirst(false);
+                                spHelper.setIsLogged(true);
+                                spHelper.setIsAutoLogin(true);
 
                                 Callback.isCustomAds = false;
                                 Callback.customAdCount = 0;

@@ -145,7 +145,7 @@ public class JSHelper {
                 String streamIcon = jsonobject.getString(TAG_STREAM_ICON);
                 String streamType = jsonobject.getString(TAG_STREAM_TYPE);
                 ItemLive objItem = new ItemLive(name,streamID,streamIcon,TAG_EMPTY);
-                if (name.toLowerCase().contains(searchText) && streamType.equals(TAG_LIVE) || streamType.equals(TAG_CREATED_LIVE)){
+                if (name.toLowerCase().contains(searchText.toLowerCase()) || name.toUpperCase().contains(searchText.toUpperCase()) && streamType.equals(TAG_LIVE)){
                     arrayList.add(objItem);
                 }
             }
@@ -262,7 +262,7 @@ public class JSHelper {
             JSONArray jsonarray = new JSONArray(json);
             for (int i = 0; i < jsonarray.length(); i++) {
                 JSONObject jsonobject = jsonarray.getJSONObject(i);
-                if (jsonobject.getString(TAG_NAME).toLowerCase().contains(searchText.toLowerCase())){
+                if (jsonobject.getString(TAG_NAME).toLowerCase().contains(searchText.toLowerCase()) || jsonobject.getString(TAG_NAME).toUpperCase().contains(searchText.toUpperCase())){
                     String name = jsonobject.getString(TAG_NAME);
                     String streamId = jsonobject.getString(TAG_STREAM_ID);
                     String streamIcon = jsonobject.getString(TAG_STREAM_ICON);
@@ -388,7 +388,7 @@ public class JSHelper {
             JSONArray jsonarray = new JSONArray(json);
             for (int i = 0; i < jsonarray.length(); i++) {
                 JSONObject jsonobject = jsonarray.getJSONObject(i);
-                if (jsonobject.getString(TAG_NAME).toLowerCase().contains(searchText)){
+                if (jsonobject.getString(TAG_NAME).toLowerCase().contains(searchText.toLowerCase()) || jsonobject.getString(TAG_NAME).toUpperCase().contains(searchText.toUpperCase())){
                     String name = jsonobject.getString(TAG_NAME);
                     String seriesId = jsonobject.getString(TAG_SERIES_ID);
                     String cover = jsonobject.getString(TAG_COVER);

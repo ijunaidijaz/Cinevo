@@ -93,14 +93,18 @@ public class AdapterEpisodes extends RecyclerView.Adapter<AdapterEpisodes.MyView
 
         holder.tv_episodes.setText(arrayList.get(position).getTitle());
 
-        // Adding null check before parsing the rating
-        String ratingString = arrayList.get(position).getRating().isEmpty() ? "0" : arrayList.get(position).getRating();
-        double newRating = 0.0; // default value
-        if (ratingString != null && !ratingString.isEmpty()&& !ratingString.equals("null")) {
-            Log.d("TAG", "ratingStrinng: "+ ratingString.toString());
-            newRating = convertToFiveRating(Double.parseDouble(ratingString));
+        try {
+            // Adding null check before parsing the rating
+            String ratingString = arrayList.get(position).getRating().isEmpty() ? "0" : arrayList.get(position).getRating();
+            double newRating = 0.0; // default value
+            if (ratingString != null && !ratingString.isEmpty()&& !ratingString.equals("null")) {
+                Log.d("TAG", "ratingStrinng: "+ ratingString.toString());
+                newRating = convertToFiveRating(Double.parseDouble(ratingString));
+            }
+            holder.rb_episodes.setRating((float) newRating);
+        } catch (Exception e) {
+            holder.rb_episodes.setRating(0);
         }
-        holder.rb_episodes.setRating((float) newRating);
 
         try {
             holder.tv_duration.setText(ApplicationUtil.formatTimeToTime(arrayList.get(position).getDuration()));

@@ -33,13 +33,18 @@ public class GetMovieSearch extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
+            ArrayList<ItemMovies> arrayList = new ArrayList<>();
             if (Boolean.TRUE.equals(isPlaylist)){
                 final ArrayList<ItemMovies> arrayListAll = new ArrayList<>(jsHelper.getMoviesPlaylist());
                 for (int i = 0; i < arrayListAll.size(); i++) {
-                    addOrUpdateItem(itemMovies, arrayListAll.get(i));
+                    addOrUpdateItem(arrayList, arrayListAll.get(i));
                 }
             } else {
-                itemMovies.addAll(jsHelper.getMoviesSearch(searchText));
+                arrayList.addAll(jsHelper.getMoviesSearch(searchText));
+            }
+            int limit = Math.min(20, arrayList.size());
+            for (int j = 0; j < limit; j++) {
+                itemMovies.add(arrayList.get(j));
             }
             return "1";
         } catch (Exception e) {

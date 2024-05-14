@@ -26,8 +26,7 @@ import androidx.media3.exoplayer.source.MediaSource;
 import androidx.media3.exoplayer.source.ProgressiveMediaSource;
 import androidx.nemosofts.envato.EnvatoProduct;
 import androidx.nemosofts.envato.interfaces.EnvatoListener;
-
-import com.facebook.shimmer.ShimmerFrameLayout;
+import androidx.nemosofts.theme.ThemeEngine;
 
 import org.json.JSONArray;
 
@@ -43,14 +42,14 @@ import mycinevo.streambox.interfaces.DataListener;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.Helper;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity implements EnvatoListener {
 
     Helper helper;
-    SharedPref sharedPref;
+    SPHelper spHelper;
     private ProgressBar pb;
     private ExoPlayer exoPlayer = null;
     private int delayMillis = 3500;
@@ -67,14 +66,27 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
         IfSupported.hideStatusBar(this);
         IfSupported.keepScreenOn(this);
 
-        findViewById(R.id.theme_bg).setBackgroundResource(ApplicationUtil.openThemeBg(this));
-
         helper = new Helper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
 
-        if (Boolean.FALSE.equals(sharedPref.getIsShimmeringSplash())){
-            ShimmerFrameLayout shimmer = findViewById(R.id.shimmer_view);
-            shimmer.hideShimmer();
+        int theme = spHelper.getIsTheme();
+        if (theme == 2){
+            findViewById(R.id.theme_bg).setBackgroundResource(R.drawable.bg_ui_glossy);
+        } else if (theme == 3){
+            findViewById(R.id.theme_bg).setBackgroundResource(R.drawable.bg_dark_panther);
+        } else {
+            int themePage = new ThemeEngine(this).getThemePage();
+            if (themePage == 0){
+                findViewById(R.id.theme_bg).setBackgroundResource(R.drawable.bg_dark);
+            } else if (themePage == 1){
+                findViewById(R.id.theme_bg).setBackgroundResource(R.drawable.bg_classic);
+            } else if (themePage == 2){
+                findViewById(R.id.theme_bg).setBackgroundResource(R.drawable.bg_grey);
+            } else if (themePage == 3){
+                findViewById(R.id.theme_bg).setBackgroundResource(R.drawable.bg_blue);
+            } else {
+                findViewById(R.id.theme_bg).setBackgroundResource(R.drawable.bg_dark);
+            }
         }
 
         pb = findViewById(R.id.pb_splash);
@@ -97,7 +109,7 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
                     if (success.equals("1")){
                         setSaveData();
                     } else {
-                        if (Boolean.TRUE.equals(sharedPref.getIsAboutDetails())){
+                        if (Boolean.TRUE.equals(spHelper.getIsAboutDetails())){
                             setSaveData();
                         } else {
                             errorDialog(getString(R.string.err_server_error), getString(R.string.err_server_not_connected));
@@ -107,7 +119,7 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
             });
             loadAbout.execute();
         } else {
-            if (Boolean.TRUE.equals(sharedPref.getIsAboutDetails())){
+            if (Boolean.TRUE.equals(spHelper.getIsAboutDetails())){
                 setSaveData();
             } else {
                 errorDialog(getString(R.string.err_internet_not_connected), getString(R.string.err_connect_net_try));
@@ -117,7 +129,7 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
 
     @OptIn(markerClass = UnstableApi.class)
     private void prepareAudio() {
-        if (Boolean.TRUE.equals(sharedPref.getIsSplashAudio())){
+        if (Boolean.TRUE.equals(spHelper.getIsSplashAudio())){
             exoPlayer = new ExoPlayer.Builder(this).build();
             DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this, Util.getUserAgent(this, "nemosofts_rc"));
             Uri fileUri = RawResourceDataSource.buildRawResourceUri(R.raw.opener_logo);
@@ -131,34 +143,34 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
     }
 
     private void playAudio() {
-        if (Boolean.TRUE.equals(sharedPref.getIsSplashAudio()) && exoPlayer != null){
+        if (Boolean.TRUE.equals(spHelper.getIsSplashAudio()) && exoPlayer != null){
             exoPlayer.play();
         }
     }
 
     private void loadSettings() {
-        if (Boolean.FALSE.equals(sharedPref.getIsAboutDetails())){
-            sharedPref.setAboutDetails(true);
+        if (Boolean.FALSE.equals(spHelper.getIsAboutDetails())){
+            spHelper.setAboutDetails(true);
         }
         if (Boolean.TRUE.equals(Callback.isAppUpdate) && Callback.app_new_version != BuildConfig.VERSION_CODE){
             openDialogActivity(Callback.DIALOG_TYPE_UPDATE);
-        } else if(Boolean.TRUE.equals(sharedPref.getIsMaintenance())){
+        } else if(Boolean.TRUE.equals(spHelper.getIsMaintenance())){
             openDialogActivity(Callback.DIALOG_TYPE_MAINTENANCE);
         } else {
-            if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_SINGLE_STREAM)){
+            if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_SINGLE_STREAM)){
                 playAudio();
                 new Handler().postDelayed(this::openSingleStream, delayMillis);
             }
-            else if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
+            else if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
                 playAudio();
                 new Handler().postDelayed(this::openPlaylistActivity, delayMillis);
             }
-            else if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_ONE_UI) || sharedPref.getLoginType().equals(Callback.TAG_LOGIN_STREAM)){
-                if (Boolean.TRUE.equals(sharedPref.getIsFirst())) {
+            else if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_ONE_UI) || spHelper.getLoginType().equals(Callback.TAG_LOGIN_STREAM)){
+                if (Boolean.TRUE.equals(spHelper.getIsFirst())) {
                     playAudio();
                     new Handler().postDelayed(this::openSelectPlayer, delayMillis);
                 } else {
-                    if (Boolean.FALSE.equals(sharedPref.getIsAutoLogin())) {
+                    if (Boolean.FALSE.equals(spHelper.getIsAutoLogin())) {
                         playAudio();
                         new Handler().postDelayed(this::openSelectPlayer, delayMillis);
                     } else {
@@ -183,7 +195,7 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
                 @Override
                 public void onEnd(String success, JSONArray arrayLive, JSONArray arraySeries, JSONArray arrayMovies) {
                     pb.setVisibility(View.GONE);
-                    if (Boolean.TRUE.equals(sharedPref.getIsSplashAudio())){
+                    if (Boolean.TRUE.equals(spHelper.getIsSplashAudio())){
                         playAudio();
                         new Handler().postDelayed(()-> ApplicationUtil.openThemeActivity(SplashActivity.this), delayMillis);
                     } else {
@@ -193,7 +205,7 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
             });
             loadData.execute();
         } else {
-            if (Boolean.TRUE.equals(sharedPref.getIsSplashAudio())){
+            if (Boolean.TRUE.equals(spHelper.getIsSplashAudio())){
                 playAudio();
                 new Handler().postDelayed(()-> ApplicationUtil.openThemeActivity(SplashActivity.this), delayMillis);
             } else {
@@ -290,7 +302,7 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
     }
 
     private void setSaveData() {
-        new EnvatoProduct(this, this).execute();
+        new EnvatoProduct(SplashActivity.this, SplashActivity.this).execute();
     }
 
     @Override

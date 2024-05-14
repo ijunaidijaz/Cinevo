@@ -26,6 +26,8 @@
     <string name="m3u_playlist">M3U PLAYLIST</string>
     <string name="_1_stream">1-STREAM</string>
     <string name="by_using_this_application">By using this application, you agree to agree to the</string>
+    <string name="_downloads">DOWNLOADS</string>
+    <string name="_subscription">SUBSCRIPTION</string>
 
     <!--Dialog-->
     <string name="exit">Exit</string>
@@ -52,6 +54,9 @@
     <string name="select_reload_hours">Select auto reload hours</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
+    <string name="sure_logout">Are you sure you want to logout?</string>
+    <string name="reload_data">Reload Data</string>
+    <string name="sure_reload_data">Are you sure you want to Reload Data?</string>
 
     <!--MSG-->
     <string name="err_pass_end_space">Please do not add space at end</string>
@@ -82,6 +87,8 @@
     <string name="error_pass_end_space">Please do not add space at end</string>
     <string name="error_category_list">Unfortunately, there is no content under this category list</string>
     <string name="please_wait_a_minute">Please wait a minute</string>
+    <string name="logout">Logout</string>
+    <string name="encrypted_data_security">End-to-End Encrypted Data Security</string>
 
     <!--Profile -->
     <string name="card_holder_name">Card Holder name</string>
@@ -107,6 +114,10 @@
     <!-- Settings -->
     <string name="settings">Settings</string>
     <string name="app_theme">App Theme</string>
+    <string name="theme_classic">Classic</string>
+    <string name="theme_dark_grey">Dark Grey</string>
+    <string name="theme_dark_blue">Dark Blue</string>
+    <string name="theme_dark">Dark</string>
     <string name="clear_cache">Clear Cache</string>
     <string name="notifications">Notifications</string>
     <string name="wifi_setting">Wifi Setting</string>
@@ -172,6 +183,9 @@
     <string name="downloading">Downloading</string>
     <string name="already_download">Already Downloaded</string>
     <string name="err_cannot_use_features">Cannot use some of the features without requested permission</string>
+
+    <!-- subscription -->
+    <string name="subscription">Subscription</string>
 
     <!--Don't Change language-->
     <string name="todo">TODO</string>

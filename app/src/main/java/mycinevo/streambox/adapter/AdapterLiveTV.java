@@ -60,6 +60,7 @@ public class AdapterLiveTV extends RecyclerView.Adapter<AdapterLiveTV.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
         holder.tv_movie_title.setText(arrayList.get(position).getName());
         holder.ll_card_star.setVisibility(View.GONE);
 

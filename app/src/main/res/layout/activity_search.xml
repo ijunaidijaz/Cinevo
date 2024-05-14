@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -83,7 +82,7 @@
                     android:contentDescription="@string/todo"
                     android:padding="@dimen/_4sdp"
                     android:src="@drawable/ic_search"
-                    app:tint="?ns_body_dark"
+                    app:tint="?ns_white"
                     android:focusable="true"
                     android:focusableInTouchMode="false"/>
 
@@ -112,8 +111,8 @@
 
             <androidx.nemosofts.view.SmoothProgressBar
                 android:id="@+id/pb"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_centerInParent="true"
                 android:indeterminate="true"
                 app:cpb_color="#FFee44"

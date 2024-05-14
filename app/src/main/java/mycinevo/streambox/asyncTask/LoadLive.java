@@ -7,7 +7,7 @@ import org.json.JSONArray;
 
 import mycinevo.streambox.interfaces.LiveListener;
 import mycinevo.streambox.util.ApplicationUtil;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.util.helper.JSHelper;
 
@@ -15,12 +15,12 @@ public class LoadLive extends AsyncTask<String, String, String> {
 
     private final JSHelper jsHelper;
     private final Helper helper;
-    private final SharedPref sharedPref;
+    private final SPHelper spHelper;
     private final LiveListener listener;
 
     public LoadLive(Context ctx, LiveListener listener) {
         this.listener = listener;
-        sharedPref = new SharedPref(ctx);
+        spHelper = new SPHelper(ctx);
         helper = new Helper(ctx);
         jsHelper = new JSHelper(ctx);
     }
@@ -35,23 +35,26 @@ public class LoadLive extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            String json_category = ApplicationUtil.responsePost(sharedPref.getAPI(), helper.getAPIRequest("get_live_categories", sharedPref.getUserName(), sharedPref.getPassword()));
+            String json_category = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_live_categories", spHelper.getUserName(), spHelper.getPassword()));
+
             if (!json_category.isEmpty()){
                 JSONArray arrayCategory = new JSONArray(json_category);
                 if (arrayCategory.length() > 0){
                     jsHelper.addToCatLiveList(json_category);
                 }
+            } else {
+                return "2";
             }
 
-            String json = ApplicationUtil.responsePost(sharedPref.getAPI(), helper.getAPIRequest("get_live_streams",sharedPref.getUserName(), sharedPref.getPassword()));
+            String json = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_live_streams", spHelper.getUserName(), spHelper.getPassword()));
             if (!json.isEmpty()){
                 JSONArray jsonarray = new JSONArray(json);
                 if (jsonarray.length() > 0){
                     jsHelper.setLiveSize(jsonarray.length());
                     jsHelper.addToLiveData(json);
                 }
-            }
 
+            }
             return "1";
         } catch (Exception e) {
             e.printStackTrace();

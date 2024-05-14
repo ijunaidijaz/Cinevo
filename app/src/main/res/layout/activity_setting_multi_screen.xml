@@ -119,6 +119,8 @@
                 android:text="@string/show_multi_screen_popup"
                 android:textSize="@dimen/_12ssp"
                 tools:ignore="InefficientWeight"
+                android:textColor="?ns_title"
+                android:buttonTint="?ns_title"
                 android:background="@drawable/focused_edt"
                 android:padding="@dimen/_6sdp"/>
 

@@ -19,12 +19,12 @@ import androidx.nemosofts.AppCompatActivity;
 import mycinevo.streambox.R;
 import mycinevo.streambox.activity.UI.SingleStreamActivity;
 import mycinevo.streambox.callback.Callback;
-import mycinevo.streambox.dialog.ExitDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.Toasty;
 import mycinevo.streambox.item.ItemSingleURL;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
 
@@ -32,7 +32,7 @@ import mycinevo.streambox.view.NSoftsProgressDialog;
 public class AddSingleURLActivity extends AppCompatActivity {
 
     private DBHelper dbHelper;
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private EditText etAnyName;
     private EditText etUrl;
     private NSoftsProgressDialog progressDialog;
@@ -52,7 +52,7 @@ public class AddSingleURLActivity extends AppCompatActivity {
 
         progressDialog = new NSoftsProgressDialog(AddSingleURLActivity.this);
 
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
         dbHelper = new DBHelper(this);
 
         etAnyName = findViewById(R.id.et_any_name);
@@ -154,7 +154,7 @@ public class AddSingleURLActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        sharedPref.setLoginType(Callback.TAG_LOGIN_SINGLE_STREAM);
+        spHelper.setLoginType(Callback.TAG_LOGIN_SINGLE_STREAM);
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(AddSingleURLActivity.this, SingleStreamActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -191,7 +191,7 @@ public class AddSingleURLActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_BACK)){
-            new ExitDialog(AddSingleURLActivity.this);
+            DialogUtil.ExitDialog(AddSingleURLActivity.this);
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -200,6 +200,6 @@ public class AddSingleURLActivity extends AppCompatActivity {
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
-        new ExitDialog(AddSingleURLActivity.this);
+        DialogUtil.ExitDialog(AddSingleURLActivity.this);
     }
 }

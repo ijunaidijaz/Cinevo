@@ -12,7 +12,7 @@ import java.util.Objects;
 
 import mycinevo.streambox.R;
 import mycinevo.streambox.util.IfSupported;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class LimitDialog {
 
@@ -22,7 +22,7 @@ public class LimitDialog {
 
     public LimitDialog(Context context, String type,  LimitListener limitListener) {
         this.listener = limitListener;
-        SharedPref sharedPref = new SharedPref(context);
+        SPHelper spHelper = new SPHelper(context);
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_limit);
@@ -33,9 +33,9 @@ public class LimitDialog {
 
         if (type != null){
             if (type.equals("live")){
-                limit = sharedPref.getLiveLimit();
+                limit = spHelper.getLiveLimit();
             } else if (type.equals("movie")){
-                limit = sharedPref.getMovieLimit();
+                limit = spHelper.getMovieLimit();
             }
         }
 

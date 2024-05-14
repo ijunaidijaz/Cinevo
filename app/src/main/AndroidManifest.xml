@@ -54,7 +54,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/ThemeEngineDark"
+        android:theme="@style/ThemeEngineLight"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
 
@@ -297,45 +297,42 @@
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            tools:ignore="DiscouragedApi" />
-
-        <!-- Setting -->
+            tools:ignore="DiscouragedApi" /> <!-- Setting -->
         <activity
-            android:name=".activity.Setting.SettingActivity"
+            android:name=".activity.SettingActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.Setting.SettingGeneralActivity"
+            android:name=".activity.SettingGeneralActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.Setting.SettingMultiScreenActivity"
+            android:name=".activity.SettingMultiScreenActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.Setting.SettingFormatActivity"
+            android:name=".activity.SettingFormatActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.Setting.SettingUIActivity"
+            android:name=".activity.SettingUIActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
-
         <activity
             android:name=".activity.UI.PlaylistActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
@@ -352,6 +349,13 @@
             tools:ignore="DiscouragedApi" />
         <activity
             android:name=".activity.SearchActivity"
+            android:configChanges="keyboardHidden|locale|orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".activity.SubscriptionActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"

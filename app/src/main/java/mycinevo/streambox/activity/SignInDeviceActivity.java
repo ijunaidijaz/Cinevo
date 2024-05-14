@@ -26,7 +26,7 @@ import mycinevo.streambox.adapter.AdapterDeviceID;
 import mycinevo.streambox.asyncTask.LoadLogin;
 import mycinevo.streambox.asyncTask.LoadUsers;
 import mycinevo.streambox.callback.Callback;
-import mycinevo.streambox.dialog.ExitDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.Toasty;
 import mycinevo.streambox.interfaces.LoginListener;
 import mycinevo.streambox.interfaces.UsersListener;
@@ -34,7 +34,7 @@ import mycinevo.streambox.item.ItemUsers;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
 
@@ -42,7 +42,7 @@ import mycinevo.streambox.view.NSoftsProgressDialog;
 public class SignInDeviceActivity extends AppCompatActivity {
 
     private Helper helper;
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private RecyclerView rv;
     private ArrayList<ItemUsers> arrayList;
     private ProgressBar pb;
@@ -61,6 +61,8 @@ public class SignInDeviceActivity extends AppCompatActivity {
         IfSupported.hideStatusBar(this);
         IfSupported.keepScreenOn(this);
 
+        findViewById(R.id.theme_bg).setBackgroundResource(ApplicationUtil.openThemeBg(this));
+
         progressDialog = new NSoftsProgressDialog(SignInDeviceActivity.this);
 
         device_id = ApplicationUtil.getDeviceID(this);
@@ -69,7 +71,7 @@ public class SignInDeviceActivity extends AppCompatActivity {
         tv_device_id.setText("ID - " + device_id);
 
         helper = new Helper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
 
         arrayList = new ArrayList<>();
 
@@ -176,31 +178,31 @@ public class SignInDeviceActivity extends AppCompatActivity {
                         if (success.equals("1")) {
                             try {
                                 if (Boolean.TRUE.equals(itemUsers.getUserType().equals("xui"))){
-                                    sharedPref.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
+                                    spHelper.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
                                             xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
                                     );
-                                    sharedPref.setLoginType(Callback.TAG_LOGIN_ONE_UI);
+                                    spHelper.setLoginType(Callback.TAG_LOGIN_ONE_UI);
                                 } else {
-                                    sharedPref.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
+                                    spHelper.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
                                             xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
                                     );
-                                    sharedPref.setLoginType(Callback.TAG_LOGIN_STREAM);
+                                    spHelper.setLoginType(Callback.TAG_LOGIN_STREAM);
                                 }
 
                                 if (!allowed_output_formats.isEmpty()){
                                     if (allowed_output_formats.contains("m3u8")){
-                                        sharedPref.setLiveFormat(2);
+                                        spHelper.setLiveFormat(2);
                                     } else {
-                                        sharedPref.setLiveFormat(1);
+                                        spHelper.setLiveFormat(1);
                                     }
                                 } else {
-                                    sharedPref.setLiveFormat(0);
+                                    spHelper.setLiveFormat(0);
                                 }
 
-                                sharedPref.setAnyName(itemUsers.getUserName());
-                                sharedPref.setIsFirst(false);
-                                sharedPref.setIsLogged(true);
-                                sharedPref.setIsAutoLogin(true);
+                                spHelper.setAnyName(itemUsers.getUserName());
+                                spHelper.setIsFirst(false);
+                                spHelper.setIsLogged(true);
+                                spHelper.setIsAutoLogin(true);
 
                                 Callback.isCustomAds = false;
                                 Callback.customAdCount = 0;
@@ -238,6 +240,6 @@ public class SignInDeviceActivity extends AppCompatActivity {
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
-        new ExitDialog(SignInDeviceActivity.this);
+        DialogUtil.ExitDialog(SignInDeviceActivity.this);
     }
 }

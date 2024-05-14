@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import mycinevo.streambox.R;
-import mycinevo.streambox.dialog.DeleteDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.item.ItemUsersDB;
 import mycinevo.streambox.util.helper.DBHelper;
 
@@ -60,25 +60,29 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.ViewHolder> 
 
         String any_name;
         String users_name;
+        String usersUrl;
         switch (arrayList.get(position).getUserType()) {
             case "xui" -> {
-                any_name = arrayList.get(position).getAnyName() + " (XUI)";
+                any_name = arrayList.get(position).getAnyName();
                 users_name = ctx.getString(R.string.user_list_user_name) + " " + arrayList.get(position).getUseName();
+                usersUrl =  "Login Type:  Xtream Codes / Xui";
             }
             case "stream" -> {
-                any_name = arrayList.get(position).getAnyName() + " (1-stream)";
+                any_name = arrayList.get(position).getAnyName();
                 users_name = ctx.getString(R.string.user_list_user_name) + " " + arrayList.get(position).getUseName();
+                usersUrl =  "Login Type:  1-stream";
             }
             case "playlist" -> {
-                any_name = arrayList.get(position).getAnyName() + " (Playlist)";
-                users_name = "";
+                any_name = arrayList.get(position).getAnyName();
+                users_name = "Login Type:  M3U Playlist";
+                usersUrl =  ctx.getString(R.string.user_list_url)+" " + arrayList.get(position).getUserURL();
             }
             default -> {
                 any_name = arrayList.get(position).getAnyName();
                 users_name = ctx.getString(R.string.user_list_user_name) + " " + arrayList.get(position).getUseName();
+                usersUrl =  ctx.getString(R.string.user_list_url)+" " + arrayList.get(position).getUserURL();
             }
         }
-        String usersUrl =  ctx.getString(R.string.user_list_url)+" " + arrayList.get(position).getUserURL();
 
         holder.tv_any_name.setText(any_name);
         holder.tv_users_url.setText(usersUrl);
@@ -86,7 +90,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.ViewHolder> 
 
         holder.rl_users_list.setOnClickListener(v -> listener.onClickListener(arrayList.get(holder.getAbsoluteAdapterPosition()), position));
         holder.rl_users_list.setOnLongClickListener(v -> {
-            new DeleteDialog(ctx, () -> {
+            DialogUtil.DeleteDialog(ctx, () -> {
                 try {
                     dbHelper.removeFromUser(arrayList.get(holder.getAbsoluteAdapterPosition()).getId());
                     arrayList.remove(holder.getAbsoluteAdapterPosition());

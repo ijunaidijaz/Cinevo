@@ -66,7 +66,7 @@ import mycinevo.streambox.item.ItemLive;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.JSHelper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
 
@@ -74,7 +74,7 @@ import mycinevo.streambox.view.NSoftsProgressDialog;
 public class RadioActivity extends AppCompatActivity implements View.OnClickListener, Player.Listener {
 
     private int playback = 1;
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private JSHelper jsHelper;
     private FrameLayout frameLayout;
     private RecyclerView rv;
@@ -117,7 +117,7 @@ public class RadioActivity extends AppCompatActivity implements View.OnClickList
         progressDialog = new NSoftsProgressDialog(RadioActivity.this);
 
         jsHelper = new JSHelper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mAudioManager.requestAudioFocus(onAudioFocusChangeListener, AudioManager.STREAM_MUSIC,
@@ -219,10 +219,10 @@ public class RadioActivity extends AppCompatActivity implements View.OnClickList
         isNewSong = true;
         isBuffering(true);
         String finalUrl;
-        if (Boolean.TRUE.equals(sharedPref.getIsXuiUser())){
-            finalUrl = sharedPref.getServerURL()+sharedPref.getUserName()+"/"+sharedPref.getPassword()+"/"+Callback.arrayList_play.get(Callback.playPos).getStreamID()+".m3u8";
+        if (Boolean.TRUE.equals(spHelper.getIsXuiUser())){
+            finalUrl = spHelper.getServerURL()+ spHelper.getUserName()+"/"+ spHelper.getPassword()+"/"+Callback.arrayList_play.get(Callback.playPos).getStreamID()+".m3u8";
         } else {
-            finalUrl = sharedPref.getServerURL()+"live/"+sharedPref.getUserName()+"/"+sharedPref.getPassword()+"/"+Callback.arrayList_play.get(Callback.playPos).getStreamID()+".m3u8";
+            finalUrl = spHelper.getServerURL()+"live/"+ spHelper.getUserName()+"/"+ spHelper.getPassword()+"/"+Callback.arrayList_play.get(Callback.playPos).getStreamID()+".m3u8";
         }
         Uri uri = Uri.parse(finalUrl);
         MediaSource mediaSource = buildMediaSource(uri);

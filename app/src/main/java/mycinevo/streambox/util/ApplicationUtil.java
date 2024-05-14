@@ -28,6 +28,12 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
+import androidx.media3.exoplayer.DefaultRenderersFactory;
+import androidx.media3.extractor.DefaultExtractorsFactory;
+import androidx.media3.extractor.ts.DefaultTsPayloadReaderFactory;
+import androidx.media3.extractor.ts.TsExtractor;
+import androidx.nemosofts.theme.ThemeEngine;
 
 import org.jetbrains.annotations.Contract;
 
@@ -46,6 +52,7 @@ import mycinevo.streambox.activity.UI.OneUIActivity;
 import mycinevo.streambox.activity.UI.PlaylistActivity;
 import mycinevo.streambox.activity.UI.SingleStreamActivity;
 import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.player.CustomPlayerView;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -55,6 +62,11 @@ import okhttp3.Response;
 public class ApplicationUtil {
 
     public static final String FEATURE_FIRE_TV = "amazon.hardware.fire_tv";
+    public static final String[] SUPPORTED_EXTENSIONS_PLAYLIST = new String[] {
+            "audio/mpegurl",
+            "audio/x-mpegurl",
+            "application/x-mpegurl"
+    };
 
     private ApplicationUtil() {
         throw new IllegalStateException("Utility class");
@@ -72,6 +84,7 @@ public class ApplicationUtil {
                     .post(requestBody)
                     .build();
             Response response = client.newCall(request).execute();
+
             return response.body() != null ? response.body().string() : "";
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,7 +103,7 @@ public class ApplicationUtil {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            return response.body().string();
+            return response.body() != null ? response.body().string() : "";
         } catch (Exception e) {
             e.printStackTrace();
             return "";
@@ -332,6 +345,10 @@ public class ApplicationUtil {
         return orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
+    public static boolean isTablet(@NonNull Context context) {
+        return context.getResources().getConfiguration().smallestScreenWidthDp >= 720;
+    }
+
     // Player
     @SuppressLint("UnsafeOptInUsageError")
     public static void showText(@NonNull final CustomPlayerView playerView, final String text, final long timeout) {
@@ -346,7 +363,7 @@ public class ApplicationUtil {
     }
 
     public static void openThemeActivity(Activity activity) {
-        int theme = new SharedPref(activity).getIsTheme();
+        int theme = new SPHelper(activity).getIsTheme();
         Intent intent;
         if (theme == 2){
             intent = new Intent(activity, GlossyActivity.class);
@@ -364,14 +381,14 @@ public class ApplicationUtil {
 
     @SuppressLint("UnsafeOptInUsageError")
     public static void openHomeActivity(Activity activity) {
-        SharedPref sharedPref = new SharedPref(activity);
+        SPHelper spHelper = new SPHelper(activity);
         Intent intent;
-        if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_SINGLE_STREAM)){
+        if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_SINGLE_STREAM)){
             intent = new Intent(activity, SingleStreamActivity.class);
-        } else if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
+        } else if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
             intent = new Intent(activity, PlaylistActivity.class);
-        } else if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_ONE_UI) || sharedPref.getLoginType().equals(Callback.TAG_LOGIN_STREAM)){
-            int theme = sharedPref.getIsTheme();
+        } else if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_ONE_UI) || spHelper.getLoginType().equals(Callback.TAG_LOGIN_STREAM)){
+            int theme = spHelper.getIsTheme();
             if (theme == 2){
                 intent = new Intent(activity, GlossyActivity.class);
             }  else  if (theme == 3){
@@ -391,13 +408,20 @@ public class ApplicationUtil {
     }
 
     public static int openThemeBg(Activity activity) {
-        int theme = new SharedPref(activity).getIsTheme();
+        int theme = new SPHelper(activity).getIsTheme();
+        int themePage = new ThemeEngine(activity).getThemePage();
         if (theme == 2){
             return R.drawable.bg_ui_glossy;
         } else if (theme == 3){
             return R.drawable.bg_dark_panther;
         } else {
-            return R.drawable.bg_dark;
+            if (themePage == 0){
+                return R.drawable.bg_dark;
+            } else if (themePage == 1 || themePage == 2 || themePage == 3){
+                return R.drawable.bg_classic;
+            } else {
+                return R.drawable.bg_dark;
+            }
         }
     }
 
@@ -612,5 +636,24 @@ public class ApplicationUtil {
         } catch (Exception e) {
             return errorMsg;
         }
+    }
+
+    @NonNull
+    @OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)
+    public static DefaultExtractorsFactory getDefaultExtractorsFactory() {
+        return new DefaultExtractorsFactory()
+                .setTsExtractorFlags(DefaultTsPayloadReaderFactory.FLAG_ENABLE_HDMV_DTS_AUDIO_STREAMS
+                        | DefaultTsPayloadReaderFactory.FLAG_IGNORE_AAC_STREAM
+                        | DefaultTsPayloadReaderFactory.FLAG_IGNORE_H264_STREAM)
+                .setTsExtractorTimestampSearchBytes(1500 * TsExtractor.TS_PACKET_SIZE);
+    }
+
+    @NonNull
+    @OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)
+    public static DefaultRenderersFactory getDefaultRenderersFactory(Context context) {
+        @SuppressLint("WrongConstant")
+        DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(context);
+        renderersFactory.setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON);
+        return renderersFactory;
     }
 }

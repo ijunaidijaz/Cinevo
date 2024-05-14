@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,12 +51,9 @@ public class LoadPlaylist extends AsyncTask<String, String, String> {
                 inputStream = ctx.getContentResolver().openInputStream(Uri.parse(filePath));
                 reader = new BufferedReader(new InputStreamReader(inputStream));
             }  else {
-
                 HttpsTrustManager.allowAllSSL();
 
                 OkHttpClient client = new OkHttpClient.Builder()
-                        .readTimeout(25000, TimeUnit.MILLISECONDS)
-                        .writeTimeout(25000, TimeUnit.MILLISECONDS)
                         .build();
                 Request request = new Request.Builder()
                         .url(filePath)
@@ -76,27 +72,39 @@ public class LoadPlaylist extends AsyncTask<String, String, String> {
                 if (line.startsWith("#EXTINF:-1")) {
                     String data = line.substring("#EXTINF:-1,".length()).trim();
 
-                    Pattern pattern = Pattern.compile("tvg-name=\"(.*?)\"");
-                    Matcher matcher = pattern.matcher(data);
-                    if (matcher.find()) {
-                        name = matcher.group(1);
-                    } else {
+                    try {
+                        Pattern pattern = Pattern.compile("tvg-name=\"(.*?)\"");
+                        Matcher matcher = pattern.matcher(data);
+                        if (matcher.find()) {
+                            name = matcher.group(1);
+                        } else {
+                            name = "";
+                        }
+                    } catch (Exception e) {
                         name = "";
                     }
 
-                    Pattern pattern_logo = Pattern.compile("tvg-logo=\"(.*?)\"");
-                    Matcher matcher_logo = pattern_logo.matcher(data);
-                    if (matcher_logo.find()) {
-                        logo = matcher_logo.group(1);
-                    } else {
+                    try {
+                        Pattern pattern_logo = Pattern.compile("tvg-logo=\"(.*?)\"");
+                        Matcher matcher_logo = pattern_logo.matcher(data);
+                        if (matcher_logo.find()) {
+                            logo = matcher_logo.group(1);
+                        } else {
+                            logo = "";
+                        }
+                    } catch (Exception e) {
                         logo = "";
                     }
 
-                    Pattern pattern_group = Pattern.compile("group-title=\"(.*?)\"");
-                    Matcher matcher_group = pattern_group.matcher(data);
-                    if (matcher_group.find()) {
-                        group = matcher_group.group(1);
-                    } else {
+                    try {
+                        Pattern pattern_group = Pattern.compile("group-title=\"(.*?)\"");
+                        Matcher matcher_group = pattern_group.matcher(data);
+                        if (matcher_group.find()) {
+                            group = matcher_group.group(1);
+                        } else {
+                            group = "";
+                        }
+                    } catch (Exception e) {
                         group = "";
                     }
 

@@ -42,12 +42,12 @@ public class FilterDialog {
         }
         if (Boolean.TRUE.equals(flag)){
             oldest.setTextColor(ContextCompat.getColor(context, R.color.color_select));
-            newest.setTextColor(ContextCompat.getColor(context, R.color.md_classic_sub_title));
+            newest.setTextColor(ContextCompat.getColor(context, R.color.md_classic_title_sub));
             if (ApplicationUtil.isTvBox(context)){
                 oldest.requestFocus();
             }
         } else {
-            oldest.setTextColor(ContextCompat.getColor(context, R.color.md_classic_sub_title));
+            oldest.setTextColor(ContextCompat.getColor(context, R.color.md_classic_title_sub));
             newest.setTextColor(ContextCompat.getColor(context, R.color.color_select));
             if (ApplicationUtil.isTvBox(context)){
                 newest.requestFocus();
@@ -56,11 +56,11 @@ public class FilterDialog {
         oldest.setOnClickListener(view -> {
             flag = true;
             oldest.setTextColor(ContextCompat.getColor(context, R.color.color_select));
-            newest.setTextColor(ContextCompat.getColor(context, R.color.md_classic_sub_title));
+            newest.setTextColor(ContextCompat.getColor(context, R.color.md_classic_title_sub));
         });
         newest.setOnClickListener(view -> {
             flag = false;
-            oldest.setTextColor(ContextCompat.getColor(context, R.color.md_classic_sub_title));
+            oldest.setTextColor(ContextCompat.getColor(context, R.color.md_classic_title_sub));
             newest.setTextColor(ContextCompat.getColor(context, R.color.color_select));
         });
         dialog.findViewById(R.id.btn_cancel_filter).setOnClickListener(view -> {

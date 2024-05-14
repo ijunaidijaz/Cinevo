@@ -24,7 +24,7 @@
             android:layout_width="@dimen/_50sdp"
             android:layout_height="match_parent"
             android:src="@drawable/user_photo"
-            app:riv_border_color="@color/md_classic_border"
+            app:riv_border_color="@color/md_border"
             app:riv_border_width="@dimen/_1sdp"
             app:riv_corner_radius="@dimen/_3sdp"/>
 
@@ -42,17 +42,8 @@
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/md_classic_title"
+                android:textColor="@color/md_title"
                 android:textSize="@dimen/_10ssp"
-                android:lines="1"/>
-
-            <TextView
-                android:id="@+id/tv_users_url"
-                android:text="@string/user_list_url"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/md_classic_sub_title"
-                android:textSize="@dimen/_8ssp"
                 android:lines="1"/>
 
             <TextView
@@ -60,7 +51,17 @@
                 android:text="@string/user_list_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/md_classic_sub_title"
+                android:textColor="@color/md_title_sub"
+                android:textSize="@dimen/_8ssp"
+                android:lines="1"/>
+
+            <TextView
+                android:id="@+id/tv_users_url"
+                android:text="@string/user_list_url"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_title_sub"
                 android:textSize="@dimen/_8ssp"
                 android:lines="1"/>
 

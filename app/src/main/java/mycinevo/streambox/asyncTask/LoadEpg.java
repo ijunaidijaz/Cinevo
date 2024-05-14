@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import mycinevo.streambox.interfaces.EpgListener;
 import mycinevo.streambox.item.ItemEpg;
 import mycinevo.streambox.util.ApplicationUtil;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import okhttp3.RequestBody;
 
 public class LoadEpg extends AsyncTask<String, String, String> {
 
-    private final SharedPref sharedPref;
+    private final SPHelper spHelper;
     private final RequestBody requestBody;
     private final EpgListener listener;
     private final ArrayList<ItemEpg> arrayList = new ArrayList<>();
@@ -24,7 +24,7 @@ public class LoadEpg extends AsyncTask<String, String, String> {
     public LoadEpg(Context ctx, EpgListener listener, RequestBody requestBody) {
         this.listener = listener;
         this.requestBody = requestBody;
-        sharedPref = new SharedPref(ctx);
+        spHelper = new SPHelper(ctx);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class LoadEpg extends AsyncTask<String, String, String> {
     protected String doInBackground(String... strings) {
         try {
 
-            String json = ApplicationUtil.responsePost(sharedPref.getAPI(), requestBody);
+            String json = ApplicationUtil.responsePost(spHelper.getAPI(), requestBody);
             JSONObject jsonObject = new JSONObject(json);
 
             if (jsonObject.has("epg_listings")) {

@@ -15,7 +15,7 @@ import mycinevo.streambox.R;
 import mycinevo.streambox.callback.Callback;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
         IfSupported.IsScreenshot(this);
         IfSupported.hideStatusBar(this);
 
-        SharedPref sharedPref = new SharedPref(this);
+        SPHelper spHelper = new SPHelper(this);
 
         findViewById(R.id.theme_bg).setBackgroundResource(ApplicationUtil.openThemeBg(this));
 
@@ -45,24 +45,24 @@ public class ProfileActivity extends AppCompatActivity {
         tv_active_none =  findViewById(R.id.tv_active_none);
 
         TextView profile_name =  findViewById(R.id.tv_profile_name);
-        profile_name.setText(sharedPref.getUserName());
+        profile_name.setText(spHelper.getUserName());
 
         TextView active_connections =  findViewById(R.id.tv_active_connections);
-        active_connections.setText(sharedPref.getActiveConnections() +" / "+ sharedPref.getMaxConnections());
+        active_connections.setText(spHelper.getActiveConnections() +" / "+ spHelper.getMaxConnections());
 
         TextView card_expiry =  findViewById(R.id.tv_card_expiry);
-        card_expiry.setText(ApplicationUtil.convertIntToDate(sharedPref.getExpDate(), "MMMM dd, yyyy"));
+        card_expiry.setText(ApplicationUtil.convertIntToDate(spHelper.getExpDate(), "MMMM dd, yyyy"));
 
         TextView card_any_name =  findViewById(R.id.card_any_name);
-        card_any_name.setText(sharedPref.getAnyName());
+        card_any_name.setText(spHelper.getAnyName());
 
-        if (sharedPref.getIsStatus().equals("Active")){
+        if (spHelper.getIsStatus().equals("Active")){
             tv_active.setVisibility(View.VISIBLE);
             tv_active_none.setVisibility(View.GONE);
         } else {
             tv_active.setVisibility(View.GONE);
             tv_active_none.setVisibility(View.VISIBLE);
-            tv_active_none.setText(sharedPref.getIsStatus());
+            tv_active_none.setText(spHelper.getIsStatus());
         }
     }
 

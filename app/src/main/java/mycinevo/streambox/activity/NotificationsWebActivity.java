@@ -16,7 +16,7 @@ import mycinevo.streambox.R;
 import mycinevo.streambox.callback.Callback;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class NotificationsWebActivity extends AppCompatActivity {
 
@@ -65,7 +65,7 @@ public class NotificationsWebActivity extends AppCompatActivity {
         String myCustomStyleString = "<style> body{color:#fff !important;}</style>"
                 + "<style type=\"text/css\">"+ textSize + "</style>";
         String htmlString;
-        if(Boolean.FALSE.equals(new SharedPref(this).getIsRTL())) {
+        if(Boolean.FALSE.equals(new SPHelper(this).getIsRTL())) {
             htmlString = myCustomStyleString + "<div>" + htmlText + "</div>";
         } else {
             htmlString = "<html dir=\"rtl\" lang=\"\"><body>" + myCustomStyleString + "<div>" + htmlText + "</div>" + "</body></html>";

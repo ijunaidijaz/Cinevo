@@ -45,15 +45,15 @@ import java.net.CookiePolicy;
 
 import mycinevo.streambox.R;
 import mycinevo.streambox.callback.Callback;
-import mycinevo.streambox.dialog.ScreenDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 
 @UnstableApi
 public class MultipleScreenActivity extends AppCompatActivity {
 
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private String stream_id = "0";
     private DefaultBandwidthMeter BANDWIDTH_METER;
     private DataSource.Factory mediaDataSourceFactory;
@@ -98,7 +98,7 @@ public class MultipleScreenActivity extends AppCompatActivity {
 
         findViewById(R.id.theme_bg).setBackgroundResource(ApplicationUtil.openThemeBg(this));
 
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
 
         Intent intent = getIntent();
         is_player = intent.getBooleanExtra("is_player", false);
@@ -126,13 +126,23 @@ public class MultipleScreenActivity extends AppCompatActivity {
         pb_four = findViewById(R.id.pb_four);
 
         if (Boolean.TRUE.equals(is_player)){
-            setScreen(sharedPref.getScreen());
+            setScreen(spHelper.getScreen());
             setPlayerOne(getChannelUrl(stream_id));
         } else {
-            if (Boolean.TRUE.equals(sharedPref.getIsScreen())){
-                new ScreenDialog(this, this::setScreen).showDialog();
+            if (Boolean.TRUE.equals(spHelper.getIsScreen())){
+                DialogUtil.ScreenDialog(MultipleScreenActivity.this, new DialogUtil.ScreenDialogListener() {
+                    @Override
+                    public void onSubmit(int screen) {
+                        setScreen(screen);
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
             } else {
-                setScreen(sharedPref.getScreen());
+                setScreen(spHelper.getScreen());
             }
         }
 
@@ -206,7 +216,7 @@ public class MultipleScreenActivity extends AppCompatActivity {
 
     private void openFilterActivity(int requestCode) {
         Intent result;
-        if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
+        if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
             result = new Intent(MultipleScreenActivity.this, FilterPlaylistActivity.class);
         } else {
             result = new Intent(MultipleScreenActivity.this, FilterActivity.class);
@@ -334,13 +344,13 @@ public class MultipleScreenActivity extends AppCompatActivity {
     private String getChannelUrl(String streamId) {
         if (streamId != null && !streamId.isEmpty()){
             String channelUrl;
-            if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
+            if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
                 channelUrl = streamId;
             } else {
-                if (Boolean.TRUE.equals(sharedPref.getIsXuiUser())){
-                    channelUrl = sharedPref.getServerURL()+sharedPref.getUserName()+"/"+sharedPref.getPassword()+"/"+streamId+".m3u8";
+                if (Boolean.TRUE.equals(spHelper.getIsXuiUser())){
+                    channelUrl = spHelper.getServerURL()+ spHelper.getUserName()+"/"+ spHelper.getPassword()+"/"+streamId+".m3u8";
                 } else {
-                    channelUrl = sharedPref.getServerURL()+"live/"+sharedPref.getUserName()+"/"+sharedPref.getPassword()+"/"+streamId+".m3u8";
+                    channelUrl = spHelper.getServerURL()+"live/"+ spHelper.getUserName()+"/"+ spHelper.getPassword()+"/"+streamId+".m3u8";
                 }
             }
             return channelUrl;

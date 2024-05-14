@@ -12,7 +12,7 @@ import java.util.Objects;
 
 import mycinevo.streambox.R;
 import mycinevo.streambox.util.IfSupported;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class HoursDialog {
 
@@ -22,7 +22,7 @@ public class HoursDialog {
 
     public HoursDialog(Context context, HoursListener limitListener) {
         this.listener = limitListener;
-        SharedPref sharedPref = new SharedPref(context);
+        SPHelper spHelper = new SPHelper(context);
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_hours);
@@ -31,7 +31,7 @@ public class HoursDialog {
 
         RadioGroup rg =  dialog.findViewById(R.id.rg);
 
-        limit = sharedPref.getAutoUpdate();
+        limit = spHelper.getAutoUpdate();
         if (limit == 1){
             rg.check(R.id.rd_1);
         } else if (limit == 3){
@@ -49,11 +49,11 @@ public class HoursDialog {
         dialog.findViewById(R.id.rd_3).setOnClickListener(view -> limit = 5);
         dialog.findViewById(R.id.rd_4).setOnClickListener(view -> limit = 7);
         dialog.findViewById(R.id.rd_5).setOnClickListener(view -> limit = 10);
-
         dialog.findViewById(R.id.tv_submit_limit).setOnClickListener(view -> {
             listener.onSetLimit(limit);
             dismissDialog();
         });
+
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.show();

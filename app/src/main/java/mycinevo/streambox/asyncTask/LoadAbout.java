@@ -13,7 +13,7 @@ import mycinevo.streambox.interfaces.AboutListener;
 import mycinevo.streambox.item.ItemDns;
 import mycinevo.streambox.item.ItemNotification;
 import mycinevo.streambox.util.ApplicationUtil;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
 
@@ -22,14 +22,14 @@ public class LoadAbout extends AsyncTask<String, String, String> {
     private final DBHelper dbHelper;
     private final Envato envato;
     private final Helper helper;
-    private final SharedPref sharedPref;
+    private final SPHelper spHelper;
     private final AboutListener aboutListener;
     private String verifyStatus = "0", message = "";
 
     public LoadAbout(Context context, AboutListener aboutListener) {
         this.aboutListener = aboutListener;
         helper = new Helper(context);
-        sharedPref = new SharedPref(context);
+        spHelper = new SPHelper(context);
         envato = new Envato(context);
         dbHelper = new DBHelper(context);
     }
@@ -65,14 +65,14 @@ public class LoadAbout extends AsyncTask<String, String, String> {
                         String website = c.getString("app_website");
                         String description = c.getString("app_description");
                         String developed_by = c.getString("app_developed_by");
-                        sharedPref.setAboutDetails(email, author, contact, website, description, developed_by);
+                        spHelper.setAboutDetails(email, author, contact, website, description, developed_by);
 
                         // Envato
                         String apikey = c.getString("envato_api_key");
                         if (!apikey.isEmpty()){
                             envato.setEnvatoKEY(apikey);
                         } else {
-                            sharedPref.setAboutDetails(false);
+                            spHelper.setAboutDetails(false);
                         }
 
                         // isSupported
@@ -85,7 +85,7 @@ public class LoadAbout extends AsyncTask<String, String, String> {
                         Boolean is_radio = Boolean.parseBoolean(c.getString("is_xui_radio"));
                         Boolean is_stream_dns = Boolean.parseBoolean(c.getString("is_stream_dns"));
                         Boolean is_stream_radio = Boolean.parseBoolean(c.getString("is_stream_radio"));
-                        sharedPref.setIsSupported(is_rtl, is_maintenance, is_screenshot, is_apk, is_vpn, is_xui_dns, is_radio, is_stream_dns, is_stream_radio);
+                        spHelper.setIsSupported(is_rtl, is_maintenance, is_screenshot, is_apk, is_vpn, is_xui_dns, is_radio, is_stream_dns, is_stream_radio);
 
                         // isSelect
                         Boolean is_xui = Boolean.parseBoolean(c.getString("is_select_xui"));
@@ -93,7 +93,7 @@ public class LoadAbout extends AsyncTask<String, String, String> {
                         Boolean is_playlist = Boolean.parseBoolean(c.getString("is_select_playlist"));
                         Boolean is_device_id = Boolean.parseBoolean(c.getString("is_select_device_id"));
                         Boolean is_single = Boolean.parseBoolean(c.getString("is_select_single"));
-                        sharedPref.setIsSelect(is_xui, is_stream, is_playlist, is_device_id, is_single);
+                        spHelper.setIsSelect(is_xui, is_stream, is_playlist, is_device_id, is_single);
 
                         // AppUpdate
                         Callback.isAppUpdate = Boolean.parseBoolean(c.getString("app_update_status"));
@@ -111,17 +111,17 @@ public class LoadAbout extends AsyncTask<String, String, String> {
 
                         if (c.has("is_theme") && (!c.getString("is_theme").isEmpty())) {
                             int theme = Integer.parseInt(c.getString("is_theme"));
-                            sharedPref.setIsTheme(theme);
+                            spHelper.setIsTheme(theme);
                         }
 
                         if (c.has("is_download")) {
                             Boolean download = Boolean.parseBoolean(c.getString("is_download"));
-                            sharedPref.setIsDownload(download);
+                            spHelper.setIsDownload(download);
                         }
 
                         if (c.has("tmdb_key")) {
                             String key = c.getString("tmdb_key");
-                            sharedPref.setTmdbKEY(key);
+                            spHelper.setTmdbKEY(key);
                         }
                     }
                 }

@@ -28,7 +28,7 @@ import mycinevo.streambox.R;
 import mycinevo.streambox.adapter.AdapterDNS;
 import mycinevo.streambox.asyncTask.LoadLogin;
 import mycinevo.streambox.callback.Callback;
-import mycinevo.streambox.dialog.ExitDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.Toasty;
 import mycinevo.streambox.interfaces.LoginListener;
 import mycinevo.streambox.item.ItemDns;
@@ -36,7 +36,7 @@ import mycinevo.streambox.item.ItemUsersDB;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
@@ -45,7 +45,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private DBHelper dbHelper;
     private Helper helper;
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private EditText et_any_name;
     private EditText et_user_name;
     private EditText et_login_password;
@@ -77,7 +77,7 @@ public class SignInActivity extends AppCompatActivity {
         progressDialog = new NSoftsProgressDialog(SignInActivity.this);
 
         helper = new Helper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
         dbHelper = new DBHelper(this);
 
         ll_url  = findViewById(R.id.ll_url);
@@ -113,18 +113,22 @@ public class SignInActivity extends AppCompatActivity {
         arrayList.add(new ItemDns("External",""));
         try {
             if (Boolean.TRUE.equals(isXui)){
-                if (Boolean.TRUE.equals(sharedPref.getIsXUI_DNS())){
+                if (Boolean.TRUE.equals(spHelper.getIsXUI_DNS())) {
                     ArrayList<ItemDns> arrayList2 = new ArrayList<>(dbHelper.loadDNS(DBHelper.TABLE_DNS_XUI));
-                    if (!arrayList2.isEmpty()){
+                    if (!arrayList2.isEmpty()) {
                         arrayList.addAll(arrayList2);
                     }
+                } else {
+                    rv_dns.setVisibility(View.GONE);
                 }
             } else {
-                if (Boolean.TRUE.equals(sharedPref.getIssStreamDNS())){
+                if (Boolean.TRUE.equals(spHelper.getIssStreamDNS())){
                     ArrayList<ItemDns> arrayList2 = new ArrayList<>(dbHelper.loadDNS(DBHelper.TABLE_DNS_STREAM));
                     if (!arrayList2.isEmpty()){
                         arrayList.addAll(arrayList2);
                     }
+                } else {
+                    rv_dns.setVisibility(View.GONE);
                 }
             }
         } catch (Exception e) {
@@ -255,35 +259,35 @@ public class SignInActivity extends AppCompatActivity {
                                     dbHelper.addToUserDB(new ItemUsersDB("", et_any_name.getText().toString(), et_user_name.getText().toString(),
                                             et_login_password.getText().toString(), et_url.getText().toString(),"xui")
                                     );
-                                    sharedPref.setLoginDetails(
+                                    spHelper.setLoginDetails(
                                             username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
                                             xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
                                     );
-                                    sharedPref.setLoginType(Callback.TAG_LOGIN_ONE_UI);
+                                    spHelper.setLoginType(Callback.TAG_LOGIN_ONE_UI);
                                 } else {
                                     dbHelper.addToUserDB(new ItemUsersDB("", et_any_name.getText().toString(), et_user_name.getText().toString(),
                                             et_login_password.getText().toString(), et_url.getText().toString(),"stream")
                                     );
-                                    sharedPref.setLoginDetails(
+                                    spHelper.setLoginDetails(
                                             username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
                                             xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
                                     );
-                                    sharedPref.setLoginType(Callback.TAG_LOGIN_STREAM);
+                                    spHelper.setLoginType(Callback.TAG_LOGIN_STREAM);
                                 }
                                 if (!allowed_output_formats.isEmpty()){
                                     if (allowed_output_formats.contains("m3u8")){
-                                        sharedPref.setLiveFormat(2);
+                                        spHelper.setLiveFormat(2);
                                     } else {
-                                        sharedPref.setLiveFormat(1);
+                                        spHelper.setLiveFormat(1);
                                     }
                                 } else {
-                                    sharedPref.setLiveFormat(0);
+                                    spHelper.setLiveFormat(0);
                                 }
 
-                                sharedPref.setAnyName(et_any_name.getText().toString());
-                                sharedPref.setIsFirst(false);
-                                sharedPref.setIsLogged(true);
-                                sharedPref.setIsAutoLogin(true);
+                                spHelper.setAnyName(et_any_name.getText().toString());
+                                spHelper.setIsFirst(false);
+                                spHelper.setIsLogged(true);
+                                spHelper.setIsAutoLogin(true);
 
                                 Callback.isCustomAds = false;
                                 Callback.customAdCount = 0;
@@ -329,7 +333,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_BACK)){
-            new ExitDialog(SignInActivity.this);
+            DialogUtil.ExitDialog(SignInActivity.this);
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -338,6 +342,6 @@ public class SignInActivity extends AppCompatActivity {
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
-        new ExitDialog(SignInActivity.this);
+        DialogUtil.ExitDialog(SignInActivity.this);
     }
 }

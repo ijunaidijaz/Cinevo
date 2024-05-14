@@ -20,7 +20,7 @@ import java.util.List;
 import mycinevo.streambox.R;
 import mycinevo.streambox.item.ItemMovies;
 import mycinevo.streambox.util.ApplicationUtil;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class AdapterMovie extends RecyclerView.Adapter<AdapterMovie.MyViewHolder> {
 
@@ -53,7 +53,7 @@ public class AdapterMovie extends RecyclerView.Adapter<AdapterMovie.MyViewHolder
         this.arrayList = arrayList;
         this.listener = listener;
         isTvBox  = ApplicationUtil.isTvBox(context);
-        isTitle = new SharedPref(context).getUICardTitle();
+        isTitle = new SPHelper(context).getUICardTitle();
         columnWidth = ApplicationUtil.getColumnWidth(context, Boolean.TRUE.equals(isTvBox) ? 8 : 7, 0);
         columnHeight = (int) (columnWidth * 1.15);
     }

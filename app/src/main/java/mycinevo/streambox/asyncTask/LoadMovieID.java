@@ -11,12 +11,12 @@ import mycinevo.streambox.interfaces.MovieIDListener;
 import mycinevo.streambox.item.ItemInfoMovies;
 import mycinevo.streambox.item.ItemMoviesData;
 import mycinevo.streambox.util.ApplicationUtil;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import okhttp3.RequestBody;
 
 public class LoadMovieID extends AsyncTask<String, String, String> {
 
-    private final SharedPref sharedPref;
+    private final SPHelper spHelper;
     private final MovieIDListener listener;
     private final RequestBody requestBody;
     private final ArrayList<ItemInfoMovies> arrayListInfo = new ArrayList<>();
@@ -25,7 +25,7 @@ public class LoadMovieID extends AsyncTask<String, String, String> {
     public LoadMovieID(Context ctx, MovieIDListener listener, RequestBody requestBody) {
         this.listener = listener;
         this.requestBody = requestBody;
-        sharedPref = new SharedPref(ctx);
+        spHelper = new SPHelper(ctx);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class LoadMovieID extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            String json = ApplicationUtil.responsePost(sharedPref.getAPI(), requestBody);
+            String json = ApplicationUtil.responsePost(spHelper.getAPI(), requestBody);
             JSONObject jsonObject = new JSONObject(json);
 
             if (jsonObject.has("info")) {

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.nemosofts.AppCompat;
 import androidx.nemosofts.AppCompatActivity;
+import androidx.nemosofts.view.ShimmerFrameLayout;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,19 +26,20 @@ import mycinevo.streambox.activity.MultipleScreenActivity;
 import mycinevo.streambox.activity.NotificationsActivity;
 import mycinevo.streambox.activity.PlaylistLiveTvActivity;
 import mycinevo.streambox.activity.PlaylistMovieActivity;
-import mycinevo.streambox.activity.Setting.SettingActivity;
+import mycinevo.streambox.activity.SettingActivity;
 import mycinevo.streambox.activity.UsersListActivity;
 import mycinevo.streambox.callback.Callback;
-import mycinevo.streambox.dialog.ExitDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.JSHelper;
 
 public class PlaylistActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
+    private ShimmerFrameLayout shimmer_live, shimmer_movie, shimmer_serials;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,13 +54,30 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
         Callback.isAppOpen = true;
         findViewById(R.id.theme_bg).setBackgroundResource(ApplicationUtil.openThemeBg(this));
 
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
 
         getInfo();
         setListenerHome();
 
         if (ApplicationUtil.isTvBox(this)){
             findViewById(R.id.select_live).requestFocus();
+        }
+
+        shimmer_live = findViewById(R.id.shimmer_view_live);
+        shimmer_movie = findViewById(R.id.shimmer_view_movie);
+        shimmer_serials = findViewById(R.id.shimmer_view_serials);
+        changeIcon();
+    }
+
+    private void changeIcon() {
+        if (Boolean.FALSE.equals(spHelper.getIsShimmeringHome())){
+            shimmer_live.setVisibility(View.GONE);
+            shimmer_movie.setVisibility(View.GONE);
+            shimmer_serials.setVisibility(View.GONE);
+        } else {
+            shimmer_live.setVisibility(View.VISIBLE);
+            shimmer_movie.setVisibility(View.VISIBLE);
+            shimmer_serials.setVisibility(View.VISIBLE);
         }
     }
 
@@ -96,7 +115,7 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
 
         try {
             TextView tv_user_name = findViewById(R.id.tv_user_name);
-            String user_name = getString(R.string.user_list_user_name)+" "+sharedPref.getAnyName();
+            String user_name = getString(R.string.user_list_user_name)+" "+ spHelper.getAnyName();
             tv_user_name.setText(user_name);
         } catch (Exception e) {
             e.printStackTrace();
@@ -126,7 +145,7 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void sign_out() {
-        sharedPref.setLoginType(Callback.TAG_LOGIN);
+        spHelper.setLoginType(Callback.TAG_LOGIN);
         Intent intent = new Intent(PlaylistActivity.this, UsersListActivity.class);
         new JSHelper(this).removeAllPlaylist();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -156,11 +175,24 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
+    public void onResume() {
+        if (Boolean.TRUE.equals(Callback.isDataUpdate)) {
+            Callback.isDataUpdate = false;
+            changeIcon();
+        }
+        if (Boolean.TRUE.equals(Callback.is_recreate)) {
+            Callback.is_recreate = false;
+            recreate();
+        }
+        super.onResume();
+    }
+
+    @Override
     public void onBackPressed() {
         if (ApplicationUtil.isTvBox(PlaylistActivity.this)) {
             super.onBackPressed();
         } else {
-            new ExitDialog(PlaylistActivity.this);
+            DialogUtil.ExitDialog(PlaylistActivity.this);
         }
     }
 }

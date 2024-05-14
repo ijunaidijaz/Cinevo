@@ -16,13 +16,10 @@ import java.util.Objects;
 import mycinevo.streambox.R;
 import mycinevo.streambox.activity.UI.SingleStreamActivity;
 import mycinevo.streambox.callback.Callback;
-import mycinevo.streambox.dialog.DModeDialog;
-import mycinevo.streambox.dialog.MaintenanceDialog;
-import mycinevo.streambox.dialog.UpgradeDialog;
-import mycinevo.streambox.dialog.VpnDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class DialogActivity extends AppCompatActivity {
 
@@ -40,34 +37,23 @@ public class DialogActivity extends AppCompatActivity {
 
         String from = getIntent().getStringExtra("from");
         switch (Objects.requireNonNull(from)) {
-            case Callback.DIALOG_TYPE_UPDATE ->
-                    new UpgradeDialog(this, new UpgradeDialog.UpgradeListener() {
-                        @Override
-                        public void onCancel() {
-                            openMainActivity();
-                        }
-
-                        @Override
-                        public void onDo() {
-                            // document why this method is empty
-                        }
-                    });
-            case Callback.DIALOG_TYPE_MAINTENANCE -> new MaintenanceDialog(this);
-            case Callback.DIALOG_TYPE_DEVELOPER -> new DModeDialog(this);
-            case Callback.DIALOG_TYPE_VPN -> new VpnDialog(this);
+            case Callback.DIALOG_TYPE_UPDATE -> DialogUtil.UpgradeDialog(this, this::openMainActivity);
+            case Callback.DIALOG_TYPE_MAINTENANCE -> DialogUtil.MaintenanceDialog(this);
+            case Callback.DIALOG_TYPE_DEVELOPER -> DialogUtil.DModeDialog(this);
+            case Callback.DIALOG_TYPE_VPN -> DialogUtil.VpnDialog(this);
             default -> openMainActivity();
         }
     }
 
     private void openMainActivity() {
-        SharedPref sharedPref = new SharedPref(this);
-        if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_SINGLE_STREAM)){
+        SPHelper spHelper = new SPHelper(this);
+        if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_SINGLE_STREAM)){
             new Handler().postDelayed(this::openSingleStream, 2000);
-        } else if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_ONE_UI) || sharedPref.getLoginType().equals(Callback.TAG_LOGIN_STREAM)){
-            if (Boolean.TRUE.equals(sharedPref.getIsFirst())) {
+        } else if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_ONE_UI) || spHelper.getLoginType().equals(Callback.TAG_LOGIN_STREAM)){
+            if (Boolean.TRUE.equals(spHelper.getIsFirst())) {
                 new Handler().postDelayed(this::openSelectPlayer, 2000);
             } else {
-                if (Boolean.FALSE.equals(sharedPref.getIsAutoLogin())) {
+                if (Boolean.FALSE.equals(spHelper.getIsAutoLogin())) {
                     new Handler().postDelayed(this::openSelectPlayer, 2000);
                 } else {
                     ApplicationUtil.openThemeActivity(DialogActivity.this);

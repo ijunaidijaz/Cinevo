@@ -1,5 +1,7 @@
 package mycinevo.streambox.activity;
 
+import static mycinevo.streambox.util.helper.Helper.hideNavigationKeys;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +29,7 @@ import mycinevo.streambox.adapter.AdapterUsers;
 import mycinevo.streambox.asyncTask.LoadLogin;
 import mycinevo.streambox.asyncTask.LoadPlaylist;
 import mycinevo.streambox.callback.Callback;
-import mycinevo.streambox.dialog.ExitDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.Toasty;
 import mycinevo.streambox.interfaces.LoadPlaylistListener;
 import mycinevo.streambox.interfaces.LoginListener;
@@ -36,7 +38,7 @@ import mycinevo.streambox.item.ItemUsersDB;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.util.helper.JSHelper;
@@ -45,7 +47,7 @@ import mycinevo.streambox.view.NSoftsProgressDialog;
 public class UsersListActivity extends AppCompatActivity {
 
     private Helper helper;
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private RecyclerView rv;
     private ArrayList<ItemUsersDB> arrayList;
     private FrameLayout frameLayout;
@@ -60,11 +62,12 @@ public class UsersListActivity extends AppCompatActivity {
         IfSupported.IsRTL(this);
         IfSupported.IsScreenshot(this);
         IfSupported.hideStatusBar(this);
+        hideNavigationKeys(getWindow());
 
         findViewById(R.id.theme_bg).setBackgroundResource(ApplicationUtil.openThemeBg(this));
 
         helper = new Helper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
 
         progressDialog = new NSoftsProgressDialog(UsersListActivity.this);
 
@@ -135,10 +138,14 @@ public class UsersListActivity extends AppCompatActivity {
 
     public void setAdapter() {
         AdapterUsers adapter = new AdapterUsers(this, arrayList, (itemCat, position) -> {
-            if (arrayList.get(position).getUserType().equals("xui") || arrayList.get(position).getUserType().equals("stream")){
-                loadLogin(arrayList.get(position));
-            } else if (arrayList.get(position).getUserType().equals("playlist")){
-                loadLoginPlaylist(arrayList.get(position).getAnyName(), arrayList.get(position).getUserURL());
+            if (position >= 0 && position < arrayList.size()) {
+                if (arrayList.get(position).getUserType().equals("xui") || arrayList.get(position).getUserType().equals("stream")) {
+                    loadLogin(arrayList.get(position));
+                } else if (arrayList.get(position).getUserType().equals("playlist")) {
+                    loadLoginPlaylist(arrayList.get(position).getAnyName(), arrayList.get(position).getUserURL());
+                }
+            } else {
+                Toasty.makeText(UsersListActivity.this, "Position out of bounds: " + position, Toasty.ERROR);
             }
         });
         rv.setAdapter(adapter);
@@ -169,8 +176,8 @@ public class UsersListActivity extends AppCompatActivity {
 
                                 Toast.makeText(UsersListActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
 
-                                sharedPref.setLoginType(Callback.TAG_LOGIN_PLAYLIST);
-                                sharedPref.setAnyName(anyName);
+                                spHelper.setLoginType(Callback.TAG_LOGIN_PLAYLIST);
+                                spHelper.setAnyName(anyName);
                                 Intent intent = new Intent(UsersListActivity.this, PlaylistActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
@@ -203,31 +210,31 @@ public class UsersListActivity extends AppCompatActivity {
                         if (success.equals("1")) {
                             try {
                                 if (Boolean.TRUE.equals(itemUsersDB.getUserType().equals("xui"))){
-                                    sharedPref.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
+                                    spHelper.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
                                             xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
                                     );
-                                    sharedPref.setLoginType(Callback.TAG_LOGIN_ONE_UI);
+                                    spHelper.setLoginType(Callback.TAG_LOGIN_ONE_UI);
                                 } else {
-                                    sharedPref.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
+                                    spHelper.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
                                             xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
                                     );
-                                    sharedPref.setLoginType(Callback.TAG_LOGIN_STREAM);
+                                    spHelper.setLoginType(Callback.TAG_LOGIN_STREAM);
                                 }
 
                                 if (!allowed_output_formats.isEmpty()){
                                     if (allowed_output_formats.contains("m3u8")){
-                                        sharedPref.setLiveFormat(2);
+                                        spHelper.setLiveFormat(2);
                                     } else {
-                                        sharedPref.setLiveFormat(1);
+                                        spHelper.setLiveFormat(1);
                                     }
                                 } else {
-                                    sharedPref.setLiveFormat(0);
+                                    spHelper.setLiveFormat(0);
                                 }
 
-                                sharedPref.setAnyName(itemUsersDB.getAnyName());
-                                sharedPref.setIsFirst(false);
-                                sharedPref.setIsLogged(true);
-                                sharedPref.setIsAutoLogin(true);
+                                spHelper.setAnyName(itemUsersDB.getAnyName());
+                                spHelper.setIsFirst(false);
+                                spHelper.setIsLogged(true);
+                                spHelper.setIsAutoLogin(true);
 
                                 Callback.isCustomAds = false;
                                 Callback.customAdCount = 0;
@@ -278,7 +285,7 @@ public class UsersListActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_BACK)) {
-            new ExitDialog(UsersListActivity.this);
+            onBackPressed();
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -295,6 +302,6 @@ public class UsersListActivity extends AppCompatActivity {
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
-        new ExitDialog(UsersListActivity.this);
+        DialogUtil.ExitDialog(UsersListActivity.this);
     }
 }

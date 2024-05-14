@@ -43,14 +43,6 @@ public class Toasty {
                 TextView toast_message = dialog.findViewById(R.id.tv_toast_message);
                 ImageView closeIcon = dialog.findViewById(R.id.iv_toast_close);
 
-                if (closeIcon != null) {
-                    closeIcon.setOnClickListener(view -> {
-                        if (dialog.isShowing()) {
-                            dialog.dismiss();
-                        }
-                    });
-                }
-
                 if (ll_toast_bg != null && toast_icon != null && toast_title != null && toast_message != null) {
                     if (toastType == ERROR) {
                         toast_title.setText("Error!");
@@ -72,6 +64,15 @@ public class Toasty {
                             toast_message.setText("This is a success message.");
                         }
                     }
+
+                    if (closeIcon != null) {
+                        closeIcon.setOnClickListener(view -> {
+                            if (dialog.isShowing()) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+
                     Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
                     dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
                     dialog.show();

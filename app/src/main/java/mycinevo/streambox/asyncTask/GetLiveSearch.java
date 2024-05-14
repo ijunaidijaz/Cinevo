@@ -35,13 +35,19 @@ public class GetLiveSearch extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
+            ArrayList<ItemLive> arrayList = new ArrayList<>();
             if (Boolean.TRUE.equals(isPlaylist)){
                 final ArrayList<ItemLive> arrayListAll = new ArrayList<>(jsHelper.getLivePlaylist());
                 for (int i = 0; i < arrayListAll.size(); i++) {
-                    addOrUpdateItem(itemLives, arrayListAll.get(i));
+                    addOrUpdateItem(arrayList, arrayListAll.get(i));
                 }
             } else {
-                itemLives.addAll(jsHelper.getLivesSearch(searchText));
+                arrayList.addAll(jsHelper.getLivesSearch(searchText));
+            }
+
+            int limit = Math.min(20, arrayList.size());
+            for (int j = 0; j < limit; j++) {
+                itemLives.add(arrayList.get(j));
             }
             return "1";
         } catch (Exception e) {

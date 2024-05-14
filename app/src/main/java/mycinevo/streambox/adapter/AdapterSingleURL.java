@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import mycinevo.streambox.R;
-import mycinevo.streambox.dialog.DeleteDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.item.ItemSingleURL;
 import mycinevo.streambox.util.helper.DBHelper;
 
@@ -83,7 +83,7 @@ public class AdapterSingleURL extends RecyclerView.Adapter<AdapterSingleURL.View
         }
 
         holder.ll_single_list.setOnLongClickListener(v -> {
-            new DeleteDialog(ctx, () -> {
+            DialogUtil.DeleteDialog(ctx, () -> {
                 try {
                     dbHelper.removeFromSingleURL(arrayList.get(holder.getAbsoluteAdapterPosition()).getId());
                     arrayList.remove(holder.getAbsoluteAdapterPosition());

@@ -25,7 +25,6 @@ public class NSoftsProgressDialog extends Dialog {
         setContentView(R.layout.custom_progress_dialog);
         setCancelable(false);
         setCanceledOnTouchOutside(false);
-
         Objects.requireNonNull(this.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
         try {
            Window window = this.getWindow();

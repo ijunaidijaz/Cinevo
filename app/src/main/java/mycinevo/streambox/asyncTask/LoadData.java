@@ -8,7 +8,7 @@ import org.json.JSONArray;
 import mycinevo.streambox.callback.Callback;
 import mycinevo.streambox.interfaces.DataListener;
 import mycinevo.streambox.util.ApplicationUtil;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.util.helper.JSHelper;
 
@@ -16,14 +16,14 @@ public class LoadData extends AsyncTask<String, String, String> {
 
     private final JSHelper jsHelper;
     private final Helper helper;
-    private final SharedPref sharedPref;
+    private final SPHelper spHelper;
     private final DataListener listener;
     private JSONArray arrayLive, arraySeries, arrayMovies;
 
     public LoadData(Context ctx, DataListener listener) {
         this.listener = listener;
         helper = new Helper(ctx);
-        sharedPref = new SharedPref(ctx);
+        spHelper = new SPHelper(ctx);
         jsHelper = new JSHelper(ctx);
     }
 
@@ -41,12 +41,12 @@ public class LoadData extends AsyncTask<String, String, String> {
                 return "1";
             } else {
                 // 5 Hours
-                if (Boolean.TRUE.equals(ApplicationUtil.calculateUpdateHours(jsHelper.getUpdateDate(), sharedPref.getAutoUpdate()))){
+                if (Boolean.TRUE.equals(ApplicationUtil.calculateUpdateHours(jsHelper.getUpdateDate(), spHelper.getAutoUpdate()))){
                     jsHelper.setUpdateDate();
 
                     try {
-                        if (!sharedPref.getCurrent(Callback.TAG_SERIES).isEmpty()){
-                            String json_series = ApplicationUtil.responsePost(sharedPref.getAPI(), helper.getAPIRequest("get_series",sharedPref.getUserName(), sharedPref.getPassword()));
+                        if (!spHelper.getCurrent(Callback.TAG_SERIES).isEmpty()){
+                            String json_series = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_series", spHelper.getUserName(), spHelper.getPassword()));
                             if (!json_series.isEmpty()){
                                 arraySeries = new JSONArray(json_series);
                                 if (arraySeries.length() != 0 && arraySeries.length() != jsHelper.getSeriesSize()){
@@ -61,8 +61,8 @@ public class LoadData extends AsyncTask<String, String, String> {
                     }
 
                     try {
-                        if (!sharedPref.getCurrent(Callback.TAG_MOVIE).isEmpty()){
-                            String json_movie = ApplicationUtil.responsePost(sharedPref.getAPI(), helper.getAPIRequest("get_vod_streams",sharedPref.getUserName(), sharedPref.getPassword()));
+                        if (!spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty()){
+                            String json_movie = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_vod_streams", spHelper.getUserName(), spHelper.getPassword()));
                             if (!json_movie.isEmpty()){
                                 arrayMovies = new JSONArray(json_movie);
                                 if (arrayMovies.length() != 0 && arrayMovies.length() != jsHelper.getMoviesSize()){
@@ -77,8 +77,8 @@ public class LoadData extends AsyncTask<String, String, String> {
                     }
 
                     try {
-                        if (!sharedPref.getCurrent(Callback.TAG_TV).isEmpty()){
-                            String json_live = ApplicationUtil.responsePost(sharedPref.getAPI(), helper.getAPIRequest("get_live_streams",sharedPref.getUserName(), sharedPref.getPassword()));
+                        if (!spHelper.getCurrent(Callback.TAG_TV).isEmpty()){
+                            String json_live = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_live_streams", spHelper.getUserName(), spHelper.getPassword()));
                             if (!json_live.isEmpty()){
                                 arrayLive = new JSONArray(json_live);
                                 if (arrayLive.length() != 0 && arrayLive.length() != jsHelper.getLiveSize()){

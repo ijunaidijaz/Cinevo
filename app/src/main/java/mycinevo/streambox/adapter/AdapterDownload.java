@@ -19,7 +19,7 @@ import java.io.File;
 import java.util.List;
 
 import mycinevo.streambox.R;
-import mycinevo.streambox.dialog.DeleteDialog;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.item.ItemVideoDownload;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.helper.DBHelper;
@@ -89,7 +89,7 @@ public class AdapterDownload extends RecyclerView.Adapter<AdapterDownload.MyView
         }
 
         holder.fd_movie_card.setOnLongClickListener(v -> {
-            new DeleteDialog(context, () -> {
+            DialogUtil.DeleteDialog(context, () -> {
                 try {
                     dbHelper.removeFromDownload(DBHelper.TABLE_DOWNLOAD_MOVIES, arrayList.get(holder.getAbsoluteAdapterPosition()).getStreamID());
                     final File file = new File(arrayList.get(holder.getAbsoluteAdapterPosition()).getVideoURL());

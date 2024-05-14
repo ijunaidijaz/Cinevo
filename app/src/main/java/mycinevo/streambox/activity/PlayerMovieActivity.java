@@ -6,13 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.media.MediaMetadataRetriever;
 import android.media.metrics.PlaybackStateEvent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.accessibility.CaptioningManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -45,29 +48,34 @@ import androidx.media3.exoplayer.source.ProgressiveMediaSource;
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector;
 import androidx.media3.exoplayer.upstream.DefaultBandwidthMeter;
 import androidx.media3.extractor.DefaultExtractorsFactory;
-import androidx.media3.extractor.ts.DefaultTsPayloadReaderFactory;
-import androidx.media3.extractor.ts.TsExtractor;
 import androidx.media3.ui.AspectRatioFrameLayout;
+import androidx.media3.ui.PlayerControlView;
 import androidx.media3.ui.PlayerView;
 import androidx.nemosofts.AppCompat;
 import androidx.nemosofts.AppCompatActivity;
 
+import java.lang.reflect.Field;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.util.Locale;
 
 import mycinevo.streambox.R;
 import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.Toasty;
+import mycinevo.streambox.item.ItemMediaData;
 import mycinevo.streambox.item.ItemMovies;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.player.BrightnessVolumeControl;
+import mycinevo.streambox.util.player.CustomDefaultTrackNameProvider;
 import mycinevo.streambox.util.player.CustomPlayerView;
 
+/** @noinspection deprecation*/
 @UnstableApi
 public class PlayerMovieActivity extends AppCompatActivity {
 
@@ -78,11 +86,12 @@ public class PlayerMovieActivity extends AppCompatActivity {
     private DefaultBandwidthMeter BANDWIDTH_METER;
     private DataSource.Factory mediaDataSourceFactory;
     private DBHelper dbHelper;
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private ProgressBar pb_player;
     private TextView tv_player_title;
     private BroadcastReceiver batteryReceiver;
     private ImageView exo_resize;
+    private ItemMediaData itemMediaData = null;
 
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
     static {
@@ -99,6 +108,7 @@ public class PlayerMovieActivity extends AppCompatActivity {
         IfSupported.IsRTL(this);
         IfSupported.IsScreenshot(this);
         IfSupported.hideBottomBar(this);
+        IfSupported.statusBarBlackColor(this);
 
         stream_id = getIntent().getStringExtra("stream_id");
         container = getIntent().getStringExtra("container");
@@ -107,7 +117,7 @@ public class PlayerMovieActivity extends AppCompatActivity {
         stream_icon = getIntent().getStringExtra("stream_icon");
 
         dbHelper = new DBHelper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
 
         pb_player = findViewById(R.id.pb_player);
         tv_player_title = findViewById(R.id.tv_player_title);
@@ -118,28 +128,36 @@ public class PlayerMovieActivity extends AppCompatActivity {
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
 
+        // https://github.com/google/ExoPlayer/issues/8571
+        DefaultExtractorsFactory extractorsFactory = ApplicationUtil.getDefaultExtractorsFactory();
+        DefaultRenderersFactory renderersFactory = ApplicationUtil.getDefaultRenderersFactory(this);
+
+        DefaultTrackSelector trackSelector = new DefaultTrackSelector(this);
+
+        final CaptioningManager captioningManager = (CaptioningManager) getSystemService(Context.CAPTIONING_SERVICE);
+        if (!captioningManager.isEnabled()) {
+            trackSelector.setParameters(trackSelector.buildUponParameters().setIgnoredTextSelectionFlags(C.SELECTION_FLAG_DEFAULT));
+        }
+        Locale locale = captioningManager.getLocale();
+        if (locale != null) {
+            trackSelector.setParameters(trackSelector.buildUponParameters().setPreferredTextLanguage(locale.getISO3Language()));
+        }
+
+        exoPlayer = new SimpleExoPlayer.Builder(this, renderersFactory)
+                .setTrackSelector(trackSelector)
+                .setMediaSourceFactory(new DefaultMediaSourceFactory(this, extractorsFactory))
+                .build();
+
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setUsage(C.USAGE_MEDIA)
                 .setContentType(C.AUDIO_CONTENT_TYPE_MOVIE)
                 .build();
-
-        DefaultExtractorsFactory extractorsFactory = new DefaultExtractorsFactory()
-                .setTsExtractorFlags(DefaultTsPayloadReaderFactory.FLAG_ENABLE_HDMV_DTS_AUDIO_STREAMS)
-                .setTsExtractorTimestampSearchBytes(1500 * TsExtractor.TS_PACKET_SIZE);
-
-        DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(this);
-        renderersFactory.setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON);
-
-        exoPlayer = new SimpleExoPlayer.Builder(this, renderersFactory)
-                .setTrackSelector(new DefaultTrackSelector(this))
-                .setMediaSourceFactory(new DefaultMediaSourceFactory(this, extractorsFactory))
-                .setAudioAttributes(audioAttributes, true)
-                .build();
+        exoPlayer.setAudioAttributes(audioAttributes, true);
 
         playerView = findViewById(R.id.nSoftsPlayerView);
         playerView.setPlayer(exoPlayer);
-        playerView.setShowVrButton(sharedPref.getIsVR());
-        playerView.setShowSubtitleButton(sharedPref.getIsSubtitle());
+        playerView.setShowVrButton(spHelper.getIsVR());
+        playerView.setShowSubtitleButton(spHelper.getIsSubtitle());
         playerView.setShowFastForwardButton(true);
         playerView.setShowRewindButton(true);
         playerView.setShowNextButton(false);
@@ -147,9 +165,28 @@ public class PlayerMovieActivity extends AppCompatActivity {
         playerView.setControllerHideOnTouch(true);
         playerView.setControllerAutoShow(true);
 
-        playerView.setControllerVisibilityListener((PlayerView.ControllerVisibilityListener) visibility -> findViewById(R.id.rl_player_movie_top).setVisibility(visibility));
+        playerView.setControllerVisibilityListener((PlayerView.ControllerVisibilityListener) visibility -> {
+            findViewById(R.id.rl_player_movie_top).setVisibility(visibility);
+
+            // https://developer.android.com/training/system-ui/immersive
+            IfSupported.toggleSystemUi(PlayerMovieActivity.this, playerView, visibility == View.VISIBLE);
+            if (visibility == View.VISIBLE) {
+                // Because when using dpad controls, focus resets to first item in bottom controls bar
+                findViewById(R.id.exo_play_pause).requestFocus();
+            }
+        });
 
         playerView.setBrightnessControl(new BrightnessVolumeControl(this));
+
+        try {
+            PlayerControlView controlView = playerView.findViewById(R.id.exo_controller);
+            CustomDefaultTrackNameProvider customDefaultTrackNameProvider = new CustomDefaultTrackNameProvider(getResources());
+            final Field field = PlayerControlView.class.getDeclaredField("trackNameProvider");
+            field.setAccessible(true);
+            field.set(controlView, customDefaultTrackNameProvider);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
         setMediaSource(dbHelper.getSeekMovie(stream_id, movie_name));
 
@@ -209,6 +246,15 @@ public class PlayerMovieActivity extends AppCompatActivity {
             battery_info.setVisibility(View.INVISIBLE);
         }
 
+        findViewById(R.id.iv_media_info).setOnClickListener(v -> {
+            if (itemMediaData != null){
+                playerView.hideController();
+                DialogUtil.DialogPlayerInfo(PlayerMovieActivity.this, itemMediaData);
+            } else {
+                Toasty.makeText(this,getString(R.string.please_wait_a_minute), Toasty.ERROR);
+            }
+        });
+
         findViewById(R.id.iv_back_player).setOnClickListener(v -> finish());
         if (ApplicationUtil.isTvBox(this)){
             findViewById(R.id.iv_back_player).setVisibility(View.GONE);
@@ -223,12 +269,14 @@ public class PlayerMovieActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void setMediaSource(int currentPosition) {
         if (NetworkUtils.isConnected(this)){
-            if (sharedPref.isLogged()){
+            if (spHelper.isLogged()){
                 tv_player_title.setText(movie_name);
-                String channelUrl = sharedPref.getServerURL()+"movie/"+sharedPref.getUserName()+"/"+sharedPref.getPassword()+"/"+stream_id+"."+container;
+                String channelUrl = spHelper.getServerURL()+"movie/"+ spHelper.getUserName()+"/"+ spHelper.getPassword()+"/"+stream_id+"."+container;
                 Uri uri = Uri.parse(channelUrl);
+
                 MediaSource mediaSource = buildMediaSource(uri);
                 exoPlayer.setMediaSource(mediaSource);
                 exoPlayer.seekTo(currentPosition);
@@ -237,10 +285,47 @@ public class PlayerMovieActivity extends AppCompatActivity {
 
                 try {
                     ItemMovies itemMovies = new ItemMovies(movie_name,stream_id,stream_icon,stream_rating,"");
-                    dbHelper.addToMovie(DBHelper.TABLE_RECENT_MOVIE, itemMovies, sharedPref.getMovieLimit());
+                    dbHelper.addToMovie(DBHelper.TABLE_RECENT_MOVIE, itemMovies, spHelper.getMovieLimit());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                new AsyncTask<String, String, String>() {
+
+                    @Override
+                    protected String doInBackground(String... strings) {
+                        try {
+                            itemMediaData = null;
+                            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+                            try {
+                                retriever.setDataSource(channelUrl);
+
+                                String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+                                String video_title = "Video Title: "+(title != null && !title.isEmpty() ? title  : movie_name);
+
+                                String video_type = "Video Type: "+retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_MIMETYPE);
+                                String frameWidth = "Frame width: "+retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
+                                String frameHeight = "Frame height: "+retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
+
+                                itemMediaData = new ItemMediaData(video_title, video_type, frameWidth, frameHeight);
+
+                                retriever.release();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            return "1";
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return "0";
+                        }
+                    }
+
+                    @Override
+                    protected void onPostExecute(String s) {
+                        super.onPostExecute(s);
+
+                    }
+                }.execute();
             }
         } else {
             Toasty.makeText(PlayerMovieActivity.this, getString(R.string.err_internet_not_connected), Toasty.ERROR);
@@ -250,27 +335,32 @@ public class PlayerMovieActivity extends AppCompatActivity {
     @SuppressLint("SwitchIntDef")
     @NonNull
     private MediaSource buildMediaSource(Uri uri) {
-        int type = Util.inferContentType(uri);
-        switch (type) {
-            case C.TYPE_SS -> {
-                return new SsMediaSource.Factory(new DefaultSsChunkSource.Factory(mediaDataSourceFactory), buildDataSourceFactory(false)).createMediaSource(MediaItem.fromUri(uri));
-            }
-            case C.TYPE_DASH -> {
-                return new DashMediaSource.Factory(new DefaultDashChunkSource.Factory(mediaDataSourceFactory), buildDataSourceFactory(false)).createMediaSource(MediaItem.fromUri(uri));
-            }
-            case C.TYPE_HLS -> {
-                return new HlsMediaSource.Factory(mediaDataSourceFactory).createMediaSource(MediaItem.fromUri(uri));
-            }
-            case C.TYPE_RTSP -> {
-                return new RtspMediaSource.Factory().createMediaSource(MediaItem.fromUri(uri));
-            }
-            case C.TYPE_OTHER -> {
-                return new ProgressiveMediaSource.Factory(mediaDataSourceFactory).createMediaSource(MediaItem.fromUri(uri));
-            }
-            default -> throw new IllegalStateException("Unsupported type: " + type);
-        }
+        int contentType  = Util.inferContentType(uri);
+        MediaItem mediaItem = new MediaItem.Builder()
+                .setUri(uri)
+                .build();
+        return switch (contentType) {
+            case C.TYPE_DASH ->
+                    new DashMediaSource.Factory(new DefaultDashChunkSource.Factory(mediaDataSourceFactory), buildDataSourceFactory(false))
+                            .createMediaSource(mediaItem);
+            case C.TYPE_SS ->
+                    new SsMediaSource.Factory(new DefaultSsChunkSource.Factory(mediaDataSourceFactory), buildDataSourceFactory(false))
+                            .createMediaSource(mediaItem);
+            case C.TYPE_HLS ->
+                    new HlsMediaSource.Factory(mediaDataSourceFactory)
+                            .createMediaSource(mediaItem);
+            case C.TYPE_RTSP ->
+                    new RtspMediaSource.Factory()
+                            .createMediaSource(mediaItem);
+            case C.TYPE_OTHER ->
+                    new ProgressiveMediaSource.Factory(mediaDataSourceFactory)
+                            .createMediaSource(mediaItem);
+            default ->
+                // This is the MediaSource representing the media to be played.
+                    new ProgressiveMediaSource.Factory(mediaDataSourceFactory)
+                            .createMediaSource(mediaItem);
+        };
     }
-
     private DataSource.Factory buildDataSourceFactory(boolean useBandwidthMeter) {
         return buildDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
     }
@@ -280,7 +370,10 @@ public class PlayerMovieActivity extends AppCompatActivity {
     }
 
     public HttpDataSource.Factory buildHttpDataSourceFactory(DefaultBandwidthMeter bandwidthMeter) {
-        return new DefaultHttpDataSource.Factory().setUserAgent(sharedPref.getAgentName().isEmpty() ? Util.getUserAgent(PlayerMovieActivity.this, "ExoPlayerDemo") : sharedPref.getAgentName())
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER);
+        CookieHandler.setDefault(cookieManager);
+        return new DefaultHttpDataSource.Factory().setUserAgent(spHelper.getAgentName().isEmpty() ? Util.getUserAgent(PlayerMovieActivity.this, "ExoPlayerDemo") : spHelper.getAgentName())
                 .setTransferListener(bandwidthMeter)
                 .setAllowCrossProtocolRedirects(true)
                 .setKeepPostFor302Redirects(true);
@@ -334,13 +427,9 @@ public class PlayerMovieActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        try {
-            if (exoPlayer != null && exoPlayer.getPlayWhenReady()) {
-                exoPlayer.setPlayWhenReady(false);
-                exoPlayer.getPlaybackState();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (exoPlayer != null && exoPlayer.getPlayWhenReady()) {
+            exoPlayer.setPlayWhenReady(false);
+            exoPlayer.getPlaybackState();
         }
     }
 
@@ -357,26 +446,18 @@ public class PlayerMovieActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        try {
-            if (exoPlayer != null) {
-                exoPlayer.setPlayWhenReady(true);
-                exoPlayer.getPlaybackState();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (exoPlayer != null) {
+            exoPlayer.setPlayWhenReady(true);
+            exoPlayer.getPlaybackState();
         }
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        try {
-            if (exoPlayer != null) {
-                exoPlayer.setPlayWhenReady(true);
-                exoPlayer.getPlaybackState();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (exoPlayer != null) {
+            exoPlayer.setPlayWhenReady(true);
+            exoPlayer.getPlaybackState();
         }
     }
 

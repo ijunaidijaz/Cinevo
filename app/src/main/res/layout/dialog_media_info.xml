@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_media"
+        android:layout_alignParentEnd="true"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_player_info"
+        android:paddingEnd="@dimen/_15sdp"
+        android:paddingTop="@dimen/_15sdp"
+        android:paddingBottom="@dimen/_15sdp"
+        android:paddingStart="@dimen/_30sdp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/_3sdp"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:padding="@dimen/_1sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_information"
+                android:contentDescription="@string/todo"/>
+
+            <TextView
+                android:textSize="@dimen/_15sdp"
+                android:textColor="?ns_white"
+                android:textStyle="bold"
+                android:text="Information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_2sdp"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_media_title"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="?ns_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/iv_close_vw"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@+id/ll_media" />
+
+</RelativeLayout>

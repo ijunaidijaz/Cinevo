@@ -33,7 +33,7 @@ import mycinevo.streambox.item.ItemLive;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.util.helper.JSHelper;
 
@@ -41,7 +41,7 @@ import mycinevo.streambox.util.helper.JSHelper;
 public class EPGActivity extends AppCompatActivity {
 
     private Helper helper;
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private JSHelper jsHelper;
     private String cat_id = "0";
     private RecyclerView rv_live;
@@ -77,7 +77,7 @@ public class EPGActivity extends AppCompatActivity {
         cat_id = getIntent().getStringExtra("cat_id");
 
         jsHelper = new JSHelper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
         helper = new Helper(this);
 
         arrayList = new ArrayList<>();
@@ -178,7 +178,7 @@ public class EPGActivity extends AppCompatActivity {
                         setEpg();
                     }
                 }
-            }, helper.getAPIRequestID("get_simple_data_table","stream_id", arrayList.get(playPos).getStreamID(), sharedPref.getUserName(), sharedPref.getPassword()));
+            }, helper.getAPIRequestID("get_simple_data_table","stream_id", arrayList.get(playPos).getStreamID(), spHelper.getUserName(), spHelper.getPassword()));
             loadSeriesID.execute();
         } else {
             Toasty.makeText(this, getString(R.string.err_internet_not_connected), Toasty.ERROR);

@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.accessibility.CaptioningManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -47,9 +48,8 @@ import androidx.media3.exoplayer.source.ProgressiveMediaSource;
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector;
 import androidx.media3.exoplayer.upstream.DefaultBandwidthMeter;
 import androidx.media3.extractor.DefaultExtractorsFactory;
-import androidx.media3.extractor.ts.DefaultTsPayloadReaderFactory;
-import androidx.media3.extractor.ts.TsExtractor;
 import androidx.media3.ui.AspectRatioFrameLayout;
+import androidx.media3.ui.PlayerView;
 import androidx.nemosofts.AppCompat;
 import androidx.nemosofts.AppCompatActivity;
 
@@ -57,6 +57,7 @@ import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import mycinevo.streambox.R;
 import mycinevo.streambox.asyncTask.LoadEpg;
@@ -68,7 +69,7 @@ import mycinevo.streambox.item.ItemEpg;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.SharedPref;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.util.player.BrightnessVolumeControl;
@@ -85,7 +86,7 @@ public class PlayerLiveActivity extends AppCompatActivity {
     private ImageView iv_play, iv_player_fav, btnTryAgain;
     private Helper helper;
     private DBHelper dbHelper;
-    private SharedPref sharedPref;
+    private SPHelper spHelper;
     private TextView tv_player_title;
     private ProgressBar pb_player;
     private PlayerLiveListDialog listDialog;
@@ -110,9 +111,10 @@ public class PlayerLiveActivity extends AppCompatActivity {
         IfSupported.IsRTL(this);
         IfSupported.IsScreenshot(this);
         IfSupported.hideBottomBar(this);
+        IfSupported.statusBarBlackColor(this);
 
         helper = new Helper(this);
-        sharedPref = new SharedPref(this);
+        spHelper = new SPHelper(this);
         dbHelper = new DBHelper(this);
 
         listDialog = new PlayerLiveListDialog(this, position -> {
@@ -135,23 +137,31 @@ public class PlayerLiveActivity extends AppCompatActivity {
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
 
+        // https://github.com/google/ExoPlayer/issues/8571
+        DefaultExtractorsFactory extractorsFactory = ApplicationUtil.getDefaultExtractorsFactory();
+        DefaultRenderersFactory renderersFactory = ApplicationUtil.getDefaultRenderersFactory(this);
+
+        DefaultTrackSelector trackSelector = new DefaultTrackSelector(this);
+
+        final CaptioningManager captioningManager = (CaptioningManager) getSystemService(Context.CAPTIONING_SERVICE);
+        if (!captioningManager.isEnabled()) {
+            trackSelector.setParameters(trackSelector.buildUponParameters().setIgnoredTextSelectionFlags(C.SELECTION_FLAG_DEFAULT));
+        }
+        Locale locale = captioningManager.getLocale();
+        if (locale != null) {
+            trackSelector.setParameters(trackSelector.buildUponParameters().setPreferredTextLanguage(locale.getISO3Language()));
+        }
+
+        exoPlayer = new SimpleExoPlayer.Builder(this, renderersFactory)
+                .setTrackSelector(trackSelector)
+                .setMediaSourceFactory(new DefaultMediaSourceFactory(this, extractorsFactory))
+                .build();
+
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setUsage(C.USAGE_MEDIA)
                 .setContentType(C.AUDIO_CONTENT_TYPE_MOVIE)
                 .build();
-
-        DefaultExtractorsFactory extractorsFactory = new DefaultExtractorsFactory()
-                .setTsExtractorFlags(DefaultTsPayloadReaderFactory.FLAG_ENABLE_HDMV_DTS_AUDIO_STREAMS)
-                .setTsExtractorTimestampSearchBytes(1500 * TsExtractor.TS_PACKET_SIZE);
-
-        DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(this);
-        renderersFactory.setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON);
-
-        exoPlayer = new SimpleExoPlayer.Builder(this, renderersFactory)
-                .setTrackSelector(new DefaultTrackSelector(this))
-                .setMediaSourceFactory(new DefaultMediaSourceFactory(this, extractorsFactory))
-                .setAudioAttributes(audioAttributes, true)
-                .build();
+        exoPlayer.setAudioAttributes(audioAttributes, true);
 
         playerView = findViewById(R.id.nSoftsPlayerView);
         playerView.setPlayer(exoPlayer);
@@ -160,6 +170,11 @@ public class PlayerLiveActivity extends AppCompatActivity {
         playerView.setControllerHideOnTouch(true);
         playerView.setControllerAutoShow(true);
         playerView.setBrightnessControl(new BrightnessVolumeControl(this));
+
+        playerView.setControllerVisibilityListener((PlayerView.ControllerVisibilityListener) visibility -> {
+            // https://developer.android.com/training/system-ui/immersive
+            IfSupported.toggleSystemUi(PlayerLiveActivity.this, playerView, visibility == View.VISIBLE);
+        });
 
         setMediaSource();
 
@@ -230,7 +245,7 @@ public class PlayerLiveActivity extends AppCompatActivity {
                 Toast.makeText(PlayerLiveActivity.this, getString(R.string.fav_success), Toast.LENGTH_SHORT).show();
             }
         });
-        if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
+        if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
             iv_player_fav.setVisibility(View.INVISIBLE);
         }
         findViewById(R.id.ll_multiple_screen).setOnClickListener(v -> {
@@ -296,9 +311,10 @@ public class PlayerLiveActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void setMediaSource() {
         if (NetworkUtils.isConnected(this)){
-            if (!Callback.arrayListLive.isEmpty() && sharedPref.isLogged() || sharedPref.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
+            if (!Callback.arrayListLive.isEmpty() && spHelper.isLogged() || spHelper.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
 
                 findViewById(R.id.ll_channels_list).setOnClickListener(view -> {
                     playerView.hideController();
@@ -310,23 +326,23 @@ public class PlayerLiveActivity extends AppCompatActivity {
                 }
 
                 tv_player_title.setText(Callback.arrayListLive.get(Callback.playPosLive).getName());
-                if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_ONE_UI) || sharedPref.getLoginType().equals(Callback.TAG_LOGIN_STREAM)){
+                if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_ONE_UI) || spHelper.getLoginType().equals(Callback.TAG_LOGIN_STREAM)){
                     iv_player_fav.setImageResource(Boolean.TRUE.equals(dbHelper.checkLive(DBHelper.TABLE_FAV_LIVE, Callback.arrayListLive.get(Callback.playPosLive).getStreamID())) ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
                 }
 
                 String channelUrl;
-                if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
+                if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
                     channelUrl = Callback.arrayListLive.get(Callback.playPosLive).getStreamID();
                     rl_player_epg.setVisibility(View.GONE);
                 } else {
                     String format = ".m3u8";
-                    if (sharedPref.getLiveFormat() == 1){
+                    if (spHelper.getLiveFormat() == 1){
                         format = ".ts";
                     }
-                    if (Boolean.TRUE.equals(sharedPref.getIsXuiUser())){
-                        channelUrl = sharedPref.getServerURL()+sharedPref.getUserName()+"/"+sharedPref.getPassword()+"/"+Callback.arrayListLive.get(Callback.playPosLive).getStreamID()+format;
+                    if (Boolean.TRUE.equals(spHelper.getIsXuiUser())){
+                        channelUrl = spHelper.getServerURL()+ spHelper.getUserName()+"/"+ spHelper.getPassword()+"/"+Callback.arrayListLive.get(Callback.playPosLive).getStreamID()+format;
                     } else {
-                        channelUrl = sharedPref.getServerURL()+"live/"+sharedPref.getUserName()+"/"+sharedPref.getPassword()+"/"+Callback.arrayListLive.get(Callback.playPosLive).getStreamID()+format;
+                        channelUrl = spHelper.getServerURL()+"live/"+ spHelper.getUserName()+"/"+ spHelper.getPassword()+"/"+Callback.arrayListLive.get(Callback.playPosLive).getStreamID()+format;
                     }
                     getEpgData();
                 }
@@ -339,9 +355,9 @@ public class PlayerLiveActivity extends AppCompatActivity {
                 iv_play.setImageResource(R.drawable.ic_pause);
                 iv_play.setVisibility(View.VISIBLE);
 
-                if (sharedPref.getLoginType().equals(Callback.TAG_LOGIN_ONE_UI) || sharedPref.getLoginType().equals(Callback.TAG_LOGIN_STREAM)){
+                if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_ONE_UI) || spHelper.getLoginType().equals(Callback.TAG_LOGIN_STREAM)){
                     try {
-                        dbHelper.addToLive(DBHelper.TABLE_RECENT_LIVE, Callback.arrayListLive.get(Callback.playPosLive), sharedPref.getLiveLimit());
+                        dbHelper.addToLive(DBHelper.TABLE_RECENT_LIVE, Callback.arrayListLive.get(Callback.playPosLive), spHelper.getLiveLimit());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -373,7 +389,7 @@ public class PlayerLiveActivity extends AppCompatActivity {
                         }
                     }
                 }
-            }, helper.getAPIRequestID("get_short_epg","stream_id", Callback.arrayListLive.get(Callback.playPosLive).getStreamID(), sharedPref.getUserName(), sharedPref.getPassword()));
+            }, helper.getAPIRequestID("get_short_epg","stream_id", Callback.arrayListLive.get(Callback.playPosLive).getStreamID(), spHelper.getUserName(), spHelper.getPassword()));
             loadSeriesID.execute();
         }
     }
@@ -381,25 +397,31 @@ public class PlayerLiveActivity extends AppCompatActivity {
     @SuppressLint("SwitchIntDef")
     @NonNull
     private MediaSource buildMediaSource(Uri uri) {
-        int type = Util.inferContentType(uri);
-        switch (type) {
-            case C.TYPE_SS -> {
-                return new SsMediaSource.Factory(new DefaultSsChunkSource.Factory(mediaDataSourceFactory), buildDataSourceFactory(false)).createMediaSource(MediaItem.fromUri(uri));
-            }
-            case C.TYPE_DASH -> {
-                return new DashMediaSource.Factory(new DefaultDashChunkSource.Factory(mediaDataSourceFactory), buildDataSourceFactory(false)).createMediaSource(MediaItem.fromUri(uri));
-            }
-            case C.TYPE_HLS -> {
-                return new HlsMediaSource.Factory(mediaDataSourceFactory).createMediaSource(MediaItem.fromUri(uri));
-            }
-            case C.TYPE_RTSP -> {
-                return new RtspMediaSource.Factory().createMediaSource(MediaItem.fromUri(uri));
-            }
-            case C.TYPE_OTHER -> {
-                return new ProgressiveMediaSource.Factory(mediaDataSourceFactory).createMediaSource(MediaItem.fromUri(uri));
-            }
-            default -> throw new IllegalStateException("Unsupported type: " + type);
-        }
+        int contentType  = Util.inferContentType(uri);
+        MediaItem mediaItem = new MediaItem.Builder()
+                .setUri(uri)
+                .build();
+        return switch (contentType) {
+            case C.TYPE_DASH ->
+                    new DashMediaSource.Factory(new DefaultDashChunkSource.Factory(mediaDataSourceFactory), buildDataSourceFactory(false))
+                            .createMediaSource(mediaItem);
+            case C.TYPE_SS ->
+                    new SsMediaSource.Factory(new DefaultSsChunkSource.Factory(mediaDataSourceFactory), buildDataSourceFactory(false))
+                            .createMediaSource(mediaItem);
+            case C.TYPE_HLS ->
+                    new HlsMediaSource.Factory(mediaDataSourceFactory)
+                            .createMediaSource(mediaItem);
+            case C.TYPE_RTSP ->
+                    new RtspMediaSource.Factory()
+                            .createMediaSource(mediaItem);
+            case C.TYPE_OTHER ->
+                    new ProgressiveMediaSource.Factory(mediaDataSourceFactory)
+                            .createMediaSource(mediaItem);
+            default ->
+                // This is the MediaSource representing the media to be played.
+                    new ProgressiveMediaSource.Factory(mediaDataSourceFactory)
+                            .createMediaSource(mediaItem);
+        };
     }
 
     private DataSource.Factory buildDataSourceFactory(boolean useBandwidthMeter) {
@@ -412,7 +434,10 @@ public class PlayerLiveActivity extends AppCompatActivity {
     }
 
     public HttpDataSource.Factory buildHttpDataSourceFactory(DefaultBandwidthMeter bandwidthMeter) {
-        return new DefaultHttpDataSource.Factory().setUserAgent(sharedPref.getAgentName().isEmpty() ? Util.getUserAgent(PlayerLiveActivity.this, "ExoPlayerDemo") : sharedPref.getAgentName())
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER);
+        CookieHandler.setDefault(cookieManager);
+        return new DefaultHttpDataSource.Factory().setUserAgent(spHelper.getAgentName().isEmpty() ? Util.getUserAgent(PlayerLiveActivity.this, "ExoPlayerDemo") : spHelper.getAgentName())
                 .setTransferListener(bandwidthMeter)
                 .setAllowCrossProtocolRedirects(true)
                 .setKeepPostFor302Redirects(true);
