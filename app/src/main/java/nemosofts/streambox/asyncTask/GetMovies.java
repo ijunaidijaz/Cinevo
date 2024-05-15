@@ -1,4 +1,4 @@
-package nemosofts.streambox.asyncTask;
+package mycinevo.streambox.asyncTask;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import nemosofts.streambox.interfaces.GetMovieListener;
-import nemosofts.streambox.item.ItemMovies;
-import nemosofts.streambox.util.helper.DBHelper;
-import nemosofts.streambox.util.helper.JSHelper;
+import mycinevo.streambox.interfaces.GetMovieListener;
+import mycinevo.streambox.item.ItemMovies;
+import mycinevo.streambox.util.helper.DBHelper;
+import mycinevo.streambox.util.helper.JSHelper;
 
 public class GetMovies extends AsyncTask<String, String, String> {
 

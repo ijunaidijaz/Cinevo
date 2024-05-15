@@ -1,4 +1,4 @@
-package nemosofts.streambox.adapter.player;
+package mycinevo.streambox.adapter.player;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,9 +17,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.item.ItemEpisodes;
-import nemosofts.streambox.util.ApplicationUtil;
+import mycinevo.streambox.R;
+import mycinevo.streambox.item.ItemEpisodes;
+import mycinevo.streambox.util.ApplicationUtil;
 
 public class AdapterEpisodesPlayer extends RecyclerView.Adapter<AdapterEpisodesPlayer.ViewHolder> {
 

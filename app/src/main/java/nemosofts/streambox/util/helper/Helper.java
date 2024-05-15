@@ -1,4 +1,4 @@
-package nemosofts.streambox.util.helper;
+package mycinevo.streambox.util.helper;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,15 +12,15 @@ import com.google.gson.JsonObject;
 import java.io.File;
 import java.util.Random;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.activity.DownloadService;
-import nemosofts.streambox.activity.InterstitialActivity;
-import nemosofts.streambox.asyncTask.LoadInterstitial;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.interfaces.InterAdListener;
-import nemosofts.streambox.item.ItemVideoDownload;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.NetworkUtils;
+import mycinevo.streambox.R;
+import mycinevo.streambox.activity.DownloadService;
+import mycinevo.streambox.activity.InterstitialActivity;
+import mycinevo.streambox.asyncTask.LoadInterstitial;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.interfaces.InterAdListener;
+import mycinevo.streambox.item.ItemVideoDownload;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.NetworkUtils;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 

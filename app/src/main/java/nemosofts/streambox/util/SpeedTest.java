@@ -1,4 +1,4 @@
-package nemosofts.streambox.util;
+package mycinevo.streambox.util;
 
 import android.os.AsyncTask;
 

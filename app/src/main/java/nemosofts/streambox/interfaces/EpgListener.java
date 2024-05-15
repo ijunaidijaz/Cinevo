@@ -1,8 +1,8 @@
-package nemosofts.streambox.interfaces;
+package mycinevo.streambox.interfaces;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.item.ItemEpg;
+import mycinevo.streambox.item.ItemEpg;
 
 public interface EpgListener {
     void onStart();

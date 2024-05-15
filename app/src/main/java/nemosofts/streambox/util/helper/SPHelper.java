@@ -1,4 +1,4 @@
-package nemosofts.streambox.util.helper;
+package mycinevo.streambox.util.helper;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.util.Encrypter.EncryptData;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.util.Encrypter.EncryptData;
 
 
 public class SPHelper {

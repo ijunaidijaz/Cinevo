@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity.UI;
+package mycinevo.streambox.activity.UI;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,21 +20,21 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.activity.DownloadActivity;
-import nemosofts.streambox.activity.MultipleScreenActivity;
-import nemosofts.streambox.activity.NotificationsActivity;
-import nemosofts.streambox.activity.PlaylistLiveTvActivity;
-import nemosofts.streambox.activity.PlaylistMovieActivity;
-import nemosofts.streambox.activity.SettingActivity;
-import nemosofts.streambox.activity.UsersListActivity;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.DialogUtil;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.NetworkUtils;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.helper.JSHelper;
+import mycinevo.streambox.R;
+import mycinevo.streambox.activity.DownloadActivity;
+import mycinevo.streambox.activity.MultipleScreenActivity;
+import mycinevo.streambox.activity.NotificationsActivity;
+import mycinevo.streambox.activity.PlaylistLiveTvActivity;
+import mycinevo.streambox.activity.PlaylistMovieActivity;
+import mycinevo.streambox.activity.SettingActivity;
+import mycinevo.streambox.activity.UsersListActivity;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.DialogUtil;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.NetworkUtils;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.helper.JSHelper;
 
 public class PlaylistActivity extends AppCompatActivity implements View.OnClickListener {
 

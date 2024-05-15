@@ -1,4 +1,4 @@
-package nemosofts.streambox.item;
+package mycinevo.streambox.item;
 
 import androidx.annotation.DrawableRes;
 

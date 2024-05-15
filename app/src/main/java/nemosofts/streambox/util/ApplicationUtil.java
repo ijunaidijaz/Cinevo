@@ -1,4 +1,4 @@
-package nemosofts.streambox.util;
+package mycinevo.streambox.util;
 
 import static android.content.Context.UI_MODE_SERVICE;
 
@@ -43,17 +43,17 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.activity.SelectPlayerActivity;
-import nemosofts.streambox.activity.UI.BlackPantherActivity;
-import nemosofts.streambox.activity.UI.GlossyActivity;
-import nemosofts.streambox.activity.UI.MovieUIActivity;
-import nemosofts.streambox.activity.UI.OneUIActivity;
-import nemosofts.streambox.activity.UI.PlaylistActivity;
-import nemosofts.streambox.activity.UI.SingleStreamActivity;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.player.CustomPlayerView;
+import mycinevo.streambox.R;
+import mycinevo.streambox.activity.SelectPlayerActivity;
+import mycinevo.streambox.activity.UI.BlackPantherActivity;
+import mycinevo.streambox.activity.UI.GlossyActivity;
+import mycinevo.streambox.activity.UI.MovieUIActivity;
+import mycinevo.streambox.activity.UI.OneUIActivity;
+import mycinevo.streambox.activity.UI.PlaylistActivity;
+import mycinevo.streambox.activity.UI.SingleStreamActivity;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.player.CustomPlayerView;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;

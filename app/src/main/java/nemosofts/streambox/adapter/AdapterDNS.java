@@ -1,4 +1,4 @@
-package nemosofts.streambox.adapter;
+package mycinevo.streambox.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.item.ItemDns;
-import nemosofts.streambox.util.ApplicationUtil;
+import mycinevo.streambox.R;
+import mycinevo.streambox.item.ItemDns;
+import mycinevo.streambox.util.ApplicationUtil;
 
 public class AdapterDNS extends RecyclerView.Adapter<AdapterDNS.MyViewHolder> {
 

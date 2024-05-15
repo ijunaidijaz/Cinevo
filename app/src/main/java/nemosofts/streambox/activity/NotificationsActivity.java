@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,11 +17,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.adapter.AdapterNotification;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
+import mycinevo.streambox.R;
+import mycinevo.streambox.adapter.AdapterNotification;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
 
 public class NotificationsActivity extends AppCompatActivity {
 

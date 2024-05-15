@@ -7,7 +7,7 @@
     android:gravity="center"
     android:keepScreenOn="true">
 
-    <nemosofts.streambox.util.player.CustomPlayerView
+    <mycinevo.streambox.util.player.CustomPlayerView
         android:id="@+id/nSoftsPlayerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

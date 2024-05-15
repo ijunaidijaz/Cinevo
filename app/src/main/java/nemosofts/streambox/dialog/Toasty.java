@@ -1,4 +1,4 @@
-package nemosofts.streambox.dialog;
+package mycinevo.streambox.dialog;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.util.IfSupported;
+import mycinevo.streambox.R;
+import mycinevo.streambox.util.IfSupported;
 
 public class Toasty {
 

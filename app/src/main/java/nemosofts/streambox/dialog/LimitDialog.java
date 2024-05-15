@@ -1,4 +1,4 @@
-package nemosofts.streambox.dialog;
+package mycinevo.streambox.dialog;
 
 import static android.view.WindowManager.LayoutParams.MATCH_PARENT;
 import static android.view.WindowManager.LayoutParams.WRAP_CONTENT;
@@ -10,9 +10,9 @@ import android.widget.RadioGroup;
 
 import java.util.Objects;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.helper.SPHelper;
+import mycinevo.streambox.R;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class LimitDialog {
 

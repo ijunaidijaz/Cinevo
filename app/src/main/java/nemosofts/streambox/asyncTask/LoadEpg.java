@@ -1,4 +1,4 @@
-package nemosofts.streambox.asyncTask;
+package mycinevo.streambox.asyncTask;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -8,10 +8,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.interfaces.EpgListener;
-import nemosofts.streambox.item.ItemEpg;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.helper.SPHelper;
+import mycinevo.streambox.interfaces.EpgListener;
+import mycinevo.streambox.item.ItemEpg;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.helper.SPHelper;
 import okhttp3.RequestBody;
 
 public class LoadEpg extends AsyncTask<String, String, String> {

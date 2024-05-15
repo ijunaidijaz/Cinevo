@@ -1,4 +1,4 @@
-package nemosofts.streambox.util.player;
+package mycinevo.streambox.util.player;
 
 import android.content.res.Resources;
 
@@ -7,7 +7,7 @@ import androidx.media3.common.Format;
 import androidx.media3.common.MimeTypes;
 import androidx.media3.ui.DefaultTrackNameProvider;
 
-import nemosofts.streambox.BuildConfig;
+import mycinevo.streambox.BuildConfig;
 
 @OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)
 public class CustomDefaultTrackNameProvider extends DefaultTrackNameProvider {

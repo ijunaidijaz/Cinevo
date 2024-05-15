@@ -1,8 +1,8 @@
-package nemosofts.streambox.interfaces;
+package mycinevo.streambox.interfaces;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.item.ItemCat;
+import mycinevo.streambox.item.ItemCat;
 
 public interface GetCategoryListener {
     void onStart();

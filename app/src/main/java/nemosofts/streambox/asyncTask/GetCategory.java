@@ -1,4 +1,4 @@
-package nemosofts.streambox.asyncTask;
+package mycinevo.streambox.asyncTask;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -7,9 +7,9 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.interfaces.GetCategoryListener;
-import nemosofts.streambox.item.ItemCat;
-import nemosofts.streambox.util.helper.JSHelper;
+import mycinevo.streambox.interfaces.GetCategoryListener;
+import mycinevo.streambox.item.ItemCat;
+import mycinevo.streambox.util.helper.JSHelper;
 
 public class GetCategory extends AsyncTask<String, String, String> {
 

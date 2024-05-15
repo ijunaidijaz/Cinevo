@@ -1,4 +1,4 @@
-package nemosofts.streambox.asyncTask;
+package mycinevo.streambox.asyncTask;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,8 +13,8 @@ import com.google.gson.JsonObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.callback.Callback;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.callback.Callback;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 

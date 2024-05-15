@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'nemosofts.streambox'
+    namespace 'mycinevo.streambox'
     compileSdk 34
 
     defaultConfig {
-        applicationId "nsofts.streambox"
+        applicationId "mycinevo.streambox"
         minSdk 22
         targetSdk 34
         versionCode 13

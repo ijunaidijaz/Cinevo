@@ -1,4 +1,4 @@
-package nemosofts.streambox.adapter.epg;
+package mycinevo.streambox.adapter.epg;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import nemosofts.streambox.R;
+import mycinevo.streambox.R;
 
 public class AdapterEpg extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

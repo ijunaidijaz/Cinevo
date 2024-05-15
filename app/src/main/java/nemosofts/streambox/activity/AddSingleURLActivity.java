@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -16,17 +16,17 @@ import androidx.media3.common.util.UnstableApi;
 import androidx.nemosofts.AppCompat;
 import androidx.nemosofts.AppCompatActivity;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.activity.UI.SingleStreamActivity;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.DialogUtil;
-import nemosofts.streambox.dialog.Toasty;
-import nemosofts.streambox.item.ItemSingleURL;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.helper.DBHelper;
-import nemosofts.streambox.view.NSoftsProgressDialog;
+import mycinevo.streambox.R;
+import mycinevo.streambox.activity.UI.SingleStreamActivity;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.DialogUtil;
+import mycinevo.streambox.dialog.Toasty;
+import mycinevo.streambox.item.ItemSingleURL;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.helper.DBHelper;
+import mycinevo.streambox.view.NSoftsProgressDialog;
 
 @UnstableApi
 public class AddSingleURLActivity extends AppCompatActivity {

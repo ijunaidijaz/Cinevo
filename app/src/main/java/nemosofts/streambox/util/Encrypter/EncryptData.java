@@ -1,4 +1,4 @@
-package nemosofts.streambox.util.Encrypter;
+package mycinevo.streambox.util.Encrypter;
 
 import android.content.Context;
 
@@ -8,7 +8,7 @@ import com.yakivmospan.scytale.Store;
 
 import javax.crypto.SecretKey;
 
-import nemosofts.streambox.BuildConfig;
+import mycinevo.streambox.BuildConfig;
 
 public class EncryptData {
 

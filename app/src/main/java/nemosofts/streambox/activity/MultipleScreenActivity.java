@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -44,12 +44,12 @@ import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.DialogUtil;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.helper.SPHelper;
+import mycinevo.streambox.R;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.DialogUtil;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.helper.SPHelper;
 
 @UnstableApi
 public class MultipleScreenActivity extends AppCompatActivity {

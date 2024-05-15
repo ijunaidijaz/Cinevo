@@ -1,4 +1,4 @@
-package nemosofts.streambox.util.recycler;
+package mycinevo.streambox.util.recycler;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;

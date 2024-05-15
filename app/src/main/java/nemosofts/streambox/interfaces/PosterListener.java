@@ -1,8 +1,8 @@
-package nemosofts.streambox.interfaces;
+package mycinevo.streambox.interfaces;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.item.ItemPoster;
+import mycinevo.streambox.item.ItemPoster;
 
 public interface PosterListener {
     void onStart();

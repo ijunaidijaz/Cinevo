@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.READ_MEDIA_AUDIO;
@@ -29,22 +29,22 @@ import androidx.nemosofts.AppCompatActivity;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.activity.UI.PlaylistActivity;
-import nemosofts.streambox.asyncTask.LoadPlaylist;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.DialogUtil;
-import nemosofts.streambox.dialog.Toasty;
-import nemosofts.streambox.interfaces.LoadPlaylistListener;
-import nemosofts.streambox.item.ItemPlaylist;
-import nemosofts.streambox.item.ItemUsersDB;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.NetworkUtils;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.helper.DBHelper;
-import nemosofts.streambox.util.helper.JSHelper;
-import nemosofts.streambox.view.NSoftsProgressDialog;
+import mycinevo.streambox.R;
+import mycinevo.streambox.activity.UI.PlaylistActivity;
+import mycinevo.streambox.asyncTask.LoadPlaylist;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.DialogUtil;
+import mycinevo.streambox.dialog.Toasty;
+import mycinevo.streambox.interfaces.LoadPlaylistListener;
+import mycinevo.streambox.item.ItemPlaylist;
+import mycinevo.streambox.item.ItemUsersDB;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.NetworkUtils;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.helper.DBHelper;
+import mycinevo.streambox.util.helper.JSHelper;
+import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class AddPlaylistActivity extends AppCompatActivity {
 

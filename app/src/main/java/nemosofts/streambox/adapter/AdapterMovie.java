@@ -1,4 +1,4 @@
-package nemosofts.streambox.adapter;
+package mycinevo.streambox.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,10 +17,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.item.ItemMovies;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.helper.SPHelper;
+import mycinevo.streambox.R;
+import mycinevo.streambox.item.ItemMovies;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class AdapterMovie extends RecyclerView.Adapter<AdapterMovie.MyViewHolder> {
 

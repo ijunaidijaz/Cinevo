@@ -1,4 +1,4 @@
-package nemosofts.streambox.adapter;
+package mycinevo.streambox.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.dialog.DialogUtil;
-import nemosofts.streambox.item.ItemSingleURL;
-import nemosofts.streambox.util.helper.DBHelper;
+import mycinevo.streambox.R;
+import mycinevo.streambox.dialog.DialogUtil;
+import mycinevo.streambox.item.ItemSingleURL;
+import mycinevo.streambox.util.helper.DBHelper;
 
 public class AdapterSingleURL extends RecyclerView.Adapter<AdapterSingleURL.ViewHolder> {
 

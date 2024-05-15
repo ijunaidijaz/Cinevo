@@ -1,4 +1,4 @@
-package nemosofts.streambox.asyncTask;
+package mycinevo.streambox.asyncTask;
 
 import android.os.AsyncTask;
 
@@ -7,10 +7,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.interfaces.PosterListener;
-import nemosofts.streambox.item.ItemPoster;
-import nemosofts.streambox.util.ApplicationUtil;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.interfaces.PosterListener;
+import mycinevo.streambox.item.ItemPoster;
+import mycinevo.streambox.util.ApplicationUtil;
 import okhttp3.RequestBody;
 
 public class LoadPoster extends AsyncTask<String, String, String> {

@@ -1,4 +1,4 @@
-package nemosofts.streambox.util;
+package mycinevo.streambox.util;
 
 import android.app.Activity;
 import android.os.Build;
@@ -11,9 +11,9 @@ import android.view.WindowManager;
 import androidx.annotation.OptIn;
 import androidx.media3.common.util.UnstableApi;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.player.CustomPlayerView;
+import mycinevo.streambox.R;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.player.CustomPlayerView;
 
 public class IfSupported {
 

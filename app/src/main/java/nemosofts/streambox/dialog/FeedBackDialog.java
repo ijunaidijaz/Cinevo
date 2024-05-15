@@ -1,4 +1,4 @@
-package nemosofts.streambox.dialog;
+package mycinevo.streambox.dialog;
 
 import static android.view.WindowManager.LayoutParams.MATCH_PARENT;
 import static android.view.WindowManager.LayoutParams.WRAP_CONTENT;
@@ -13,15 +13,15 @@ import androidx.annotation.NonNull;
 
 import java.util.Objects;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.asyncTask.LoadStatus;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.interfaces.StatusListener;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.NetworkUtils;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.helper.Helper;
-import nemosofts.streambox.view.NSoftsProgressDialog;
+import mycinevo.streambox.R;
+import mycinevo.streambox.asyncTask.LoadStatus;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.interfaces.StatusListener;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.NetworkUtils;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.helper.Helper;
+import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class FeedBackDialog {
 

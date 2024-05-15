@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -47,20 +47,20 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import nemosofts.streambox.BuildConfig;
-import nemosofts.streambox.R;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.DialogUtil;
-import nemosofts.streambox.dialog.Toasty;
-import nemosofts.streambox.item.ItemMediaData;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.Encrypter.EncryptedFileDataSourceFactory;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.NetworkUtils;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.player.BrightnessVolumeControl;
-import nemosofts.streambox.util.player.CustomDefaultTrackNameProvider;
-import nemosofts.streambox.util.player.CustomPlayerView;
+import mycinevo.streambox.BuildConfig;
+import mycinevo.streambox.R;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.DialogUtil;
+import mycinevo.streambox.dialog.Toasty;
+import mycinevo.streambox.item.ItemMediaData;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.Encrypter.EncryptedFileDataSourceFactory;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.NetworkUtils;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.player.BrightnessVolumeControl;
+import mycinevo.streambox.util.player.CustomDefaultTrackNameProvider;
+import mycinevo.streambox.util.player.CustomPlayerView;
 
 @UnstableApi
 public class PlayerDownloadActivity extends AppCompatActivity {

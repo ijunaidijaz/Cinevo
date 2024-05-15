@@ -1,4 +1,4 @@
-package nemosofts.streambox.asyncTask;
+package mycinevo.streambox.asyncTask;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,9 +14,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import nemosofts.streambox.interfaces.LoadPlaylistListener;
-import nemosofts.streambox.item.ItemPlaylist;
-import nemosofts.streambox.util.HttpsTrustManager;
+import mycinevo.streambox.interfaces.LoadPlaylistListener;
+import mycinevo.streambox.item.ItemPlaylist;
+import mycinevo.streambox.util.HttpsTrustManager;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

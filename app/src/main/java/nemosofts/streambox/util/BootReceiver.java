@@ -1,4 +1,4 @@
-package nemosofts.streambox.util;
+package mycinevo.streambox.util;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.content.Intent;
 
 import java.util.Objects;
 
-import nemosofts.streambox.activity.SplashActivity;
+import mycinevo.streambox.activity.SplashActivity;
 
 public class BootReceiver extends BroadcastReceiver {
     @Override

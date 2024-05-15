@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -16,15 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.BuildConfig;
-import nemosofts.streambox.R;
-import nemosofts.streambox.adapter.AdapterSelect;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.DialogUtil;
-import nemosofts.streambox.item.ItemSelect;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.helper.SPHelper;
+import mycinevo.streambox.BuildConfig;
+import mycinevo.streambox.R;
+import mycinevo.streambox.adapter.AdapterSelect;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.DialogUtil;
+import mycinevo.streambox.item.ItemSelect;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.helper.SPHelper;
 
 @UnstableApi
 public class SelectPlayerActivity extends AppCompatActivity {

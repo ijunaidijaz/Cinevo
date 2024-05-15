@@ -1,4 +1,4 @@
-package nemosofts.streambox.adapter.epg;
+package mycinevo.streambox.adapter.epg;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -14,9 +14,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.item.ItemEpg;
-import nemosofts.streambox.util.ApplicationUtil;
+import mycinevo.streambox.R;
+import mycinevo.streambox.item.ItemEpg;
+import mycinevo.streambox.util.ApplicationUtil;
 
 public class AdapterEpgListings extends RecyclerView.Adapter<AdapterEpgListings.ViewHolder> {
 

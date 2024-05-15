@@ -1,4 +1,4 @@
-package nemosofts.streambox.dialog;
+package mycinevo.streambox.dialog;
 
 import static android.view.WindowManager.LayoutParams.MATCH_PARENT;
 import static android.view.WindowManager.LayoutParams.WRAP_CONTENT;
@@ -19,10 +19,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.activity.WebActivity;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.util.IfSupported;
+import mycinevo.streambox.R;
+import mycinevo.streambox.activity.WebActivity;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.util.IfSupported;
 
 public class PopupAdsDialog {
 

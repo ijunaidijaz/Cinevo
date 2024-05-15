@@ -1,4 +1,4 @@
-package nemosofts.streambox.asyncTask;
+package mycinevo.streambox.asyncTask;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -8,14 +8,14 @@ import androidx.nemosofts.Envato;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.interfaces.AboutListener;
-import nemosofts.streambox.item.ItemDns;
-import nemosofts.streambox.item.ItemNotification;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.helper.DBHelper;
-import nemosofts.streambox.util.helper.Helper;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.interfaces.AboutListener;
+import mycinevo.streambox.item.ItemDns;
+import mycinevo.streambox.item.ItemNotification;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.helper.DBHelper;
+import mycinevo.streambox.util.helper.Helper;
 
 public class LoadAbout extends AsyncTask<String, String, String> {
 

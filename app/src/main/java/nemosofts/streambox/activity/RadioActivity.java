@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -59,16 +59,16 @@ import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.ArrayList;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.adapter.AdapterRadio;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.item.ItemLive;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.NetworkUtils;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.helper.JSHelper;
-import nemosofts.streambox.view.NSoftsProgressDialog;
+import mycinevo.streambox.R;
+import mycinevo.streambox.adapter.AdapterRadio;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.item.ItemLive;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.NetworkUtils;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.helper.JSHelper;
+import mycinevo.streambox.view.NSoftsProgressDialog;
 
 @UnstableApi
 public class RadioActivity extends AppCompatActivity implements View.OnClickListener, Player.Listener {

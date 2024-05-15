@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -48,25 +48,25 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.adapter.AdapterCast;
-import nemosofts.streambox.asyncTask.LoadMovieID;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.FeedBackDialog;
-import nemosofts.streambox.dialog.Toasty;
-import nemosofts.streambox.interfaces.MovieIDListener;
-import nemosofts.streambox.item.ItemCast;
-import nemosofts.streambox.item.ItemInfoMovies;
-import nemosofts.streambox.item.ItemMovies;
-import nemosofts.streambox.item.ItemMoviesData;
-import nemosofts.streambox.item.ItemVideoDownload;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.NetworkUtils;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.helper.DBHelper;
-import nemosofts.streambox.util.helper.Helper;
-import nemosofts.streambox.view.NSoftsProgressDialog;
+import mycinevo.streambox.R;
+import mycinevo.streambox.adapter.AdapterCast;
+import mycinevo.streambox.asyncTask.LoadMovieID;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.FeedBackDialog;
+import mycinevo.streambox.dialog.Toasty;
+import mycinevo.streambox.interfaces.MovieIDListener;
+import mycinevo.streambox.item.ItemCast;
+import mycinevo.streambox.item.ItemInfoMovies;
+import mycinevo.streambox.item.ItemMovies;
+import mycinevo.streambox.item.ItemMoviesData;
+import mycinevo.streambox.item.ItemVideoDownload;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.NetworkUtils;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.helper.DBHelper;
+import mycinevo.streambox.util.helper.Helper;
+import mycinevo.streambox.view.NSoftsProgressDialog;
 
 @UnstableApi
 public class DetailsMovieActivity extends AppCompatActivity {

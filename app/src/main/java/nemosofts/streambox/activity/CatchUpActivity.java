@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -9,10 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.nemosofts.AppCompat;
 import androidx.nemosofts.AppCompatActivity;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
+import mycinevo.streambox.R;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
 
 public class CatchUpActivity extends AppCompatActivity {
 

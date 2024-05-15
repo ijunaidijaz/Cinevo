@@ -1,11 +1,11 @@
-package nemosofts.streambox.adapter.epg;
+package mycinevo.streambox.adapter.epg;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import nemosofts.streambox.item.ItemEpg;
-import nemosofts.streambox.item.ItemLive;
+import mycinevo.streambox.item.ItemEpg;
+import mycinevo.streambox.item.ItemLive;
 
 public class ItemPost implements Serializable{
 

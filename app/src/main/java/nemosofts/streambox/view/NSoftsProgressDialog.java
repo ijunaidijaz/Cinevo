@@ -1,4 +1,4 @@
-package nemosofts.streambox.view;
+package mycinevo.streambox.view;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 
 import java.util.Objects;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.util.IfSupported;
+import mycinevo.streambox.R;
+import mycinevo.streambox.util.IfSupported;
 
 public class NSoftsProgressDialog extends Dialog {
 

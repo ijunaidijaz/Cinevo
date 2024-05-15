@@ -1,10 +1,10 @@
-package nemosofts.streambox.interfaces;
+package mycinevo.streambox.interfaces;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.item.ItemEpisodes;
-import nemosofts.streambox.item.ItemInfoSeasons;
-import nemosofts.streambox.item.ItemSeasons;
+import mycinevo.streambox.item.ItemEpisodes;
+import mycinevo.streambox.item.ItemInfoSeasons;
+import mycinevo.streambox.item.ItemSeasons;
 
 public interface SeriesIDListener {
     void onStart();

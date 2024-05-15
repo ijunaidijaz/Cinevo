@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -58,18 +58,18 @@ import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.Locale;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.DialogUtil;
-import nemosofts.streambox.dialog.Toasty;
-import nemosofts.streambox.item.ItemMediaData;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.NetworkUtils;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.player.BrightnessVolumeControl;
-import nemosofts.streambox.util.player.CustomDefaultTrackNameProvider;
-import nemosofts.streambox.util.player.CustomPlayerView;
+import mycinevo.streambox.R;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.DialogUtil;
+import mycinevo.streambox.dialog.Toasty;
+import mycinevo.streambox.item.ItemMediaData;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.NetworkUtils;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.player.BrightnessVolumeControl;
+import mycinevo.streambox.util.player.CustomDefaultTrackNameProvider;
+import mycinevo.streambox.util.player.CustomPlayerView;
 
 @UnstableApi
 public class PlayerSingleURLActivity extends AppCompatActivity {

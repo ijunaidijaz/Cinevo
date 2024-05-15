@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -20,15 +20,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.adapter.AdapterCat;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.item.ItemCat;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.helper.Helper;
-import nemosofts.streambox.util.helper.JSHelper;
-import nemosofts.streambox.view.NSoftsProgressDialog;
+import mycinevo.streambox.R;
+import mycinevo.streambox.adapter.AdapterCat;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.item.ItemCat;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.helper.Helper;
+import mycinevo.streambox.util.helper.JSHelper;
+import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class CategoriesActivity extends AppCompatActivity {
 

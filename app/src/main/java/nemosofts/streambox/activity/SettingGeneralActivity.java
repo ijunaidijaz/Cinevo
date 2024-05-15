@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
@@ -14,14 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.nemosofts.AppCompat;
 import androidx.nemosofts.AppCompatActivity;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.HoursDialog;
-import nemosofts.streambox.dialog.LimitDialog;
-import nemosofts.streambox.dialog.Toasty;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.helper.SPHelper;
+import mycinevo.streambox.R;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.HoursDialog;
+import mycinevo.streambox.dialog.LimitDialog;
+import mycinevo.streambox.dialog.Toasty;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class SettingGeneralActivity extends AppCompatActivity {
 

@@ -1,11 +1,11 @@
-package nemosofts.streambox.asyncTask;
+package mycinevo.streambox.asyncTask;
 
 import android.os.AsyncTask;
 
 import org.json.JSONObject;
 
-import nemosofts.streambox.interfaces.LoginListener;
-import nemosofts.streambox.util.ApplicationUtil;
+import mycinevo.streambox.interfaces.LoginListener;
+import mycinevo.streambox.util.ApplicationUtil;
 import okhttp3.RequestBody;
 
 public class LoadLogin extends AsyncTask<String, String, String> {

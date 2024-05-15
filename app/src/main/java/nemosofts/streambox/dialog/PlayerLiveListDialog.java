@@ -1,4 +1,4 @@
-package nemosofts.streambox.dialog;
+package mycinevo.streambox.dialog;
 
 import static android.view.WindowManager.LayoutParams.MATCH_PARENT;
 
@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Objects;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.adapter.player.AdapterLivePlayer;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.util.IfSupported;
+import mycinevo.streambox.R;
+import mycinevo.streambox.adapter.player.AdapterLivePlayer;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.util.IfSupported;
 
 public class PlayerLiveListDialog {
 

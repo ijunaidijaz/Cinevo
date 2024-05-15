@@ -1,4 +1,4 @@
-package nemosofts.streambox.util.player;
+package mycinevo.streambox.util.player;
 
 import android.app.Activity;
 import android.media.AudioManager;

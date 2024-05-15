@@ -1,8 +1,8 @@
-package nemosofts.streambox.interfaces;
+package mycinevo.streambox.interfaces;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.item.ItemUsers;
+import mycinevo.streambox.item.ItemUsers;
 
 public interface UsersListener {
     void onStart();

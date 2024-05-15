@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -29,23 +29,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.adapter.AdapterCategory;
-import nemosofts.streambox.adapter.AdapterMovie;
-import nemosofts.streambox.asyncTask.GetCategory;
-import nemosofts.streambox.asyncTask.GetMovies;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.ChildCountDialog;
-import nemosofts.streambox.dialog.FilterDialog;
-import nemosofts.streambox.interfaces.GetCategoryListener;
-import nemosofts.streambox.interfaces.GetMovieListener;
-import nemosofts.streambox.item.ItemCat;
-import nemosofts.streambox.item.ItemMovies;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.helper.Helper;
-import nemosofts.streambox.util.recycler.EndlessRecyclerViewScrollListener;
-import nemosofts.streambox.view.NSoftsProgressDialog;
+import mycinevo.streambox.R;
+import mycinevo.streambox.adapter.AdapterCategory;
+import mycinevo.streambox.adapter.AdapterMovie;
+import mycinevo.streambox.asyncTask.GetCategory;
+import mycinevo.streambox.asyncTask.GetMovies;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.ChildCountDialog;
+import mycinevo.streambox.dialog.FilterDialog;
+import mycinevo.streambox.interfaces.GetCategoryListener;
+import mycinevo.streambox.interfaces.GetMovieListener;
+import mycinevo.streambox.item.ItemCat;
+import mycinevo.streambox.item.ItemMovies;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.helper.Helper;
+import mycinevo.streambox.util.recycler.EndlessRecyclerViewScrollListener;
+import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class MovieActivity extends AppCompatActivity {
 

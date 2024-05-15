@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.READ_MEDIA_VIDEO;
@@ -35,14 +35,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.adapter.AdapterDownload;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.item.ItemVideoDownload;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.helper.DBHelper;
-import nemosofts.streambox.view.NSoftsProgressDialog;
+import mycinevo.streambox.R;
+import mycinevo.streambox.adapter.AdapterDownload;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.item.ItemVideoDownload;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.helper.DBHelper;
+import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class DownloadActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package nemosofts.streambox.asyncTask;
+package mycinevo.streambox.asyncTask;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -7,11 +7,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.interfaces.MovieIDListener;
-import nemosofts.streambox.item.ItemInfoMovies;
-import nemosofts.streambox.item.ItemMoviesData;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.helper.SPHelper;
+import mycinevo.streambox.interfaces.MovieIDListener;
+import mycinevo.streambox.item.ItemInfoMovies;
+import mycinevo.streambox.item.ItemMoviesData;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.helper.SPHelper;
 import okhttp3.RequestBody;
 
 public class LoadMovieID extends AsyncTask<String, String, String> {

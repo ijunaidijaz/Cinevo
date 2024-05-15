@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -25,9 +25,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.item.ItemVideoDownload;
-import nemosofts.streambox.util.Encrypter.Encrypter;
+import mycinevo.streambox.R;
+import mycinevo.streambox.item.ItemVideoDownload;
+import mycinevo.streambox.util.Encrypter.Encrypter;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;

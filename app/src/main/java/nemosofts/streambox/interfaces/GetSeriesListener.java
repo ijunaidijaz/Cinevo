@@ -1,8 +1,8 @@
-package nemosofts.streambox.interfaces;
+package mycinevo.streambox.interfaces;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.item.ItemSeries;
+import mycinevo.streambox.item.ItemSeries;
 
 public interface GetSeriesListener {
     void onStart();

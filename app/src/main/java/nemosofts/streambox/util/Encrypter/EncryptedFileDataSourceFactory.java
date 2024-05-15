@@ -1,4 +1,4 @@
-package nemosofts.streambox.util.Encrypter;
+package mycinevo.streambox.util.Encrypter;
 
 
 import androidx.annotation.NonNull;

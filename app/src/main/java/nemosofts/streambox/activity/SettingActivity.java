@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -21,17 +21,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.adapter.AdapterSetting;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.AdultsCountDialog;
-import nemosofts.streambox.dialog.FeedBackDialog;
-import nemosofts.streambox.item.ItemSetting;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.helper.DBHelper;
-import nemosofts.streambox.view.NSoftsProgressDialog;
+import mycinevo.streambox.R;
+import mycinevo.streambox.adapter.AdapterSetting;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.AdultsCountDialog;
+import mycinevo.streambox.dialog.FeedBackDialog;
+import mycinevo.streambox.item.ItemSetting;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.helper.DBHelper;
+import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class SettingActivity extends AppCompatActivity {
 

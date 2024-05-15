@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -16,10 +16,10 @@ import androidx.nemosofts.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
+import mycinevo.streambox.R;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
 
 public class InterstitialActivity extends AppCompatActivity {
 

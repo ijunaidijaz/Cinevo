@@ -1,13 +1,13 @@
-package nemosofts.streambox.asyncTask;
+package mycinevo.streambox.asyncTask;
 
 import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.interfaces.GetMovieListener;
-import nemosofts.streambox.item.ItemMovies;
-import nemosofts.streambox.util.helper.JSHelper;
+import mycinevo.streambox.interfaces.GetMovieListener;
+import mycinevo.streambox.item.ItemMovies;
+import mycinevo.streambox.util.helper.JSHelper;
 
 public class GetMovieSearch extends AsyncTask<String, String, String> {
 

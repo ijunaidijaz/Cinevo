@@ -1,4 +1,4 @@
-package nemosofts.streambox.adapter;
+package mycinevo.streambox.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.item.ItemCat;
+import mycinevo.streambox.R;
+import mycinevo.streambox.item.ItemCat;
 
 public class AdapterCat extends RecyclerView.Adapter<AdapterCat.ViewHolder> {
 

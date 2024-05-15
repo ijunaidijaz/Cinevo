@@ -1,4 +1,4 @@
-package nemosofts.streambox.util.helper;
+package mycinevo.streambox.util.helper;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -12,14 +12,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import nemosofts.streambox.item.ItemDns;
-import nemosofts.streambox.item.ItemLive;
-import nemosofts.streambox.item.ItemMovies;
-import nemosofts.streambox.item.ItemSeries;
-import nemosofts.streambox.item.ItemSingleURL;
-import nemosofts.streambox.item.ItemUsersDB;
-import nemosofts.streambox.item.ItemVideoDownload;
-import nemosofts.streambox.util.Encrypter.EncryptData;
+import mycinevo.streambox.item.ItemDns;
+import mycinevo.streambox.item.ItemLive;
+import mycinevo.streambox.item.ItemMovies;
+import mycinevo.streambox.item.ItemSeries;
+import mycinevo.streambox.item.ItemSingleURL;
+import mycinevo.streambox.item.ItemUsersDB;
+import mycinevo.streambox.item.ItemVideoDownload;
+import mycinevo.streambox.util.Encrypter.EncryptData;
 
 public class DBHelper extends SQLiteOpenHelper {
 

@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.content.Context;
 import android.os.StrictMode;
@@ -9,9 +9,9 @@ import androidx.nemosofts.Application;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.onesignal.OneSignal;
 
-import nemosofts.streambox.BuildConfig;
-import nemosofts.streambox.R;
-import nemosofts.streambox.util.helper.DBHelper;
+import mycinevo.streambox.BuildConfig;
+import mycinevo.streambox.R;
+import mycinevo.streambox.util.helper.DBHelper;
 
 public class MyApplication extends Application {
 

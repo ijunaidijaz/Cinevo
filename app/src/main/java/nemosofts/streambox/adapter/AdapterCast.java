@@ -1,4 +1,4 @@
-package nemosofts.streambox.adapter;
+package mycinevo.streambox.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +14,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.item.ItemCast;
+import mycinevo.streambox.R;
+import mycinevo.streambox.item.ItemCast;
 
 public class AdapterCast extends RecyclerView.Adapter<AdapterCast.MyViewHolder> {
 

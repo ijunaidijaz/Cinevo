@@ -1,4 +1,4 @@
-package nemosofts.streambox.util.recycler;
+package mycinevo.streambox.util.recycler;
 
 import android.content.Context;
 import android.view.GestureDetector;

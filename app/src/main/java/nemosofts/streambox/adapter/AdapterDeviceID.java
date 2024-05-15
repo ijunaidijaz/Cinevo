@@ -1,4 +1,4 @@
-package nemosofts.streambox.adapter;
+package mycinevo.streambox.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.item.ItemUsers;
+import mycinevo.streambox.R;
+import mycinevo.streambox.item.ItemUsers;
 
 public class AdapterDeviceID extends RecyclerView.Adapter<AdapterDeviceID.ViewHolder> {
 

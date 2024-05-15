@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -30,20 +30,20 @@ import androidx.nemosofts.theme.ThemeEngine;
 
 import org.json.JSONArray;
 
-import nemosofts.streambox.BuildConfig;
-import nemosofts.streambox.R;
-import nemosofts.streambox.activity.UI.PlaylistActivity;
-import nemosofts.streambox.activity.UI.SingleStreamActivity;
-import nemosofts.streambox.asyncTask.LoadAbout;
-import nemosofts.streambox.asyncTask.LoadData;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.interfaces.AboutListener;
-import nemosofts.streambox.interfaces.DataListener;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.NetworkUtils;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.helper.Helper;
+import mycinevo.streambox.BuildConfig;
+import mycinevo.streambox.R;
+import mycinevo.streambox.activity.UI.PlaylistActivity;
+import mycinevo.streambox.activity.UI.SingleStreamActivity;
+import mycinevo.streambox.asyncTask.LoadAbout;
+import mycinevo.streambox.asyncTask.LoadData;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.interfaces.AboutListener;
+import mycinevo.streambox.interfaces.DataListener;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.NetworkUtils;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.helper.Helper;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity implements EnvatoListener {

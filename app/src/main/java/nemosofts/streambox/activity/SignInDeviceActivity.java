@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -21,22 +21,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.adapter.AdapterDeviceID;
-import nemosofts.streambox.asyncTask.LoadLogin;
-import nemosofts.streambox.asyncTask.LoadUsers;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.DialogUtil;
-import nemosofts.streambox.dialog.Toasty;
-import nemosofts.streambox.interfaces.LoginListener;
-import nemosofts.streambox.interfaces.UsersListener;
-import nemosofts.streambox.item.ItemUsers;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.NetworkUtils;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.helper.Helper;
-import nemosofts.streambox.view.NSoftsProgressDialog;
+import mycinevo.streambox.R;
+import mycinevo.streambox.adapter.AdapterDeviceID;
+import mycinevo.streambox.asyncTask.LoadLogin;
+import mycinevo.streambox.asyncTask.LoadUsers;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.DialogUtil;
+import mycinevo.streambox.dialog.Toasty;
+import mycinevo.streambox.interfaces.LoginListener;
+import mycinevo.streambox.interfaces.UsersListener;
+import mycinevo.streambox.item.ItemUsers;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.NetworkUtils;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.helper.Helper;
+import mycinevo.streambox.view.NSoftsProgressDialog;
 
 @UnstableApi
 public class SignInDeviceActivity extends AppCompatActivity {

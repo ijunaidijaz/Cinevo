@@ -1,4 +1,4 @@
-package nemosofts.streambox.adapter;
+package mycinevo.streambox.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,9 +17,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.item.ItemLive;
-import nemosofts.streambox.util.ApplicationUtil;
+import mycinevo.streambox.R;
+import mycinevo.streambox.item.ItemLive;
+import mycinevo.streambox.util.ApplicationUtil;
 
 public class AdapterLiveTV extends RecyclerView.Adapter<AdapterLiveTV.MyViewHolder> {
 

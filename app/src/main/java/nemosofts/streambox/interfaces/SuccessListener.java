@@ -1,4 +1,4 @@
-package nemosofts.streambox.interfaces;
+package mycinevo.streambox.interfaces;
 
 public interface SuccessListener {
     void onStart();

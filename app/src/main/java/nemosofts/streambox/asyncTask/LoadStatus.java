@@ -1,13 +1,13 @@
-package nemosofts.streambox.asyncTask;
+package mycinevo.streambox.asyncTask;
 
 import android.os.AsyncTask;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.interfaces.StatusListener;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.interfaces.StatusListener;
 import okhttp3.RequestBody;
 
 public class LoadStatus extends AsyncTask<String, String, String> {

@@ -1,4 +1,4 @@
-package nemosofts.streambox.asyncTask;
+package mycinevo.streambox.asyncTask;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -8,9 +8,9 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import nemosofts.streambox.interfaces.GetLiveListener;
-import nemosofts.streambox.item.ItemLive;
-import nemosofts.streambox.util.helper.JSHelper;
+import mycinevo.streambox.interfaces.GetLiveListener;
+import mycinevo.streambox.item.ItemLive;
+import mycinevo.streambox.util.helper.JSHelper;
 
 public class GetLiveSearch extends AsyncTask<String, String, String> {
 

@@ -1,4 +1,4 @@
-package nemosofts.streambox.util.helper;
+package mycinevo.streambox.util.helper;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,12 +17,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import nemosofts.streambox.item.ItemCat;
-import nemosofts.streambox.item.ItemLive;
-import nemosofts.streambox.item.ItemMovies;
-import nemosofts.streambox.item.ItemPlaylist;
-import nemosofts.streambox.item.ItemSeries;
-import nemosofts.streambox.util.ApplicationUtil;
+import mycinevo.streambox.item.ItemCat;
+import mycinevo.streambox.item.ItemLive;
+import mycinevo.streambox.item.ItemMovies;
+import mycinevo.streambox.item.ItemPlaylist;
+import mycinevo.streambox.item.ItemSeries;
+import mycinevo.streambox.util.ApplicationUtil;
 
 public class JSHelper {
 

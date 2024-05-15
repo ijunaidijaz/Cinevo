@@ -1,4 +1,4 @@
-package nemosofts.streambox;
+package mycinevo.streambox;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package nemosofts.streambox.util.Encrypter;
+package mycinevo.streambox.util.Encrypter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,10 +24,10 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.net.ssl.HttpsURLConnection;
 
-import nemosofts.streambox.BuildConfig;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.helper.DBHelper;
-import nemosofts.streambox.item.ItemVideoDownload;
+import mycinevo.streambox.BuildConfig;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.helper.DBHelper;
+import mycinevo.streambox.item.ItemVideoDownload;
 import okio.BufferedSource;
 
 public class Encrypter {

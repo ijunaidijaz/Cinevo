@@ -1,4 +1,4 @@
-package nemosofts.streambox.item;
+package mycinevo.streambox.item;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package nemosofts.streambox.callback;
+package mycinevo.streambox.callback;
 
 import android.annotation.SuppressLint;
 
@@ -7,12 +7,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import nemosofts.streambox.BuildConfig;
-import nemosofts.streambox.item.ItemDns;
-import nemosofts.streambox.item.ItemNotification;
-import nemosofts.streambox.item.ItemLive;
-import nemosofts.streambox.item.ItemEpisodes;
-import nemosofts.streambox.item.ItemPoster;
+import mycinevo.streambox.BuildConfig;
+import mycinevo.streambox.item.ItemDns;
+import mycinevo.streambox.item.ItemNotification;
+import mycinevo.streambox.item.ItemLive;
+import mycinevo.streambox.item.ItemEpisodes;
+import mycinevo.streambox.item.ItemPoster;
 
 @SuppressLint("StaticFieldLeak")
 public class Callback implements Serializable {

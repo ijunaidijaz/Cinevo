@@ -1,4 +1,4 @@
-package nemosofts.streambox.adapter;
+package mycinevo.streambox.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,11 +18,11 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.util.List;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.dialog.DialogUtil;
-import nemosofts.streambox.item.ItemVideoDownload;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.helper.DBHelper;
+import mycinevo.streambox.R;
+import mycinevo.streambox.dialog.DialogUtil;
+import mycinevo.streambox.item.ItemVideoDownload;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.helper.DBHelper;
 
 public class AdapterDownload extends RecyclerView.Adapter<AdapterDownload.MyViewHolder> {
 

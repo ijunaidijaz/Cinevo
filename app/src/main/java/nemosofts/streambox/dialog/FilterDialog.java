@@ -1,4 +1,4 @@
-package nemosofts.streambox.dialog;
+package mycinevo.streambox.dialog;
 
 import static android.view.WindowManager.LayoutParams.MATCH_PARENT;
 import static android.view.WindowManager.LayoutParams.WRAP_CONTENT;
@@ -12,10 +12,10 @@ import androidx.core.content.ContextCompat;
 
 import java.util.Objects;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.helper.JSHelper;
+import mycinevo.streambox.R;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.helper.JSHelper;
 
 public class FilterDialog {
 

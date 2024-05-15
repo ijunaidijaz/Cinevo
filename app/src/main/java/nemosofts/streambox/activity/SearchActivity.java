@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,24 +24,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.adapter.AdapterLiveTV;
-import nemosofts.streambox.adapter.AdapterMovie;
-import nemosofts.streambox.adapter.AdapterSeries;
-import nemosofts.streambox.asyncTask.GetLiveSearch;
-import nemosofts.streambox.asyncTask.GetMovieSearch;
-import nemosofts.streambox.asyncTask.GetSeriesSearch;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.Toasty;
-import nemosofts.streambox.interfaces.GetLiveListener;
-import nemosofts.streambox.interfaces.GetMovieListener;
-import nemosofts.streambox.interfaces.GetSeriesListener;
-import nemosofts.streambox.item.ItemLive;
-import nemosofts.streambox.item.ItemMovies;
-import nemosofts.streambox.item.ItemSeries;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.helper.SPHelper;
+import mycinevo.streambox.R;
+import mycinevo.streambox.adapter.AdapterLiveTV;
+import mycinevo.streambox.adapter.AdapterMovie;
+import mycinevo.streambox.adapter.AdapterSeries;
+import mycinevo.streambox.asyncTask.GetLiveSearch;
+import mycinevo.streambox.asyncTask.GetMovieSearch;
+import mycinevo.streambox.asyncTask.GetSeriesSearch;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.Toasty;
+import mycinevo.streambox.interfaces.GetLiveListener;
+import mycinevo.streambox.interfaces.GetMovieListener;
+import mycinevo.streambox.interfaces.GetSeriesListener;
+import mycinevo.streambox.item.ItemLive;
+import mycinevo.streambox.item.ItemMovies;
+import mycinevo.streambox.item.ItemSeries;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class SearchActivity extends AppCompatActivity {
 

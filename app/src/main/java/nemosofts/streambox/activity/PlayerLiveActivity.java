@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity;
+package mycinevo.streambox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -59,21 +59,21 @@ import java.net.CookiePolicy;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.asyncTask.LoadEpg;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.PlayerLiveListDialog;
-import nemosofts.streambox.dialog.Toasty;
-import nemosofts.streambox.interfaces.EpgListener;
-import nemosofts.streambox.item.ItemEpg;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.NetworkUtils;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.helper.DBHelper;
-import nemosofts.streambox.util.helper.Helper;
-import nemosofts.streambox.util.player.BrightnessVolumeControl;
-import nemosofts.streambox.util.player.CustomPlayerView;
+import mycinevo.streambox.R;
+import mycinevo.streambox.asyncTask.LoadEpg;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.PlayerLiveListDialog;
+import mycinevo.streambox.dialog.Toasty;
+import mycinevo.streambox.interfaces.EpgListener;
+import mycinevo.streambox.item.ItemEpg;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.NetworkUtils;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.helper.DBHelper;
+import mycinevo.streambox.util.helper.Helper;
+import mycinevo.streambox.util.player.BrightnessVolumeControl;
+import mycinevo.streambox.util.player.CustomPlayerView;
 
 @UnstableApi
 public class PlayerLiveActivity extends AppCompatActivity {

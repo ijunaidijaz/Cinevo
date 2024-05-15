@@ -1,4 +1,4 @@
-package nemosofts.streambox.util.player;
+package mycinevo.streambox.util.player;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,7 +15,7 @@ import androidx.core.view.GestureDetectorCompat;
 import androidx.media3.common.util.UnstableApi;
 import androidx.media3.ui.PlayerView;
 
-import nemosofts.streambox.R;
+import mycinevo.streambox.R;
 
 @UnstableApi
 public class CustomPlayerView extends PlayerView implements GestureDetector.OnGestureListener{

@@ -1,4 +1,4 @@
-package nemosofts.streambox.activity.UI;
+package mycinevo.streambox.activity.UI;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,22 +22,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.R;
-import nemosofts.streambox.activity.DownloadActivity;
-import nemosofts.streambox.activity.NotificationsActivity;
-import nemosofts.streambox.activity.PlayerSingleURLActivity;
-import nemosofts.streambox.activity.SelectPlayerActivity;
-import nemosofts.streambox.adapter.AdapterSingleURL;
-import nemosofts.streambox.callback.Callback;
-import nemosofts.streambox.dialog.DialogUtil;
-import nemosofts.streambox.dialog.PopupAdsDialog;
-import nemosofts.streambox.dialog.Toasty;
-import nemosofts.streambox.item.ItemSingleURL;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.IfSupported;
-import nemosofts.streambox.util.NetworkUtils;
-import nemosofts.streambox.util.helper.SPHelper;
-import nemosofts.streambox.util.helper.DBHelper;
+import mycinevo.streambox.R;
+import mycinevo.streambox.activity.DownloadActivity;
+import mycinevo.streambox.activity.NotificationsActivity;
+import mycinevo.streambox.activity.PlayerSingleURLActivity;
+import mycinevo.streambox.activity.SelectPlayerActivity;
+import mycinevo.streambox.adapter.AdapterSingleURL;
+import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.DialogUtil;
+import mycinevo.streambox.dialog.PopupAdsDialog;
+import mycinevo.streambox.dialog.Toasty;
+import mycinevo.streambox.item.ItemSingleURL;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.IfSupported;
+import mycinevo.streambox.util.NetworkUtils;
+import mycinevo.streambox.util.helper.SPHelper;
+import mycinevo.streambox.util.helper.DBHelper;
 
 @UnstableApi
 public class SingleStreamActivity extends AppCompatActivity implements View.OnClickListener {

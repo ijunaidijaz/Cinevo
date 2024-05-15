@@ -1,4 +1,4 @@
-package nemosofts.streambox.interfaces;
+package mycinevo.streambox.interfaces;
 
 import org.json.JSONArray;
 

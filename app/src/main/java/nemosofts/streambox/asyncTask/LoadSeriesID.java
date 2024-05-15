@@ -1,4 +1,4 @@
-package nemosofts.streambox.asyncTask;
+package mycinevo.streambox.asyncTask;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -8,12 +8,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import nemosofts.streambox.interfaces.SeriesIDListener;
-import nemosofts.streambox.item.ItemEpisodes;
-import nemosofts.streambox.item.ItemInfoSeasons;
-import nemosofts.streambox.item.ItemSeasons;
-import nemosofts.streambox.util.ApplicationUtil;
-import nemosofts.streambox.util.helper.SPHelper;
+import mycinevo.streambox.interfaces.SeriesIDListener;
+import mycinevo.streambox.item.ItemEpisodes;
+import mycinevo.streambox.item.ItemInfoSeasons;
+import mycinevo.streambox.item.ItemSeasons;
+import mycinevo.streambox.util.ApplicationUtil;
+import mycinevo.streambox.util.helper.SPHelper;
 import okhttp3.RequestBody;
 
 public class LoadSeriesID extends AsyncTask<String, String, String> {
