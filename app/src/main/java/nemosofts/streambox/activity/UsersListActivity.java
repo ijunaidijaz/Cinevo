@@ -1,5 +1,7 @@
 package mycinevo.streambox.activity;
 
+import static mycinevo.streambox.util.helper.Helper.hideNavigationKeys;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -60,6 +62,7 @@ public class UsersListActivity extends AppCompatActivity {
         IfSupported.IsRTL(this);
         IfSupported.IsScreenshot(this);
         IfSupported.hideStatusBar(this);
+        hideNavigationKeys(getWindow());
 
         findViewById(R.id.theme_bg).setBackgroundResource(ApplicationUtil.openThemeBg(this));
 

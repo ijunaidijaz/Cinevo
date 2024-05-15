@@ -10,10 +10,10 @@ android {
 
     defaultConfig {
         applicationId "mycinevo.streambox"
-        minSdk 22
+        minSdk 21
         targetSdk 34
-        versionCode 13
-        versionName "1.1.3"
+        versionCode 18
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -27,7 +27,7 @@ android {
     }
 
     buildTypes.each {
-        it.buildConfigField 'String', 'BASE_URL', BASE_URL
+        it.buildConfigField 'String', 'BASE_URL', "\"https://admin.cinevo.org/\""
         it.buildConfigField 'String', 'API_NAME', API_NAME
         it.buildConfigField 'String', 'ENC_KEY', ENC_KEY
         it.buildConfigField 'String', 'IV', IV
@@ -63,5 +63,4 @@ dependencies {
     implementation libs.oneSignal
     implementation libs.bundles.exoplayer
     implementation libs.androidx.activity
-    implementation files('libs/library.aar')
 }

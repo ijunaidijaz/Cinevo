@@ -361,7 +361,6 @@ public class PlayerMovieActivity extends AppCompatActivity {
                             .createMediaSource(mediaItem);
         };
     }
-
     private DataSource.Factory buildDataSourceFactory(boolean useBandwidthMeter) {
         return buildDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
     }
