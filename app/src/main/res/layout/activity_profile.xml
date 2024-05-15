@@ -58,6 +58,8 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:background="@drawable/bg_card_sub"
+        android:backgroundTint="?ns_title"
         android:orientation="horizontal"
         android:padding="@dimen/_15sdp"
         android:baselineAligned="false"

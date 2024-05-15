@@ -19,7 +19,7 @@
             android:id="@+id/iv_color_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:riv_border_color="@color/md_classic_border"
+            app:riv_border_color="@color/md_border"
             android:src="@color/color_setting_1"
             app:riv_border_width="@dimen/_1sdp"
             app:riv_corner_radius="@dimen/_5sdp"/>
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/ic_play_arrow"
-            app:riv_border_color="@color/md_classic_border"
+            app:riv_border_color="@color/md_border"
             app:tint="@color/white"
             android:contentDescription="@string/todo" />
 
@@ -49,7 +49,7 @@
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/md_classic_title"
+            android:textColor="@color/md_title"
             android:textSize="@dimen/_10ssp"/>
 
         <TextView
@@ -58,7 +58,7 @@
             android:text="@string/user_list_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/md_classic_sub_title"
+            android:textColor="@color/md_title_sub"
             android:textSize="@dimen/_8ssp"
             android:lines="1"/>
 

@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/by_using_this_application"
-            android:textColor="@color/md_classic_sub_title"
+            android:textColor="@color/md_classic_title_sub"
             android:textSize="@dimen/_10ssp" />
 
         <TextView
@@ -86,7 +86,7 @@
             android:textAlignment="center"
             android:paddingStart="@dimen/_5sdp"
             android:paddingEnd="@dimen/_5sdp"
-            android:textColor="@color/md_classic_accent"
+            android:textColor="@color/md_classic_primary"
             android:textSize="@dimen/_10ssp"
             android:focusable="true"
             android:focusableInTouchMode="false"

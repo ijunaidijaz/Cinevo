@@ -110,7 +110,7 @@
                         android:contentDescription="@string/todo"
                         android:padding="@dimen/_8sdp"
                         android:src="@drawable/ic_profile"
-                        app:tint="?ns_body_dark" />
+                        app:tint="?ns_white" />
 
                     <View
                         android:background="#23FFFFFF"
@@ -154,7 +154,7 @@
                         android:contentDescription="@string/todo"
                         android:padding="@dimen/_8sdp"
                         android:src="@drawable/ic_profile"
-                        app:tint="?ns_body_dark" />
+                        app:tint="?ns_white" />
 
                     <View
                         android:background="#23FFFFFF"
@@ -203,7 +203,7 @@
                             android:contentDescription="@string/todo"
                             android:padding="@dimen/_8sdp"
                             android:src="@drawable/ic_lock"
-                            app:tint="?ns_body_dark" />
+                            app:tint="?ns_white" />
 
                         <View
                             android:background="#23FFFFFF"
@@ -256,7 +256,7 @@
                         android:contentDescription="@string/todo"
                         android:padding="@dimen/_4sdp"
                         android:src="@drawable/ic_login_visibility_off"
-                        app:tint="?ns_body_dark"
+                        app:tint="?ns_white"
                         android:focusable="true"
                         android:focusableInTouchMode="false"
                         android:nextFocusUp="@+id/et_user_name"
@@ -288,7 +288,7 @@
                         android:contentDescription="@string/todo"
                         android:padding="@dimen/_8sdp"
                         android:src="@drawable/ic_link"
-                        app:tint="?ns_body_dark" />
+                        app:tint="?ns_white" />
 
                     <View
                         android:background="#23FFFFFF"

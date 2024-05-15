@@ -28,7 +28,7 @@
                 android:contentDescription="@string/todo"
                 android:padding="@dimen/_5sdp"
                 android:src="@drawable/ic_filter_list"
-                app:tint="?ns_body_dark"/>
+                app:tint="?ns_white"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -36,7 +36,7 @@
                 android:layout_weight="1"
                 android:padding="@dimen/_9sdp"
                 android:text="@string/filter"
-                android:textColor="?ns_body_dark"
+                android:textColor="?ns_title"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold"/>
 
@@ -47,7 +47,7 @@
                 android:contentDescription="@string/todo"
                 android:padding="@dimen/_5sdp"
                 android:src="@drawable/ic_close"
-                app:tint="?ns_body_dark"
+                app:tint="?ns_white"
                 android:focusable="true"
                 android:focusableInTouchMode="false"
                 android:background="@drawable/focused_img_selector"/>
@@ -77,7 +77,7 @@
                 android:padding="@dimen/_8sdp"
                 android:textSize="@dimen/_12ssp"
                 android:text="Date: Oldest first"
-                android:textColor="@color/md_classic_sub_title"
+                android:textColor="@color/md_classic_title_sub"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -92,7 +92,7 @@
                 android:padding="@dimen/_8sdp"
                 android:textSize="@dimen/_12ssp"
                 android:text="Date: Newest"
-                android:textColor="@color/md_classic_sub_title"
+                android:textColor="@color/md_classic_title_sub"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -101,11 +101,6 @@
                 android:background="@drawable/focused_filter"/>
 
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@color/md_classic_border"/>
 
         <LinearLayout
             android:layout_width="match_parent"

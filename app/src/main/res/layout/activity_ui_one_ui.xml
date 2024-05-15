@@ -197,7 +197,7 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/todo" />
 
-            <com.facebook.shimmer.ShimmerFrameLayout
+            <androidx.nemosofts.view.ShimmerFrameLayout
                 android:visibility="visible"
                 android:id="@+id/shimmer_view_live"
                 android:layout_width="wrap_content"
@@ -215,7 +215,7 @@
                     android:layout_height="match_parent"
                     android:contentDescription="@string/todo" />
 
-            </com.facebook.shimmer.ShimmerFrameLayout>
+            </androidx.nemosofts.view.ShimmerFrameLayout>
 
             <RelativeLayout
                 android:id="@+id/select_live"
@@ -237,7 +237,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
-                    tools:ignore="UseCompoundDrawables">
+                    tools:ignore="RelativeOverlap,UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="@dimen/_60sdp"
@@ -365,7 +365,7 @@
                         android:layout_height="match_parent"
                         android:contentDescription="@string/todo" />
 
-                    <com.facebook.shimmer.ShimmerFrameLayout
+                    <androidx.nemosofts.view.ShimmerFrameLayout
                         android:id="@+id/shimmer_view_movie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -382,7 +382,7 @@
                             android:layout_height="match_parent"
                             android:contentDescription="@string/todo" />
 
-                    </com.facebook.shimmer.ShimmerFrameLayout>
+                    </androidx.nemosofts.view.ShimmerFrameLayout>
 
                     <RelativeLayout
                         android:id="@+id/select_movie"
@@ -404,7 +404,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:gravity="center"
-                            tools:ignore="UseCompoundDrawables">
+                            tools:ignore="RelativeOverlap,UseCompoundDrawables">
 
                             <ImageView
                                 android:layout_width="@dimen/_50sdp"
@@ -518,7 +518,7 @@
                         android:layout_height="match_parent"
                         android:contentDescription="@string/todo" />
 
-                    <com.facebook.shimmer.ShimmerFrameLayout
+                    <androidx.nemosofts.view.ShimmerFrameLayout
                         android:id="@+id/shimmer_view_serials"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -535,7 +535,7 @@
                             android:layout_height="match_parent"
                             android:contentDescription="@string/todo" />
 
-                    </com.facebook.shimmer.ShimmerFrameLayout>
+                    </androidx.nemosofts.view.ShimmerFrameLayout>
 
                     <RelativeLayout
                         android:id="@+id/select_serials"
@@ -558,7 +558,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:gravity="center"
-                            tools:ignore="UseCompoundDrawables">
+                            tools:ignore="RelativeOverlap,UseCompoundDrawables">
 
                             <ImageView
                                 android:layout_width="@dimen/_50sdp"
@@ -805,7 +805,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:gravity="center"
-                            tools:ignore="UseCompoundDrawables">
+                            tools:ignore="TooManyViews,UseCompoundDrawables">
 
                             <ImageView
                                 android:layout_marginEnd="@dimen/_3sdp"

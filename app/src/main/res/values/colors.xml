@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!--Classic Color-->
-    <color name="md_classic_accent">#E62E2F</color>
-    <color name="md_classic_accent_50">#26E62E2F</color>
-    <color name="md_classic_background">#FDFDFE</color>
-    <color name="md_classic_background_s">#ECECEC</color>
-    <color name="md_classic_title">#161616</color>
-    <color name="md_classic_sub_title">#6D6D6D</color>
-    <color name="md_classic_border">#1A0C1318</color>
-    <color name="md_classic_background_tint">#000000</color>
+    <color name="md_classic_primary">#E62E2F</color>
+    <color name="md_classic_primary_sub">#26E62E2F</color>
+    <color name="md_classic_body">#000000</color>
+    <color name="md_classic_body_sub">#121212</color>
+    <color name="md_classic_title">#DBDBDB</color>
+    <color name="md_classic_title_sub">#E9A0A0A0</color>
+    <color name="md_classic_border">#CC0E0E0E</color>
+    <color name="md_classic_body_dark">#FFFFFF</color>
+
+    <!--Dark Color-->
+    <color name="md_dark_primary">#FFCA28</color>
+    <color name="md_dark_primary_sub">#26FFCA28</color>
+    <color name="md_dark_body">#000000</color>
+    <color name="md_dark_body_sub">#121212</color>
+    <color name="md_dark_title">#DBDBDB</color>
+    <color name="md_dark_title_sub">#E9A0A0A0</color>
+    <color name="md_dark_border">#CC0E0E0E</color>
+
+    <!--Dark Blue Color-->
+    <color name="md_blue_primary">#2196F3</color>
+    <color name="md_blue_primary_sub">#262196F3</color>
+    <color name="md_blue_body">#0E1621</color>
+    <color name="md_blue_body_sub">#17212B</color>
+    <color name="md_blue_title">#F5F5F5</color>
+    <color name="md_blue_title_sub">#6C7883</color>
+    <color name="md_blue_border">#F3111925</color>
+
+    <!--Dark Grey Color-->
+    <color name="md_grey_primary">#673AB7</color>
+    <color name="md_grey_primary_sub">#26673AB7</color>
+    <color name="md_grey_body">#121212</color>
+    <color name="md_grey_body_sub">#1E1E1E</color>
+    <color name="md_grey_title">#DBDBDB</color>
+    <color name="md_grey_title_sub">#E9A0A0A0</color>
+    <color name="md_grey_border">#191919</color>
+
+
+
+    <color name="md_background">#FDFDFE</color>
+    <color name="md_title">#161616</color>
+    <color name="md_title_sub">#6D6D6D</color>
+    <color name="md_border">#1A0C1318</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>

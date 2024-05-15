@@ -37,7 +37,7 @@
                 android:layout_weight="1"
                 android:padding="@dimen/_9sdp"
                 android:text="Ads"
-                android:textColor="?ns_body_dark"
+                android:textColor="?ns_title"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold"
                 android:lines="1"
@@ -50,7 +50,7 @@
                 android:contentDescription="@string/todo"
                 android:padding="@dimen/_5sdp"
                 android:src="@drawable/ic_close"
-                app:tint="?ns_body_dark"
+                app:tint="?ns_white"
                 android:focusable="true"
                 android:focusableInTouchMode="false"
                 android:background="@drawable/focused_img_selector"/>

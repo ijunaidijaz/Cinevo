@@ -9,8 +9,4 @@
         android:type="linear"/>
 
     <corners android:radius="@dimen/_3sdp"/>
-
-    <stroke
-        android:width="@dimen/_1sdp"
-        android:color="#33FFFFFF" />
 </shape>

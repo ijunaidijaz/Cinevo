@@ -25,7 +25,7 @@
             android:padding="@dimen/_5sdp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_player_back"
-            app:tint="@color/white"
+            app:tint="?ns_white"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
             android:contentDescription="@string/todo"
@@ -126,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:lines="1"
-                    android:textColor="@color/md_classic_sub_title"/>
+                    android:textColor="@color/md_classic_title_sub"/>
 
             </LinearLayout>
 

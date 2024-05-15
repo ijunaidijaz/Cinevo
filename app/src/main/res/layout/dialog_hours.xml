@@ -27,7 +27,7 @@
                 android:contentDescription="@string/todo"
                 android:padding="@dimen/_5sdp"
                 android:src="@drawable/ic_list_numbered"
-                app:tint="?ns_body_dark"/>
+                app:tint="?ns_white"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -35,7 +35,7 @@
                 android:layout_weight="1"
                 android:padding="@dimen/_9sdp"
                 android:text="@string/select_reload_hours"
-                android:textColor="?ns_body_dark"
+                android:textColor="?ns_title"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold"/>
 
@@ -46,7 +46,7 @@
                 android:contentDescription="@string/todo"
                 android:padding="@dimen/_5sdp"
                 android:src="@drawable/ic_close"
-                app:tint="?ns_body_dark"
+                app:tint="?ns_white"
                 android:focusable="true"
                 android:focusableInTouchMode="false"
                 android:background="@drawable/focused_img_selector"/>
@@ -71,6 +71,7 @@
                 android:textSize="@dimen/_13ssp"
                 android:textAlignment="viewStart"
                 android:textColor="?ns_title_sub"
+                android:buttonTint="?ns_title"
                 android:layout_marginBottom="@dimen/_5sdp"
                 tools:ignore="HardcodedText"/>
 
@@ -83,6 +84,7 @@
                 android:textSize="@dimen/_13ssp"
                 android:textAlignment="viewStart"
                 android:textColor="?ns_title_sub"
+                android:buttonTint="?ns_title"
                 android:layout_marginBottom="@dimen/_5sdp"
                 tools:ignore="HardcodedText"/>
 
@@ -95,6 +97,7 @@
                 android:textSize="@dimen/_13ssp"
                 android:textAlignment="viewStart"
                 android:textColor="?ns_title_sub"
+                android:buttonTint="?ns_title"
                 android:layout_marginBottom="@dimen/_5sdp"
                 tools:ignore="HardcodedText"/>
 
@@ -107,6 +110,7 @@
                 android:textSize="@dimen/_13ssp"
                 android:textAlignment="viewStart"
                 android:textColor="?ns_title_sub"
+                android:buttonTint="?ns_title"
                 android:layout_marginBottom="@dimen/_5sdp"
                 tools:ignore="HardcodedText"/>
 
@@ -119,6 +123,7 @@
                 android:textSize="@dimen/_13ssp"
                 android:textAlignment="viewStart"
                 android:textColor="?ns_title_sub"
+                android:buttonTint="?ns_title"
                 tools:ignore="HardcodedText"/>
 
         </RadioGroup>
