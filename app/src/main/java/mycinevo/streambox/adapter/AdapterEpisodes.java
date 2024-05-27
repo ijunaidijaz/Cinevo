@@ -98,7 +98,7 @@ public class AdapterEpisodes extends RecyclerView.Adapter<AdapterEpisodes.MyView
             String ratingString = arrayList.get(position).getRating().isEmpty() ? "0" : arrayList.get(position).getRating();
             double newRating = 0.0; // default value
             if (ratingString != null && !ratingString.isEmpty()&& !ratingString.equals("null")) {
-                Log.d("TAG", "ratingStrinng: "+ ratingString.toString());
+                Log.d("TAG", "ratingString: "+ ratingString.toString());
                 newRating = convertToFiveRating(Double.parseDouble(ratingString));
             }
             holder.rb_episodes.setRating((float) newRating);

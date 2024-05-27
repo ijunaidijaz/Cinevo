@@ -57,6 +57,8 @@
     <string name="sure_logout">Are you sure you want to logout?</string>
     <string name="reload_data">Reload Data</string>
     <string name="sure_reload_data">Are you sure you want to Reload Data?</string>
+    <string name="audio_tracks">Audio Tracks</string>
+    <string name="video_tracks">Video Tracks</string>
 
     <!--MSG-->
     <string name="err_pass_end_space">Please do not add space at end</string>

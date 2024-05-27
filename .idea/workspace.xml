@@ -37,13 +37,146 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="510ca9c6-dd11-41d8-b21e-0885d4911ee1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/.idea/modules/app.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibs$BundleAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibs$ExoplayerLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibs$Media3LibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibs$OnesignalLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibs$VersionAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$Media3LibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$VersionAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/sources/org/gradle/accessors/dm/LibrariesForLibs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/libs/lib-decoder-av1-release.aar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/libs/lib-decoder-ffmpeg-release.aar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/libs/lib-exoplayer-release.aar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/libs/lib-extractor-release.aar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/libs/lib-ui-release.aar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_card_info.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_audiotrack.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_timer.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/text.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibs$BundleAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibs$CommonsLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibs$CommonsLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibs$EspressoLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibs$ExoplayerLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibs$ExtLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibs$FirebaseInappmessagingLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibs$FirebaseLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibs$FirebaseLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibs$Media3LibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibs$Media3UiLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibs$PluginAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibs$PluginAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibs$VersionAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibs.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibs.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$ExoplayerLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$BundleAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$BundleAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$CommonsLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$CommonsLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$EspressoLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$OnesignalLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$ExoplayerLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$ExtLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$ExtLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$FirebaseInappmessagingLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$FirebaseLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$FirebaseLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$Media3LibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$Media3UiLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$PluginAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$PluginAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$VersionAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/sources/org/gradle/accessors/dm/LibrariesForLibs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/9fc170213868843701bd46ecac53b8902ec3b3e4/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibs$BundleAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibs$CommonsLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibs$EspressoLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibs$EspressoLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibs$ExoplayerLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibs$ExtLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibs$ExtLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibs$FirebaseInappmessagingLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibs$FirebaseInappmessagingLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibs$FirebaseLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibs$Media3LibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibs$Media3UiLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibs$PluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibs$VersionAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibs.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$BundleAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$CommonsLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$EspressoLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$EspressoLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$ExoplayerLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$ExtLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$FirebaseInappmessagingLibraryAccessors.class" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/dependencies-accessors/77c7bf81c8cff5eb21e0ac281ca4011da52b8c2a/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$FirebaseInappmessagingLibraryAccessors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$FirebaseLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$Media3LibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$Media3UiLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$PluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$VersionAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/sources/org/gradle/accessors/dm/LibrariesForLibs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/f28d7cd4759d6731a4aba41c8a738ef0d7ac52a6/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/dependencies-accessors/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.4/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.6/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.6/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.6/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.6/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/modules/app.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/release/app-release.aab" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/app-release.aab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/release/app-release.apk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/release/baselineProfiles/0/app-release.dm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/release/baselineProfiles/1/app-release.dm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/release/output-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/mycinevo/streambox/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/mycinevo/streambox/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/ic_launcher-playstore.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/MultipleScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/MultipleScreenActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerDownloadActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerDownloadActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerEpisodesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerEpisodesActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerLiveActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerLiveActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerMovieActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerMovieActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerSingleURLActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerSingleURLActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UsersListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UsersListActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterEpisodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterEpisodes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/dialog/DialogUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/dialog/DialogUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemMediaData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/ApplicationUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/ApplicationUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/helper/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/helper/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_banner.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/custom_controls_live.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/custom_controls_live.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_media_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_media_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_movie.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_movie.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/row_users_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/row_users_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_banner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_banner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_banner.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_banner.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_banner_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_banner_foreground.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/ic_banner_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +186,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/junaid/.android/avd/Pixel_5_API_31.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[RFCWA173MWK]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -93,32 +226,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ApkExportedModule": "Streambox.app",
-    "BundleExportedModule": "Streambox.app",
-    "ExportApk.ApkPathForStreambox.app": "/Users/junaid/Documents/GitHub/Cinevo/app",
-    "ExportBundle.BundlePathForStreambox.app": "/Users/junaid/Documents/GitHub/Cinevo/app",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "latest-main-14-05-2024",
-    "last_opened_file_path": "/Users/junaid/Documents/GitHub/Cinevo",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ApkExportedModule&quot;: &quot;Streambox.app&quot;,
+    &quot;BundleExportedModule&quot;: &quot;Cinevo.app&quot;,
+    &quot;ExportApk.ApkPathForStreambox.app&quot;: &quot;/Users/junaid/Documents/GitHub/Cinevo/app&quot;,
+    &quot;ExportBundle.BundlePathForCinevo.app&quot;: &quot;/Users/junaid/Documents/GitHub/Cinevo/app&quot;,
+    &quot;ExportBundle.BundlePathForStreambox.app&quot;: &quot;/Users/junaid/Documents/GitHub/Cinevo/app&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;latest-main-14-05-2024&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/junaid/Documents/GitHub/Cinevo&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   },
-  "keyToStringList": {
-    "ExportApk.BuildVariants": [
-      "release"
+  &quot;keyToStringList&quot;: {
+    &quot;ExportApk.BuildVariants&quot;: [
+      &quot;release&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
-      <module name="Streambox.app.main" />
+      <module name="Cinevo.app.main" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />

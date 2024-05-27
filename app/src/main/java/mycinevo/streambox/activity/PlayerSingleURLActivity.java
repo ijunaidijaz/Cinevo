@@ -6,10 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
-import android.media.MediaMetadataRetriever;
 import android.media.metrics.PlaybackStateEvent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -62,7 +60,6 @@ import mycinevo.streambox.R;
 import mycinevo.streambox.callback.Callback;
 import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.Toasty;
-import mycinevo.streambox.item.ItemMediaData;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
@@ -84,7 +81,6 @@ public class PlayerSingleURLActivity extends AppCompatActivity {
     private TextView tv_player_title;
     private BroadcastReceiver batteryReceiver;
     private ImageView exo_resize;
-    private ItemMediaData itemMediaData = null;
 
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
     static {
@@ -234,9 +230,9 @@ public class PlayerSingleURLActivity extends AppCompatActivity {
         }
 
         findViewById(R.id.iv_media_info).setOnClickListener(v -> {
-            if (itemMediaData != null){
+            if (exoPlayer != null && exoPlayer.getPlayWhenReady() && exoPlayer.getVideoFormat() != null){
                 playerView.hideController();
-                DialogUtil.DialogPlayerInfo(PlayerSingleURLActivity.this, itemMediaData);
+                DialogUtil.DialogPlayerInfo(this, exoPlayer, false);
             } else {
                 Toasty.makeText(this,getString(R.string.please_wait_a_minute), Toasty.ERROR);
             }
@@ -268,43 +264,6 @@ public class PlayerSingleURLActivity extends AppCompatActivity {
             exoPlayer.setMediaSource(mediaSource);
             exoPlayer.prepare();
             exoPlayer.setPlayWhenReady(true);
-
-            new AsyncTask<String, String, String>() {
-
-                @Override
-                protected String doInBackground(String... strings) {
-                    try {
-                        itemMediaData = null;
-                        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-                        try {
-                            retriever.setDataSource(channelUrl);
-
-                            String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-                            String video_title = "Video Title: "+(title != null && !title.isEmpty() ? title  : channelTitle);
-
-                            String video_type = "Video Type: "+retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_MIMETYPE);
-                            String frameWidth = "Frame width: "+retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
-                            String frameHeight = "Frame height: "+retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
-
-                            itemMediaData = new ItemMediaData(video_title, video_type, frameWidth, frameHeight);
-
-                            retriever.release();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        return "1";
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        return "0";
-                    }
-                }
-
-                @Override
-                protected void onPostExecute(String s) {
-                    super.onPostExecute(s);
-
-                }
-            }.execute();
         } else {
             Toast.makeText(this, getString(R.string.err_internet_not_connected), Toast.LENGTH_SHORT).show();
         }

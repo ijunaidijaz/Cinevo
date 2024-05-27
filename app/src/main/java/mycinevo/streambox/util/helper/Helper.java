@@ -3,8 +3,6 @@ package mycinevo.streambox.util.helper;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
-import android.view.Window;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -147,11 +145,5 @@ public class Helper {
         } else {
             return false;
         }
-    }
-    public static void hideNavigationKeys(Window window) {
-        // Hide the navigation bar
-        View decorView = window.getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        decorView.setSystemUiVisibility(uiOptions);
     }
 }

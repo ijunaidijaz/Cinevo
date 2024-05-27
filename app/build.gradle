@@ -12,7 +12,7 @@ android {
         applicationId "mycinevo.streambox"
         minSdk 21
         targetSdk 34
-        versionCode 18
+        versionCode 22
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -23,11 +23,14 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ndk {
+                debugSymbolLevel 'FULL'
+            }
         }
     }
 
     buildTypes.each {
-        it.buildConfigField 'String', 'BASE_URL', "\"https://admin.cinevo.org/\""
+        it.buildConfigField 'String', 'BASE_URL', BASE_URL
         it.buildConfigField 'String', 'API_NAME', API_NAME
         it.buildConfigField 'String', 'ENC_KEY', ENC_KEY
         it.buildConfigField 'String', 'IV', IV
@@ -61,6 +64,10 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation libs.bundles.firebase
     implementation libs.oneSignal
-    implementation libs.bundles.exoplayer
     implementation libs.androidx.activity
+    implementation libs.bundles.media3
+    implementation(libs.bundles.exoplayer) {
+        exclude group: "androidx.media3", module: "media3-exoplayer"
+    }
+    implementation fileTree(dir: "libs", include: ["lib-*.aar"])
 }

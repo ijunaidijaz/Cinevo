@@ -58,10 +58,10 @@
             <TextView
                 android:id="@+id/tv_users_url"
                 android:text="@string/user_list_url"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/md_title_sub"
+                android:visibility="gone"
                 android:textSize="@dimen/_8ssp"
                 android:lines="1"/>
 

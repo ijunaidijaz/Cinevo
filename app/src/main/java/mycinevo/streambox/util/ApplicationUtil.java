@@ -29,7 +29,10 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.OptIn;
+import androidx.media3.common.MimeTypes;
+import androidx.media3.common.util.UnstableApi;
 import androidx.media3.exoplayer.DefaultRenderersFactory;
+import androidx.media3.exoplayer.SimpleExoPlayer;
 import androidx.media3.extractor.DefaultExtractorsFactory;
 import androidx.media3.extractor.ts.DefaultTsPayloadReaderFactory;
 import androidx.media3.extractor.ts.TsExtractor;
@@ -494,6 +497,12 @@ public class ApplicationUtil {
         }
     }
 
+    @NonNull
+    public static String formatFrameRate(float frameRate) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
+        return decimalFormat.format(frameRate);
+    }
+
     public static String format(Number number) {
         if (number != null){
             char[] suffix = {' ', 'k', 'M', 'B', 'T', 'P', 'E'};
@@ -507,6 +516,36 @@ public class ApplicationUtil {
             }
         } else {
             return String.valueOf(0);
+        }
+    }
+
+    @NonNull
+    @Contract(pure = true)
+    public static String getVideoResolution(int height) {
+        try {
+            if (height >= 4320) {
+                return "8k";
+            } else if (height >= 2160) {
+                return "4k";
+            } else if (height >= 1440) {
+                return "2k";
+            } else if (height >= 1080) {
+                return "1080p";
+            } else if (height >= 720) {
+                return "720p";
+            } else if (height >= 480) {
+                return "480p";
+            } else if (height >= 360) {
+                return "360p";
+            } else if (height >= 240) {
+                return "240p";
+            } else if (height >= 140) {
+                return "140p";
+            } else {
+                return "Unknown resolution";
+            }
+        } catch (Exception e) {
+            return "Unknown resolution";
         }
     }
 
@@ -655,5 +694,96 @@ public class ApplicationUtil {
         DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(context);
         renderersFactory.setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON);
         return renderersFactory;
+    }
+
+    @OptIn(markerClass = UnstableApi.class)
+    @NonNull
+    public static String getInfoAudio(@NonNull SimpleExoPlayer exoPlayer) {
+        String info_audio;
+        if (exoPlayer.getAudioFormat() != null){
+
+            int audioSampleRate = exoPlayer.getAudioFormat().sampleRate;
+            int audioChannels = exoPlayer.getAudioFormat().channelCount;
+            String audioMimeType = exoPlayer.getAudioFormat().sampleMimeType;
+
+            info_audio = "Audio Sample Rate: " + audioSampleRate + "\n\n"
+                    + "Audio Channels: " + audioChannels + "\n\n"
+                    + "Audio Type: "+ formatAudioFromMime(audioMimeType) +"\n\n"
+                    + "Audio MIME Type: " + audioMimeType +"\n";
+
+        } else {
+            info_audio = "Audio Sample Rate: N/A" + "\n\n"
+                    + "Audio Channels: N/A" + "\n\n"
+                    + "Audio Type: N/A"+"\n\n"
+                    + "Audio MIME Type: N/A"+"\n";
+
+        }
+        return info_audio;
+    }
+
+    @OptIn(markerClass = UnstableApi.class)
+    @NonNull
+    public static String getInfoVideo(@NonNull SimpleExoPlayer exoPlayer, boolean isLive) {
+        String info_video;
+        if (exoPlayer.getVideoFormat() != null){
+
+            int videoWidth = exoPlayer.getVideoFormat().width;
+            int videoHeight = exoPlayer.getVideoFormat().height;
+            int videoBitrate = exoPlayer.getVideoFormat().bitrate;
+            float frameRate = exoPlayer.getVideoFormat().frameRate;
+            String finalRate = formatFrameRate(frameRate);
+
+            if (isLive){
+                info_video = "Video Quality: " + ApplicationUtil.getVideoResolution(videoHeight)+ "\n\n"
+                        + "Video Width: " + videoWidth + "\n\n"
+                        + "Video Height: " + videoHeight + "\n";
+            } else {
+                info_video = "Video Quality: " + ApplicationUtil.getVideoResolution(videoHeight)+ "\n\n"
+                        + "Video Width: " + videoWidth + "\n\n"
+                        + "Video Height: " + videoHeight + "\n\n"
+                        + "Video Bitrate: " + videoBitrate + "\n\n"
+                        + "Video Frame Rate: " + finalRate + "\n";
+            }
+        } else {
+            info_video = "Video Quality : Unknown resolution" + "\n\n"
+                    + "Video Width: N/A" + "\n\n"
+                    + "Video Height: N/A" + "\n";
+        }
+        return info_video;
+    }
+
+    public static String formatAudioFromMime(final String mimeType) {
+       if (mimeType == null){
+           return "N/A";
+       }
+       return switch (mimeType) {
+            case MimeTypes.AUDIO_DTS -> "DTS";
+            case MimeTypes.AUDIO_DTS_HD -> "DTS-HD";
+            case MimeTypes.AUDIO_DTS_EXPRESS -> "DTS Express";
+            case MimeTypes.AUDIO_TRUEHD -> "TrueHD";
+            case MimeTypes.AUDIO_AC3 -> "AC-3";
+            case MimeTypes.AUDIO_E_AC3 -> "E-AC-3";
+            case MimeTypes.AUDIO_E_AC3_JOC -> "E-AC-3-JOC";
+            case MimeTypes.AUDIO_AC4 -> "AC-4";
+            case MimeTypes.AUDIO_AAC -> "AAC";
+            case MimeTypes.AUDIO_MPEG -> "MP3";
+            case MimeTypes.AUDIO_MPEG_L2 -> "MP2";
+            case MimeTypes.AUDIO_VORBIS -> "Vorbis";
+            case MimeTypes.AUDIO_OPUS -> "Opus";
+            case MimeTypes.AUDIO_FLAC -> "FLAC";
+            case MimeTypes.AUDIO_ALAC -> "ALAC";
+            case MimeTypes.AUDIO_WAV -> "WAV";
+            case MimeTypes.AUDIO_AMR -> "AMR";
+            case MimeTypes.AUDIO_AMR_NB -> "AMR-NB";
+            case MimeTypes.AUDIO_AMR_WB -> "AMR-WB";
+            case MimeTypes.APPLICATION_PGS -> "PGS";
+            case MimeTypes.APPLICATION_SUBRIP -> "SRT";
+            case MimeTypes.TEXT_SSA -> "SSA";
+            case MimeTypes.TEXT_VTT -> "VTT";
+            case MimeTypes.APPLICATION_TTML -> "TTML";
+            case MimeTypes.APPLICATION_TX3G -> "TX3G";
+            case MimeTypes.APPLICATION_DVBSUBS -> "DVB";
+            default -> mimeType;
+       };
     }
 }

@@ -14,11 +14,14 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.OptIn;
+import androidx.media3.common.util.UnstableApi;
+import androidx.media3.exoplayer.SimpleExoPlayer;
+
 import java.util.Objects;
 
 import mycinevo.streambox.R;
 import mycinevo.streambox.callback.Callback;
-import mycinevo.streambox.item.ItemMediaData;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 
@@ -508,8 +511,9 @@ public class DialogUtil {
         }
     }
 
-    public static void DialogPlayerInfo(Activity ctx, ItemMediaData item) {
-        if (item != null){
+    @OptIn(markerClass = UnstableApi.class)
+    public static void DialogPlayerInfo(Activity ctx, SimpleExoPlayer exoPlayer, boolean isLive) {
+        if (exoPlayer != null){
             if (dialog != null){
                 dialog = null;
             }
@@ -517,15 +521,15 @@ public class DialogUtil {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_media_info);
             dialog.findViewById(R.id.iv_close_vw).setOnClickListener(v -> dialog.dismiss());
+            dialog.findViewById(R.id.iv_back_player_info).setOnClickListener(v -> dialog.dismiss());
 
-            String data =
-                    item.getTitle() + "\n\n" +
-                            item.getVideoType() + "\n\n" +
-                            item.getFrameWidth() + "\n\n" +
-                            item.getFrameHeight()+"\n\n";
+            String info_video = ApplicationUtil.getInfoVideo(exoPlayer, isLive);
+            TextView media_video = dialog.findViewById(R.id.tv_info_video);
+            media_video.setText(info_video);
 
-            TextView media_title = dialog.findViewById(R.id.tv_media_title);
-            media_title.setText(data);
+            String info_audio = ApplicationUtil.getInfoAudio(exoPlayer);
+            TextView media_audio = dialog.findViewById(R.id.tv_info_audio);
+            media_audio.setText(info_audio);
 
             Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
             dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
@@ -660,7 +664,7 @@ public class DialogUtil {
             dialog.dismiss();
         }
     }
-    
+
     // isShowing -----------------------------------------------------------------------------------
     public boolean isShowing() {
         return dialog != null && dialog.isShowing();

@@ -62,6 +62,7 @@ import java.util.Locale;
 import mycinevo.streambox.R;
 import mycinevo.streambox.asyncTask.LoadEpg;
 import mycinevo.streambox.callback.Callback;
+import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.PlayerLiveListDialog;
 import mycinevo.streambox.dialog.Toasty;
 import mycinevo.streambox.interfaces.EpgListener;
@@ -245,6 +246,17 @@ public class PlayerLiveActivity extends AppCompatActivity {
                 Toast.makeText(PlayerLiveActivity.this, getString(R.string.fav_success), Toast.LENGTH_SHORT).show();
             }
         });
+
+        findViewById(R.id.iv_media_info).setOnClickListener(v -> {
+            if (exoPlayer != null && exoPlayer.getPlayWhenReady() && exoPlayer.getVideoFormat() != null){
+                playerView.hideController();
+                DialogUtil.DialogPlayerInfo(this, exoPlayer, true);
+            } else {
+                Toasty.makeText(this,getString(R.string.please_wait_a_minute), Toasty.ERROR);
+            }
+        });
+
+
         if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
             iv_player_fav.setVisibility(View.INVISIBLE);
         }

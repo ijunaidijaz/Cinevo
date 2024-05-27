@@ -6,10 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
-import android.media.MediaMetadataRetriever;
 import android.media.metrics.PlaybackStateEvent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -67,7 +65,6 @@ import mycinevo.streambox.callback.Callback;
 import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.PlayerEpisodesListDialog;
 import mycinevo.streambox.dialog.Toasty;
-import mycinevo.streambox.item.ItemMediaData;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
@@ -91,7 +88,6 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
     private PlayerEpisodesListDialog listDialog;
     private BroadcastReceiver batteryReceiver;
     private ImageView exo_resize;
-    private ItemMediaData itemMediaData = null;
 
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
     static {
@@ -209,6 +205,7 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
                 else if (playbackState == Player.STATE_ENDED) {
                     onCompletion();
                 }
+
             }
             @Override
             public void onPlayerError(@NonNull PlaybackException error) {
@@ -280,9 +277,9 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
                 });
 
                 findViewById(R.id.iv_media_info).setOnClickListener(v -> {
-                    if (itemMediaData != null){
+                    if (exoPlayer != null && exoPlayer.getPlayWhenReady() && exoPlayer.getVideoFormat() != null){
                         playerView.hideController();
-                        DialogUtil.DialogPlayerInfo(PlayerEpisodesActivity.this, itemMediaData);
+                        DialogUtil.DialogPlayerInfo(this, exoPlayer, false);
                     } else {
                         Toasty.makeText(this,getString(R.string.please_wait_a_minute), Toasty.ERROR);
                     }
@@ -302,43 +299,6 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
                 } else {
                     ll_skip_next.setVisibility(View.GONE);
                 }
-
-                new AsyncTask<String, String, String>() {
-
-                    @Override
-                    protected String doInBackground(String... strings) {
-                        try {
-                            itemMediaData = null;
-                            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-                            try {
-                                retriever.setDataSource(episodeUrl);
-
-                                String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-                                String video_title = "Video Title: " + (title != null && !title.isEmpty() ? title  : Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getTitle());
-
-                                String video_type = "Video Type: " + retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_MIMETYPE);
-                                String frameWidth = "Frame width: " + retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
-                                String frameHeight = "Frame height: " + retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
-
-                                itemMediaData = new ItemMediaData(video_title, video_type, frameWidth, frameHeight);
-                                // You can extract other metadata keys as well
-                                retriever.release();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            return "1";
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            return "0";
-                        }
-                    }
-
-                    @Override
-                    protected void onPostExecute(String s) {
-                        super.onPostExecute(s);
-
-                    }
-                }.execute();
             }
         } else {
             Toasty.makeText(PlayerEpisodesActivity.this, getString(R.string.err_internet_not_connected), Toasty.ERROR);
