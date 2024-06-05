@@ -20,6 +20,7 @@ import androidx.nemosofts.view.ShimmerFrameLayout;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import mycinevo.streambox.R;
@@ -46,6 +47,7 @@ import mycinevo.streambox.dialog.Toasty;
 import mycinevo.streambox.interfaces.LiveListener;
 import mycinevo.streambox.interfaces.LoginListener;
 import mycinevo.streambox.interfaces.SuccessListener;
+import mycinevo.streambox.item.ItemUsersDB;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
@@ -72,6 +74,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
     private int progressStatusLive = 0, progressStatusMovie = 0, progressStatusSeries = 0;
     private ShimmerFrameLayout shimmer_live, shimmer_movie, shimmer_serials;
 
+  static   String username;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -409,9 +412,10 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
             case R.id.select_catch_up -> {
-                if (isDownloadLive()) {
-                    startActivity(new Intent(OneUIActivity.this, CatchUpActivity.class));
-                }
+                reloadSignOut();
+//                if (isDownloadLive()) {
+//                    startActivity(new Intent(OneUIActivity.this, CatchUpActivity.class));
+//                }
             }
             case R.id.ll_tv_auto_renew -> getLive();
             case R.id.ll_movie_auto_renew -> getMovies();
@@ -438,7 +442,117 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
             finish();
         });
     }
+    @SuppressLint("StaticFieldLeak")
+    private void reload() {
+        ArrayList<ItemUsersDB> arrayList=new ArrayList<>();
 
+        new AsyncTask<String, String, String>() {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected String doInBackground(String... strings) {
+                try {
+                    DBHelper dbHelper = new DBHelper(OneUIActivity.this);
+                    arrayList.addAll(dbHelper.loadUsersDB());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if (!isFinishing()){
+                    if (arrayList != null && !arrayList.isEmpty()){
+                        for (int i=0; i<arrayList.size();i++){
+                            if (arrayList.get(i).getUseName().equals(username)){
+                                loadLogin(arrayList.get(i));
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }.execute();
+    }
+    private void loadLogin(ItemUsersDB itemUsersDB) {
+        if (NetworkUtils.isConnected(this)){
+            LoadLogin login = new LoadLogin(new LoginListener() {
+                @Override
+                public void onStart() {
+                    progressDialog.show();
+                }
+
+                @Override
+                public void onEnd(String success, String username, String password, String message, int auth, String status, String exp_date, String is_trial, String active_cons, String created_at, String max_connections, String allowed_output_formats, boolean xui, String version, int revision, String url, String port, String https_port, String server_protocol, String rtmp_port, int timestamp_now, String time_now, String timezone) {
+                    progressDialog.dismiss();
+                    if (!isFinishing()){
+                        if (success.equals("1")) {
+                            try {
+                                if (Boolean.TRUE.equals(itemUsersDB.getUserType().equals("xui"))){
+                                    spHelper.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
+                                            xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
+                                    );
+                                    spHelper.setLoginType(Callback.TAG_LOGIN_ONE_UI);
+                                } else {
+                                    spHelper.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
+                                            xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
+                                    );
+                                    spHelper.setLoginType(Callback.TAG_LOGIN_STREAM);
+                                }
+
+                                if (!allowed_output_formats.isEmpty()){
+                                    if (allowed_output_formats.contains("m3u8")){
+                                        spHelper.setLiveFormat(2);
+                                    } else {
+                                        spHelper.setLiveFormat(1);
+                                    }
+                                } else {
+                                    spHelper.setLiveFormat(0);
+                                }
+
+                                spHelper.setAnyName(itemUsersDB.getAnyName());
+                                spHelper.setIsFirst(false);
+                                spHelper.setIsLogged(true);
+                                spHelper.setIsAutoLogin(true);
+
+                                Callback.isCustomAds = false;
+                                Callback.customAdCount = 0;
+                                Callback.customAdShow = 15;
+                                Callback.is_load_ads = true;
+
+                                Toast.makeText(OneUIActivity.this, "Reloaded successfully.", Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            ApplicationUtil.openThemeActivity(OneUIActivity.this);
+                        }  else {
+                            Toasty.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toasty.ERROR);
+                        }
+                    }
+                }
+
+            },itemUsersDB.getUserURL(), helper.getAPIRequestLogin(itemUsersDB.getUseName(),itemUsersDB.getUserPass()));
+            login.execute();
+        }  else {
+            Toasty.makeText(this, getString(R.string.err_internet_not_connected), Toasty.ERROR);
+        }
+    }
+    private void reloadSignOut() {
+        username=spHelper.getUserName();
+            if (spHelper.isLogged()) {
+                new JSHelper(OneUIActivity.this).removeAllData();
+                dbHelper.removeAllData();
+                spHelper.removeSignOut();
+                Toast.makeText(OneUIActivity.this, "Reloading...", Toast.LENGTH_SHORT).show();
+                reload();
+            }
+    }
     private boolean isDownloadLive() {
         if (!spHelper.getCurrent(Callback.TAG_TV).isEmpty()){
             return true;
