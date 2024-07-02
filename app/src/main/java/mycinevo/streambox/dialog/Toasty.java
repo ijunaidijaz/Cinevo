@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
 import mycinevo.streambox.R;
@@ -68,7 +70,7 @@ public class Toasty {
                     if (closeIcon != null) {
                         closeIcon.setOnClickListener(view -> {
                             if (dialog.isShowing()) {
-                                dialog.dismiss();
+                                dismissDialogSafely(dialog, activity);
                             }
                         });
                     }
@@ -81,7 +83,7 @@ public class Toasty {
                     window.setLayout(MATCH_PARENT, WRAP_CONTENT);
                     new Handler().postDelayed(() -> {
                         if (dialog.isShowing()) {
-                            dialog.dismiss();
+                            dismissDialogSafely(dialog, activity);
                         }
                     }, 1800);
                 }
@@ -89,5 +91,17 @@ public class Toasty {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void dismissDialogSafely(Dialog dialog, @NonNull Activity activity) {
+        activity.runOnUiThread(() -> {
+            if (dialog.isShowing() && !activity.isFinishing()) {
+                try {
+                    dialog.dismiss();
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

@@ -308,11 +308,7 @@ public class DetailsSeriesActivity extends AppCompatActivity {
 
     private void setInfo(@NonNull ItemInfoSeasons itemInfoSeasons) {
 
-        try {
-            findViewById(R.id.iv_feedback).setOnClickListener(v -> new FeedBackDialog(this).showDialog("Series - "+itemInfoSeasons.getName()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        findViewById(R.id.iv_feedback).setOnClickListener(v -> new FeedBackDialog(this).showDialog("Series - "+itemInfoSeasons.getName()));
 
         tv_page_title.setText(itemInfoSeasons.getName());
         tv_directed.setText(itemInfoSeasons.getDirector().isEmpty() || itemInfoSeasons.getDirector().equals("null") ? "N/A" : itemInfoSeasons.getDirector());
@@ -322,10 +318,14 @@ public class DetailsSeriesActivity extends AppCompatActivity {
 
         iv_fav.setImageResource(Boolean.TRUE.equals(dbHelper.checkSeries(DBHelper.TABLE_FAV_SERIES, series_id)) ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
 
-        Picasso.get()
-                .load(itemInfoSeasons.getCover().isEmpty() ? "null" : itemInfoSeasons.getCover())
-                .placeholder(R.drawable.material_design_default)
-                .into(iv_series);
+        try {
+            Picasso.get()
+                    .load(itemInfoSeasons.getCover().isEmpty() ? "null" : itemInfoSeasons.getCover())
+                    .placeholder(R.drawable.material_design_default)
+                    .into(iv_series);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         ApplicationUtil.setRating(itemInfoSeasons.getRating5based(), iv_star_1, iv_star_2, iv_star_3, iv_star_4, iv_star_5);
 
@@ -338,7 +338,7 @@ public class DetailsSeriesActivity extends AppCompatActivity {
             youtube = "https://www.youtube.com/watch?v="+itemInfoSeasons.getYoutubeTrailer();
             youtube_title = itemInfoSeasons.getName();
         }
-
+        findViewById(R.id.ll_play_trailer).setVisibility(View.GONE);
         try {
             ItemSeries itemSeries = new ItemSeries(series_name,series_id,series_cover,series_rating);
             dbHelper.addToSeries(DBHelper.TABLE_RECENT_SERIES, itemSeries, spHelper.getMovieLimit());

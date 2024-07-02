@@ -59,7 +59,6 @@ import java.net.CookiePolicy;
 import java.util.Locale;
 
 import mycinevo.streambox.R;
-import mycinevo.streambox.callback.Callback;
 import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.Toasty;
 import mycinevo.streambox.item.ItemMovies;
@@ -98,9 +97,8 @@ public class PlayerMovieActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Boolean.TRUE.equals(Callback.isLandscape)){
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         IfSupported.IsRTL(this);
         IfSupported.IsScreenshot(this);
         IfSupported.hideBottomBar(this);
@@ -158,7 +156,7 @@ public class PlayerMovieActivity extends AppCompatActivity {
         playerView.setShowRewindButton(true);
         playerView.setShowNextButton(false);
         playerView.setShowPreviousButton(false);
-        playerView.setControllerHideOnTouch(true);
+        playerView.setControllerHideOnTouch(false);
         playerView.setControllerAutoShow(true);
 
         playerView.setControllerVisibilityListener((PlayerView.ControllerVisibilityListener) visibility -> {
@@ -176,6 +174,7 @@ public class PlayerMovieActivity extends AppCompatActivity {
 
         try {
             PlayerControlView controlView = playerView.findViewById(R.id.exo_controller);
+            playerView.findViewById(R.id.exo_settings).setVisibility(View.GONE);
             CustomDefaultTrackNameProvider customDefaultTrackNameProvider = new CustomDefaultTrackNameProvider(getResources());
             final Field field = PlayerControlView.class.getDeclaredField("trackNameProvider");
             field.setAccessible(true);

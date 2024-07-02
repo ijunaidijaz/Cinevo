@@ -159,9 +159,10 @@
                         android:includeFontPadding="false"
                         android:text="@string/file"
                         android:textAlignment="viewStart"
-                        android:textColor="?ns_title"
                         android:textSize="@dimen/_10ssp"
-                        android:nextFocusUp="@id/et_any_name" />
+                        android:nextFocusUp="@id/et_any_name"
+                        android:textColor="?ns_title"
+                        android:buttonTint="?ns_title"/>
 
                     <RadioButton
                         android:layout_marginStart="@dimen/_10sdp"
@@ -173,9 +174,10 @@
                         android:text="@string/m3u_url"
                         android:background="@drawable/focused_edt"
                         android:textAlignment="viewStart"
-                        android:textColor="?ns_title"
                         android:textSize="@dimen/_10ssp"
-                        android:nextFocusUp="@id/et_any_name"/>
+                        android:nextFocusUp="@id/et_any_name"
+                        android:textColor="?ns_title"
+                        android:buttonTint="?ns_title"/>
 
                     <View
                         android:layout_width="0dp"

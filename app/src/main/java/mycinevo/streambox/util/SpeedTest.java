@@ -26,7 +26,7 @@ public class SpeedTest extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            String downloadUrl = "https://download.nemosofts.com/sample.txt";
+            String downloadUrl = "https://download.envatonemosofts.com/sample.txt";
 
             downloadSpeedKbps = 0;
             long startTime = System.currentTimeMillis();

@@ -57,7 +57,6 @@ import java.net.CookiePolicy;
 import java.util.Locale;
 
 import mycinevo.streambox.R;
-import mycinevo.streambox.callback.Callback;
 import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.Toasty;
 import mycinevo.streambox.util.ApplicationUtil;
@@ -91,9 +90,8 @@ public class PlayerSingleURLActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Boolean.TRUE.equals(Callback.isLandscape)){
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         IfSupported.IsRTL(this);
         IfSupported.IsScreenshot(this);
         IfSupported.hideBottomBar(this);
@@ -148,7 +146,7 @@ public class PlayerSingleURLActivity extends AppCompatActivity {
         playerView.setShowNextButton(false);
         playerView.setShowPreviousButton(false);
         playerView.setShowShuffleButton(true);
-        playerView.setControllerHideOnTouch(true);
+        playerView.setControllerHideOnTouch(false);
         playerView.setControllerAutoShow(true);
         playerView.setBrightnessControl(new BrightnessVolumeControl(this));
 

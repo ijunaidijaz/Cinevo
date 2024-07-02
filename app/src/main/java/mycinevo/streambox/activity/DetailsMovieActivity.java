@@ -149,12 +149,12 @@ public class DetailsMovieActivity extends AppCompatActivity {
             if (Boolean.TRUE.equals(dbHelper.checkMovie(DBHelper.TABLE_FAV_MOVIE, stream_id))){
                 dbHelper.removeMovie(DBHelper.TABLE_FAV_MOVIE, stream_id);
                 iv_fav.setImageResource(R.drawable.ic_favorite_border);
-                Toast.makeText(this, getString(R.string.fav_remove_success), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailsMovieActivity.this, getString(R.string.fav_remove_success), Toast.LENGTH_SHORT).show();
             } else {
                 ItemMovies itemMovies = new ItemMovies(stream_name, stream_id, stream_icon, stream_rating,"");
                 dbHelper.addToMovie(DBHelper.TABLE_FAV_MOVIE, itemMovies, 0);
                 iv_fav.setImageResource(R.drawable.ic_favorite);
-                Toast.makeText(this, getString(R.string.fav_success), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailsMovieActivity.this, getString(R.string.fav_success), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -313,7 +313,8 @@ public class DetailsMovieActivity extends AppCompatActivity {
         tv_duration.setText(ApplicationUtil.TimeFormat(itemMovies.getEpisodeRunTime()));
         tv_plot.setText(itemMovies.getPlot());
 
-        findViewById(R.id.ll_play_trailer).setVisibility(itemMovies.getYoutubeTrailer().isEmpty() ? View.GONE : View.VISIBLE);
+//        findViewById(R.id.ll_play_trailer).setVisibility(itemMovies.getYoutubeTrailer().isEmpty() ? View.GONE : View.VISIBLE);
+        findViewById(R.id.ll_play_trailer).setVisibility( View.GONE);
         findViewById(R.id.ll_download).setOnClickListener(v -> {
             if (Boolean.TRUE.equals(checkPer())) {
                 if (itemData != null){
@@ -506,7 +507,7 @@ public class DetailsMovieActivity extends AppCompatActivity {
                         new Handler().postDelayed(() -> {
                             if (ytFiles != null) {
                                 try {
-                                    String downloadUrl = ytFiles.get(22).getUrl();
+                                    String downloadUrl = youtube;
                                     Intent intent = new Intent(DetailsMovieActivity.this, PlayerSingleURLActivity.class);
                                     intent.putExtra("channel_title", itemMovies.getName());
                                     intent.putExtra("channel_url", downloadUrl);

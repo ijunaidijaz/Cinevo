@@ -813,7 +813,6 @@
                                 android:layout_height="@dimen/_18sdp"
                                 android:src="@drawable/ic_timer_start"
                                 app:tint="@color/white"
-                                android:visibility="gone"
                                 android:contentDescription="@string/todo"/>
 
                             <TextView

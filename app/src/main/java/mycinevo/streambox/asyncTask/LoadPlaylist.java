@@ -78,7 +78,13 @@ public class LoadPlaylist extends AsyncTask<String, String, String> {
                         if (matcher.find()) {
                             name = matcher.group(1);
                         } else {
-                            name = "";
+                            Pattern pattern2 = Pattern.compile("group-title=\"([^\"]*)\",(.*?)$");
+                            Matcher matcher2 = pattern2.matcher(line);
+                            if (matcher2.find()) {
+                                name = matcher2.group(2);
+                            } else {
+                                name = "";
+                            }
                         }
                     } catch (Exception e) {
                         name = "";

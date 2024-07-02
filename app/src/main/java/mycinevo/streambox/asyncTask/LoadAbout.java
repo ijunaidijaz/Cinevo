@@ -97,7 +97,7 @@ public class LoadAbout extends AsyncTask<String, String, String> {
 
                         // AppUpdate
                         Callback.isAppUpdate = Boolean.parseBoolean(c.getString("app_update_status"));
-                        if(!c.getString("app_new_version").equals("")) {
+                        if(!c.getString("app_new_version").isEmpty()) {
                             Callback.app_new_version = Integer.parseInt(c.getString("app_new_version"));
                         }
                         Callback.app_update_desc = c.getString("app_update_desc");
@@ -105,7 +105,7 @@ public class LoadAbout extends AsyncTask<String, String, String> {
 
                         // Custom Ads
                         Callback.isCustomAds = Boolean.parseBoolean(c.getString("custom_ads"));
-                        if(!c.getString("custom_ads_clicks").equals("")) {
+                        if(!c.getString("custom_ads_clicks").isEmpty()) {
                             Callback.customAdShow = Integer.parseInt(c.getString("custom_ads_clicks"));
                         }
 

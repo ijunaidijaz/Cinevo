@@ -72,9 +72,7 @@ public class PlaylistLiveTvActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Boolean.TRUE.equals(Callback.isLandscape)){
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         IfSupported.IsRTL(this);
         IfSupported.IsScreenshot(this);
         IfSupported.hideStatusBar(this);

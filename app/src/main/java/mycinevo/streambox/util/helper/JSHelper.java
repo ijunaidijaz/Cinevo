@@ -56,6 +56,8 @@ public class JSHelper {
     private static final String TAG_EMPTY = "";
 
     private static final String TAG_GROUP = "group";
+    private static final String TAG_GROUP_TITLE = "group-title";
+
     private static final String TAG_LIVE = "live";
     private static final String TAG_CREATED_LIVE = "created_live";
     private static final String TAG_RADIO_STREAMS = "radio_streams";
@@ -463,7 +465,13 @@ public class JSHelper {
             for (int i = 0; i < arrayCategory.length(); i++) {
                 JSONObject objectCategory = arrayCategory.getJSONObject(i);
 
-                String group = objectCategory.getString(TAG_GROUP);
+                String group = "";
+                if (objectCategory.has(TAG_GROUP)){
+                    group = objectCategory.getString(TAG_GROUP);
+                } else if (objectCategory.has(TAG_GROUP_TITLE)){
+                    group = objectCategory.getString(TAG_GROUP_TITLE);
+                }
+
                 String url = objectCategory.getString(TAG_URL);
                 if (pageType == 4){
                     if (url.equalsIgnoreCase(".ts") || url.contains("/ts") || url.contains(".m3u8") || url.contains("/m3u8")){

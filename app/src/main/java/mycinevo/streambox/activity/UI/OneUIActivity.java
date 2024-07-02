@@ -73,8 +73,8 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
     private final Handler handlerSeries = new Handler();
     private int progressStatusLive = 0, progressStatusMovie = 0, progressStatusSeries = 0;
     private ShimmerFrameLayout shimmer_live, shimmer_movie, shimmer_serials;
+    static   String username;
 
-  static   String username;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -442,6 +442,15 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
             finish();
         });
     }
+
+    private boolean isDownloadLive() {
+        if (!spHelper.getCurrent(Callback.TAG_TV).isEmpty()){
+            return true;
+        } else {
+            DialogUtil.LiveDownloadDialog(this, this::getLive);
+            return false;
+        }
+    }
     @SuppressLint("StaticFieldLeak")
     private void reload() {
         ArrayList<ItemUsersDB> arrayList=new ArrayList<>();
@@ -479,6 +488,30 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         }.execute();
+    }
+    private void loadLogin() {
+        try {
+            if (NetworkUtils.isConnected(this)){
+                LoadLogin login = new LoadLogin(new LoginListener() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onEnd(String success, String username, String password, String message, int auth, String status, String exp_date, String is_trial, String active_cons, String created_at, String max_connections, String allowed_output_formats, boolean xui, String version, int revision, String url, String port, String https_port, String server_protocol, String rtmp_port, int timestamp_now, String time_now, String timezone) {
+                        if (!isFinishing()){
+                            spHelper.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
+                                    xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
+                            );
+                            spHelper.setIsLogged(true);
+                        }
+                    }
+                }, spHelper.getServerURL(), helper.getAPIRequestLogin(spHelper.getUserName(), spHelper.getPassword()));
+                login.execute();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     private void loadLogin(ItemUsersDB itemUsersDB) {
         if (NetworkUtils.isConnected(this)){
@@ -545,47 +578,15 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
     }
     private void reloadSignOut() {
         username=spHelper.getUserName();
-            if (spHelper.isLogged()) {
-                new JSHelper(OneUIActivity.this).removeAllData();
-                dbHelper.removeAllData();
-                spHelper.removeSignOut();
-                Toast.makeText(OneUIActivity.this, "Reloading...", Toast.LENGTH_SHORT).show();
-                reload();
-            }
-    }
-    private boolean isDownloadLive() {
-        if (!spHelper.getCurrent(Callback.TAG_TV).isEmpty()){
-            return true;
-        } else {
-            DialogUtil.LiveDownloadDialog(this, this::getLive);
-            return false;
+        if (spHelper.isLogged()) {
+            new JSHelper(OneUIActivity.this).removeAllData();
+            dbHelper.removeAllData();
+            spHelper.removeSignOut();
+            Toast.makeText(OneUIActivity.this, "Reloading...", Toast.LENGTH_SHORT).show();
+            reload();
         }
     }
 
-    private void loadLogin() {
-        try {
-            if (NetworkUtils.isConnected(this)){
-                LoadLogin login = new LoadLogin(new LoginListener() {
-                    @Override
-                    public void onStart() {
-                    }
-
-                    @Override
-                    public void onEnd(String success, String username, String password, String message, int auth, String status, String exp_date, String is_trial, String active_cons, String created_at, String max_connections, String allowed_output_formats, boolean xui, String version, int revision, String url, String port, String https_port, String server_protocol, String rtmp_port, int timestamp_now, String time_now, String timezone) {
-                        if (!isFinishing()){
-                            spHelper.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
-                                    xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
-                            );
-                            spHelper.setIsLogged(true);
-                        }
-                    }
-                }, spHelper.getServerURL(), helper.getAPIRequestLogin(spHelper.getUserName(), spHelper.getPassword()));
-                login.execute();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     private void getInfo() {
         ImageView iv_wifi = findViewById(R.id.iv_wifi);

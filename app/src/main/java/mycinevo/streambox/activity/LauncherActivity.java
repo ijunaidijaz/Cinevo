@@ -25,7 +25,7 @@ import androidx.media3.exoplayer.ExoPlayer;
 import androidx.media3.exoplayer.source.MediaSource;
 import androidx.media3.exoplayer.source.ProgressiveMediaSource;
 import androidx.nemosofts.envato.EnvatoProduct;
-import androidx.nemosofts.envato.interfaces.EnvatoListener;
+import androidx.nemosofts.envato.LauncherListener;
 import androidx.nemosofts.theme.ThemeEngine;
 
 import org.json.JSONArray;
@@ -45,8 +45,7 @@ import mycinevo.streambox.util.NetworkUtils;
 import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.Helper;
 
-@SuppressLint("CustomSplashScreen")
-public class SplashActivity extends AppCompatActivity implements EnvatoListener {
+public class LauncherActivity extends AppCompatActivity implements LauncherListener {
 
     Helper helper;
     SPHelper spHelper;
@@ -97,7 +96,7 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
 
     private void loadAboutData() {
         if (NetworkUtils.isConnected(this)){
-            LoadAbout loadAbout = new LoadAbout(SplashActivity.this, new AboutListener() {
+            LoadAbout loadAbout = new LoadAbout(LauncherActivity.this, new AboutListener() {
                 @Override
                 public void onStart() {
                     pb.setVisibility(View.VISIBLE);
@@ -197,9 +196,9 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
                     pb.setVisibility(View.GONE);
                     if (Boolean.TRUE.equals(spHelper.getIsSplashAudio())){
                         playAudio();
-                        new Handler().postDelayed(()-> ApplicationUtil.openThemeActivity(SplashActivity.this), delayMillis);
+                        new Handler().postDelayed(()-> ApplicationUtil.openThemeActivity(LauncherActivity.this), delayMillis);
                     } else {
-                        ApplicationUtil.openThemeActivity(SplashActivity.this);
+                        ApplicationUtil.openThemeActivity(LauncherActivity.this);
                     }
                 }
             });
@@ -207,16 +206,16 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
         } else {
             if (Boolean.TRUE.equals(spHelper.getIsSplashAudio())){
                 playAudio();
-                new Handler().postDelayed(()-> ApplicationUtil.openThemeActivity(SplashActivity.this), delayMillis);
+                new Handler().postDelayed(()-> ApplicationUtil.openThemeActivity(LauncherActivity.this), delayMillis);
             } else {
-                ApplicationUtil.openThemeActivity(SplashActivity.this);
+                ApplicationUtil.openThemeActivity(LauncherActivity.this);
             }
         }
     }
 
     @SuppressLint("UnsafeOptInUsageError")
     private void openSelectPlayer() {
-        Intent intent = new Intent(SplashActivity.this, SelectPlayerActivity.class);
+        Intent intent = new Intent(LauncherActivity.this, SelectPlayerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("from", "");
         startActivity(intent);
@@ -225,21 +224,21 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
 
     @SuppressLint("UnsafeOptInUsageError")
     private void openSingleStream() {
-        Intent intent = new Intent(SplashActivity.this, SingleStreamActivity.class);
+        Intent intent = new Intent(LauncherActivity.this, SingleStreamActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }
 
     private void openPlaylistActivity() {
-        Intent intent = new Intent(SplashActivity.this, PlaylistActivity.class);
+        Intent intent = new Intent(LauncherActivity.this, PlaylistActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }
 
     private void openDialogActivity(String type) {
-        Intent intent = new Intent(SplashActivity.this, DialogActivity.class);
+        Intent intent = new Intent(LauncherActivity.this, DialogActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("from", type);
         startActivity(intent);
@@ -265,7 +264,7 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
 
     @Override
     public void onReconnect() {
-        Toast.makeText(SplashActivity.this, "Please wait a minute", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LauncherActivity.this, "Please wait a minute", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -275,7 +274,7 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
     }
 
     private void errorDialog(String title, String message) {
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(SplashActivity.this, R.style.ThemeDialog);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(LauncherActivity.this, R.style.ThemeDialog);
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
         alertDialog.setCancelable(false);
@@ -302,7 +301,7 @@ public class SplashActivity extends AppCompatActivity implements EnvatoListener 
     }
 
     private void setSaveData() {
-        new EnvatoProduct(SplashActivity.this, SplashActivity.this).execute();
+        new EnvatoProduct(LauncherActivity.this, LauncherActivity.this).execute();
     }
 
     @Override

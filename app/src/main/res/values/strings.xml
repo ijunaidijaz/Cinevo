@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">Cinevo</string>
 
-    <!-- Push notification ID-->
-    <string name="onesignal_app_id">a3af5079-afad-43a6-aa11-fbcee9e9bb1a</string>
-
     <string name="categories">Categories</string>
     <string name="expiration">Expiration :</string>
     <string name="logged_in">Logged in :</string>

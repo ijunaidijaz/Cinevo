@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.media.metrics.PlaybackStateEvent;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -98,9 +99,8 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Boolean.TRUE.equals(Callback.isLandscape)){
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         IfSupported.IsRTL(this);
         IfSupported.IsScreenshot(this);
         IfSupported.hideBottomBar(this);
@@ -157,7 +157,7 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
         playerView.setShowRewindButton(true);
         playerView.setShowNextButton(false);
         playerView.setShowPreviousButton(false);
-        playerView.setControllerHideOnTouch(true);
+        playerView.setControllerHideOnTouch(false);
         playerView.setControllerAutoShow(true);
         playerView.setBrightnessControl(new BrightnessVolumeControl(PlayerEpisodesActivity.this));
         playerView.setControllerVisibilityListener((PlayerView.ControllerVisibilityListener) visibility -> {
@@ -176,6 +176,7 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
 
         try {
             PlayerControlView controlView = playerView.findViewById(R.id.exo_controller);
+            playerView.findViewById(R.id.exo_settings).setVisibility(View.GONE);
             CustomDefaultTrackNameProvider customDefaultTrackNameProvider = new CustomDefaultTrackNameProvider(getResources());
             final Field field = PlayerControlView.class.getDeclaredField("trackNameProvider");
             field.setAccessible(true);

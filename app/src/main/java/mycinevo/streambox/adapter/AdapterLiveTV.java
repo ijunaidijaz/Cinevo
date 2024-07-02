@@ -54,26 +54,29 @@ public class AdapterLiveTV extends RecyclerView.Adapter<AdapterLiveTV.MyViewHold
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View  itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
+        View  itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_live, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.tv_movie_title.setText(arrayList.get(position).getName());
+        if (arrayList.get(position).getName().isEmpty()){
+            holder.tv_movie_title.setVisibility(View.GONE);
+        } else {
+            holder.tv_movie_title.setText(arrayList.get(position).getName());
+        }
+
         holder.ll_card_star.setVisibility(View.GONE);
 
-        holder.iv_movie.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        holder.iv_movie.setScaleType(ImageView.ScaleType.FIT_CENTER);
         holder.iv_movie.setLayoutParams(new RelativeLayout.LayoutParams(columnWidth, columnWidth));
         holder.fd_movie_card.setLayoutParams(new RelativeLayout.LayoutParams(columnWidth, columnWidth));
 
         try {
             Picasso.get()
                     .load(arrayList.get(position).getStreamIcon().isEmpty() ? "null" : arrayList.get(position).getStreamIcon())
-                    .resize(Boolean.TRUE.equals(isTvBox) ? columnWidth : 300, Boolean.TRUE.equals(isTvBox) ? columnWidth : 300)
-                    .centerCrop()
-                    .placeholder(R.color.bg_color_load)
+                    .placeholder(R.drawable.bg_card_item_load)
                     .into(holder.iv_movie);
         } catch (Exception e) {
             e.printStackTrace();

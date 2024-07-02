@@ -704,16 +704,20 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
     public Boolean checkDownload(String table, String id, String container) {
-        File root = new File(context.getExternalFilesDir("").getAbsolutePath() + "/temp");
-        Cursor cursor = db.query(table, columns_download, TAG_DOWNLOAD_ID + "=" + id, null, null, null, null);
         boolean isDownloaded;
-        if (cursor != null && cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            @SuppressLint("Range") String filename = cursor.getString(cursor.getColumnIndex(TAG_DOWNLOAD_TEMP_NAME));
-            File file = new File(root, filename + container);
-            isDownloaded = file.exists();
-            cursor.close();
-        } else {
+        try {
+            File root = new File(context.getExternalFilesDir("").getAbsolutePath() + "/temp");
+            Cursor cursor = db.query(table, columns_download, TAG_DOWNLOAD_ID + "=" + id, null, null, null, null);
+            if (cursor != null && cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                @SuppressLint("Range") String filename = cursor.getString(cursor.getColumnIndex(TAG_DOWNLOAD_TEMP_NAME));
+                File file = new File(root, filename + container);
+                isDownloaded = file.exists();
+                cursor.close();
+            } else {
+                isDownloaded = false;
+            }
+        } catch (Exception e) {
             isDownloaded = false;
         }
         return isDownloaded;
