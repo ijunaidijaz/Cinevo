@@ -2,7 +2,7 @@
 <resources>
 
     <!--Classic Color-->
-    <color name="md_classic_primary">#170CB1</color>
+    <color name="md_classic_primary">#E62E2F</color>
     <color name="md_classic_primary_sub">#26E62E2F</color>
     <color name="md_classic_body">#000000</color>
     <color name="md_classic_body_sub">#121212</color>
@@ -37,8 +37,6 @@
     <color name="md_grey_title">#DBDBDB</color>
     <color name="md_grey_title_sub">#E9A0A0A0</color>
     <color name="md_grey_border">#191919</color>
-
-
 
     <color name="md_background">#FDFDFE</color>
     <color name="md_title">#161616</color>

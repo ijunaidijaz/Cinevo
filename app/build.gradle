@@ -5,14 +5,14 @@ plugins {
 }
 
 android {
-    namespace 'mycinevo.streambox'
+    namespace 'nemosofts.streambox'
     compileSdk 34
 
     defaultConfig {
-        applicationId "mycinevo.streambox"
-        minSdk 21
+        applicationId "nsofts.streambox"
+        minSdk 23
         targetSdk 34
-        versionCode 33
+        versionCode 1
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -53,18 +53,17 @@ android {
 
 dependencies {
     implementation libs.bundles.nemosofts
+    implementation libs.bundles.network.security
     implementation libs.androidx.multidex
-    implementation libs.gson
-    implementation libs.okhttp
     implementation libs.recyclerview
     implementation libs.androidx.palette
     implementation libs.scytale
-    implementation libs.picasso
     implementation libs.commons.io
     implementation(platform(libs.firebase.bom))
     implementation libs.bundles.firebase
     implementation libs.oneSignal
     implementation libs.androidx.activity
+    implementation libs.bundles.youtubeplayer
     implementation libs.bundles.media3
     implementation(libs.bundles.exoplayer) {
         exclude group: "androidx.media3", module: "media3-exoplayer"

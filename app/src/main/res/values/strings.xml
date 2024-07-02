@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Cinevo</string>
+    <string name="app_name">StreamBox</string>
 
-    <!-- Push notification ID-->
-    <string name="onesignal_app_id">a3af5079-afad-43a6-aa11-fbcee9e9bb1a</string>
+    <!-- Made with -->
+    <string name="made_with_in">Made With ❤ in Sri Lanka</string>
 
     <string name="categories">Categories</string>
     <string name="expiration">Expiration :</string>
@@ -185,6 +185,18 @@
     <string name="downloading">Downloading</string>
     <string name="already_download">Already Downloaded</string>
     <string name="err_cannot_use_features">Cannot use some of the features without requested permission</string>
+
+    <!--About-->
+    <string name="about">About Us</string>
+    <string name="rate_the_app">Rate the app</string>
+    <string name="love_this_app">Love this app? Let us Know in the Google Play Store how we can make it even better</string>
+    <string name="share_the_app">Share the app with your friends and family</string>
+    <string name="company">Company</string>
+    <string name="email">Email</string>
+    <string name="version">Version</string>
+    <string name="website">Website</string>
+    <string name="contact">Contact</string>
+    <string name="share">Share</string>
 
     <!-- subscription -->
     <string name="subscription">Subscription</string>

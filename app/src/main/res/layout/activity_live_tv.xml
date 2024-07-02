@@ -171,7 +171,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:paddingBottom="@dimen/_20sdp" />
+                android:paddingBottom="@dimen/_20sdp"
+                android:layoutAnimation="@anim/layout_animation_from_bottom"/>
 
             <FrameLayout
                 android:id="@+id/fl_empty"

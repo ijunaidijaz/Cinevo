@@ -20,13 +20,10 @@
         android:required="false" />
     <uses-feature
         android:name="android.hardware.wifi"
-        android:required="false" />
-
-    <!-- Network Permission -->
+        android:required="false" /> <!-- Network Permission -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- Storage Permission -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Storage Permission -->
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -35,10 +32,8 @@
         android:maxSdkVersion="29" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
-    <!-- Notifications Permission -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <!-- Advertising Permission -->
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" /> <!-- Notifications Permission -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- Advertising Permission -->
     <uses-permission android:name="android.permission.Ad_ID" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
@@ -55,14 +50,14 @@
         android:supportsRtl="true"
         android:theme="@style/ThemeEngineLight"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m">
+        tools:targetApi="n">
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.LauncherActivity"
             android:configChanges="keyboard|keyboardHidden|navigation"
             android:exported="true"
             android:screenOrientation="sensorLandscape"
@@ -296,7 +291,9 @@
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            tools:ignore="DiscouragedApi" /> <!-- Setting -->
+            tools:ignore="DiscouragedApi" />
+
+        <!-- Setting -->
         <activity
             android:name=".activity.SettingActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
@@ -333,6 +330,13 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
+            android:name=".activity.AboutUsActivity"
+            android:configChanges="keyboardHidden|locale|orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            tools:ignore="DiscouragedApi" />
+        <activity
             android:name=".activity.UI.PlaylistActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
@@ -348,13 +352,6 @@
             tools:ignore="DiscouragedApi" />
         <activity
             android:name=".activity.SearchActivity"
-            android:configChanges="keyboardHidden|locale|orientation|screenSize"
-            android:exported="false"
-            android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            tools:ignore="DiscouragedApi" />
-        <activity
-            android:name=".activity.SubscriptionActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
@@ -402,6 +399,14 @@
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".activity.YouTubePlayerActivity"
+            android:configChanges="keyboardHidden|locale|orientation|screenSize"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            tools:ignore="DiscouragedApi" />
 
         <!-- Get Data -->
         <activity
@@ -416,9 +421,7 @@
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="vnd.android.cursor.item/vnd.google.note" />
             </intent-filter>
-        </activity>
-
-        <!-- Download Service -->
+        </activity> <!-- Download Service -->
         <service
             android:name=".activity.DownloadService"
             android:exported="false"

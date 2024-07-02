@@ -813,13 +813,12 @@
                                 android:layout_height="@dimen/_18sdp"
                                 android:src="@drawable/ic_timer_start"
                                 app:tint="@color/white"
-                                android:visibility="gone"
                                 android:contentDescription="@string/todo"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="RELOAD"
+                                android:text="@string/catch_up_home"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_10ssp"
                                 android:textStyle="bold"
