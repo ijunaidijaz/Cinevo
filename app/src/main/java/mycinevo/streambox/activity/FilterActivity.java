@@ -132,10 +132,10 @@ public class FilterActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onEnd(String success, ArrayList<ItemCat> itemCat) {
+            public void onEnd(boolean success, ArrayList<ItemCat> itemCat) {
                 progressDialog.dismiss();
                 if (!isFinishing()){
-                    if (success.equals("1")) {
+                    if (success) {
                         if (itemCat.isEmpty()) {
                             setEmpty();
                         } else {
@@ -271,7 +271,6 @@ public class FilterActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint({"UnsafeOptInUsageError"})
     public void setAdapterToListview() {
         if(Boolean.FALSE.equals(isScroll)) {
             adapter = new AdapterLiveTV(this, arrayList, (itemCat, position) -> {

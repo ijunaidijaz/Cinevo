@@ -38,10 +38,10 @@ public class LoadStatus extends AsyncTask<String, String, String> {
                 success = c.getString(Callback.TAG_SUCCESS);
                 message = c.getString(Callback.TAG_MSG);
             }
-            return "1";
+            return "1"; // Success
         } catch (Exception e) {
             e.printStackTrace();
-            return "0";
+            return "0"; // Error
         }
     }
 

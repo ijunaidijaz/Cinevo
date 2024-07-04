@@ -6,5 +6,5 @@ import mycinevo.streambox.item.ItemCat;
 
 public interface GetCategoryListener {
     void onStart();
-    void onEnd(String success, ArrayList<ItemCat> arrayListCat);
+    void onEnd(boolean success, ArrayList<ItemCat> arrayListCat);
 }

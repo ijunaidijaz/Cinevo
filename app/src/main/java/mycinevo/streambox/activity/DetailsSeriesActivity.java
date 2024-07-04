@@ -7,8 +7,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.nemosofts.AppCompat;
 import androidx.nemosofts.AppCompatActivity;
 import androidx.nemosofts.view.BlurImage;
-import androidx.nemosofts.view.youtubeExtractor.VideoMeta;
-import androidx.nemosofts.view.youtubeExtractor.YouTubeExtractor;
-import androidx.nemosofts.view.youtubeExtractor.YtFile;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,9 +43,9 @@ import mycinevo.streambox.item.ItemSeries;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class DetailsSeriesActivity extends AppCompatActivity {
@@ -161,7 +156,11 @@ public class DetailsSeriesActivity extends AppCompatActivity {
 
         findViewById(R.id.ll_play_trailer).setOnClickListener(v -> {
             if (findViewById(R.id.pb_trailer).getVisibility() == View.GONE){
-                showYouTubeExtractor();
+                if (youtube != null && !youtube.isEmpty()) {
+                    Intent intent = new Intent(DetailsSeriesActivity.this, YouTubePlayerActivity.class);
+                    intent.putExtra("stream_id", youtube);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -285,11 +284,12 @@ public class DetailsSeriesActivity extends AppCompatActivity {
             }
 
             if (!season_id.equals("0")){
-                for (int i = 0; i < arrayAllEpisodes.size(); i++) {
-                    if (arrayAllEpisodes.get(i).getSeason().equals(season_id)){
-                        arrayEpisodes.add(arrayAllEpisodes.get(i));
+                for (ItemEpisodes episode : arrayAllEpisodes) {
+                    if (episode.getSeason().equals(season_id)) {
+                        arrayEpisodes.add(episode);
                     }
                 }
+
             } else {
                 arrayEpisodes.addAll(arrayAllEpisodes);
             }
@@ -338,7 +338,7 @@ public class DetailsSeriesActivity extends AppCompatActivity {
             youtube = "https://www.youtube.com/watch?v="+itemInfoSeasons.getYoutubeTrailer();
             youtube_title = itemInfoSeasons.getName();
         }
-        findViewById(R.id.ll_play_trailer).setVisibility(View.GONE);
+
         try {
             ItemSeries itemSeries = new ItemSeries(series_name,series_id,series_cover,series_rating);
             dbHelper.addToSeries(DBHelper.TABLE_RECENT_SERIES, itemSeries, spHelper.getMovieLimit());
@@ -379,53 +379,6 @@ public class DetailsSeriesActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
             imageViewBackground.setImageResource(theme_bg);
-        }
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private void showYouTubeExtractor() {
-        progressDialog.show();
-        findViewById(R.id.tv_trailer).setVisibility(View.GONE);
-        findViewById(R.id.pb_trailer).setVisibility(View.VISIBLE);
-        if (youtube != null && !youtube.isEmpty()) {
-            new YouTubeExtractor(this) {
-
-                @Override
-                public void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta vMeta) {
-                    if (!isFinishing()){
-                        progressDialog.dismiss();
-                        findViewById(R.id.tv_trailer).setVisibility(View.VISIBLE);
-                        findViewById(R.id.pb_trailer).setVisibility(View.GONE);
-                        new Handler().postDelayed(() -> {
-                            if (ytFiles != null) {
-                                try {
-                                    String downloadUrl = ytFiles.get(22).getUrl();
-                                    @SuppressLint("UnsafeOptInUsageError") Intent intent = new Intent(DetailsSeriesActivity.this, PlayerSingleURLActivity.class);
-                                    intent.putExtra("channel_title", youtube_title);
-                                    intent.putExtra("channel_url", downloadUrl);
-                                    startActivity(intent);
-                                } catch (Exception e1) {
-                                    e1.printStackTrace();
-                                }
-                            }
-                        }, 10);
-                    }
-                }
-
-                @Override
-                protected void onCancelled(SparseArray<YtFile> ytFileSparseArray) {
-                    super.onCancelled(ytFileSparseArray);
-                    if (!isFinishing()){
-                        findViewById(R.id.tv_trailer).setVisibility(View.VISIBLE);
-                        findViewById(R.id.pb_trailer).setVisibility(View.GONE);
-                    }
-                }
-
-            }.extract(youtube, true, true);
-        } else {
-            findViewById(R.id.tv_trailer).setVisibility(View.VISIBLE);
-            findViewById(R.id.pb_trailer).setVisibility(View.GONE);
-            Toasty.makeText(DetailsSeriesActivity.this, "No YouTube trailer available", Toasty.ERROR);
         }
     }
 

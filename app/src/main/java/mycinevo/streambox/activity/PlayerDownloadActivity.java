@@ -1,6 +1,5 @@
 package mycinevo.streambox.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.media.metrics.PlaybackStateEvent;
@@ -68,6 +67,8 @@ public class PlayerDownloadActivity extends AppCompatActivity {
     private ProgressBar pb_player;
     private TextView tv_player_title;
     private ImageView exo_resize;
+    public static boolean controllerVisible;
+    public static boolean controllerVisibleFully;
 
     Cipher mCipher = null;
     SecretKeySpec secretKeySpec;
@@ -96,6 +97,8 @@ public class PlayerDownloadActivity extends AppCompatActivity {
         tv_player_title = findViewById(R.id.tv_player_title);
 
         DefaultBandwidthMeter.Builder bandwidthMeter = new DefaultBandwidthMeter.Builder(this);
+
+        // Set default cookie manager if not already set
         if (CookieHandler.getDefault() != DEFAULT_COOKIE_MANAGER) {
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
@@ -119,6 +122,7 @@ public class PlayerDownloadActivity extends AppCompatActivity {
 
         DefaultTrackSelector trackSelector = new DefaultTrackSelector(this);
 
+        // Set captioning parameters if enabled
         final CaptioningManager captioningManager = (CaptioningManager) getSystemService(Context.CAPTIONING_SERVICE);
         if (!captioningManager.isEnabled()) {
             trackSelector.setParameters(trackSelector.buildUponParameters().setIgnoredTextSelectionFlags(C.SELECTION_FLAG_DEFAULT));
@@ -128,11 +132,13 @@ public class PlayerDownloadActivity extends AppCompatActivity {
             trackSelector.setParameters(trackSelector.buildUponParameters().setPreferredTextLanguage(locale.getISO3Language()));
         }
 
+        // Build ExoPlayer instance
         exoPlayer = new SimpleExoPlayer.Builder(this, renderersFactory)
                 .setTrackSelector(trackSelector)
                 .setMediaSourceFactory(new DefaultMediaSourceFactory(this, extractorsFactory))
                 .build();
 
+        // Set audio attributes for the player
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setUsage(C.USAGE_MEDIA)
                 .setContentType(C.AUDIO_CONTENT_TYPE_MOVIE)
@@ -141,6 +147,7 @@ public class PlayerDownloadActivity extends AppCompatActivity {
 
         SPHelper spHelper = new SPHelper(this);
 
+        // Attach ExoPlayer to the player view
         playerView = findViewById(R.id.nSoftsPlayerView);
         playerView.setPlayer(exoPlayer);
         playerView.setShowVrButton(spHelper.getIsVR());
@@ -154,7 +161,11 @@ public class PlayerDownloadActivity extends AppCompatActivity {
         playerView.setControllerAutoShow(true);
         playerView.setBrightnessControl(new BrightnessVolumeControl(this));
 
+        // Set controller visibility listener
         playerView.setControllerVisibilityListener((PlayerView.ControllerVisibilityListener) visibility -> {
+            controllerVisible = visibility == View.VISIBLE;
+            controllerVisibleFully = playerView.isControllerFullyVisible();
+
             findViewById(R.id.rl_player_top).setVisibility(visibility);
 
             // https://developer.android.com/training/system-ui/immersive
@@ -165,6 +176,7 @@ public class PlayerDownloadActivity extends AppCompatActivity {
             }
         });
 
+        // Set custom track name provider for control view
         try {
             PlayerControlView controlView = playerView.findViewById(R.id.exo_controller);
             CustomDefaultTrackNameProvider customDefaultTrackNameProvider = new CustomDefaultTrackNameProvider(getResources());
@@ -175,8 +187,10 @@ public class PlayerDownloadActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // Set media source
         setMediaSource();
 
+        // Set player event listeners
         exoPlayer.addListener(new Player.Listener() {
 
             @Override
@@ -197,6 +211,7 @@ public class PlayerDownloadActivity extends AppCompatActivity {
             @Override
             public void onPlayerError(@NonNull PlaybackException error) {
                 Player.Listener.super.onPlayerError(error);
+
                 exoPlayer.stop();
                 pb_player.setVisibility(View.GONE);
                 Toasty.makeText(PlayerDownloadActivity.this, "Failed : " + error.getErrorCodeName(), Toasty.ERROR);
@@ -233,7 +248,6 @@ public class PlayerDownloadActivity extends AppCompatActivity {
         return AppCompat.COMPAT();
     }
 
-    @SuppressLint("StaticFieldLeak")
     private void setMediaSource() {
         if (NetworkUtils.isConnected(this)){
             tv_player_title.setText(channelTitle);
@@ -318,36 +332,83 @@ public class PlayerDownloadActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN){
-            if (keyCode == KeyEvent.KEYCODE_BACK){
-                finish();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_HOME){
-                ApplicationUtil.openHomeActivity(this);
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY || keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE || keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE) {
-                if (exoPlayer != null) {
-                    exoPlayer.setPlayWhenReady(!exoPlayer.getPlayWhenReady());
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_MEDIA_PLAY:
+            case KeyEvent.KEYCODE_MEDIA_PAUSE:
+            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+            case KeyEvent.KEYCODE_BUTTON_SELECT:
+                if (exoPlayer == null)
+                    break;
+                if (keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE) {
+                    exoPlayer.pause();
+                } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY) {
+                    exoPlayer.play();
+                } else if (exoPlayer.isPlaying()) {
+                    exoPlayer.pause();
+                } else {
+                    exoPlayer.play();
                 }
                 return true;
-            } else if (keyCode == KeyEvent.KEYCODE_MEDIA_REWIND) {
-                seekBy((long) -10 * 1000);
+            case KeyEvent.KEYCODE_VOLUME_UP:
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
                 return true;
-            } else if (keyCode == KeyEvent.KEYCODE_MEDIA_FAST_FORWARD) {
-                seekBy((long) 10 * 1000);
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_MEDIA_STOP) {
-                if (exoPlayer != null && exoPlayer.getPlayWhenReady()) {
-                    exoPlayer.setPlayWhenReady(false);
-                    exoPlayer.getPlaybackState();
+            case KeyEvent.KEYCODE_BUTTON_START:
+            case KeyEvent.KEYCODE_BUTTON_A:
+            case KeyEvent.KEYCODE_ENTER:
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_NUMPAD_ENTER:
+            case KeyEvent.KEYCODE_SPACE:
+                if (exoPlayer == null)
+                    break;
+                if (!controllerVisibleFully) {
+                    if (exoPlayer.isPlaying()) {
+                        exoPlayer.pause();
+                    } else {
+                        exoPlayer.play();
+                    }
+                    return true;
                 }
-                return true;
-            } else {
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+            case KeyEvent.KEYCODE_BUTTON_L2:
+            case KeyEvent.KEYCODE_MEDIA_REWIND:
+                if (!controllerVisibleFully || keyCode == KeyEvent.KEYCODE_MEDIA_REWIND) {
+                    if (exoPlayer == null)
+                        break;
+                    seekBy((long) -10 * 1000);
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+            case KeyEvent.KEYCODE_BUTTON_R2:
+            case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
+                if (!controllerVisibleFully || keyCode == KeyEvent.KEYCODE_MEDIA_FAST_FORWARD) {
+                    if (exoPlayer == null)
+                        break;
+                    seekBy((long) 10 * 1000);
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_BACK:
+                if (ApplicationUtil.isTvBox(this)) {
+                    if (controllerVisible && exoPlayer != null && exoPlayer.isPlaying()) {
+                        playerView.hideController();
+                        return true;
+                    } else {
+                        finish();
+                    }
+                }
+                break;
+            case KeyEvent.KEYCODE_UNKNOWN:
                 return super.onKeyDown(keyCode, event);
-            }
-        } else {
-            return super.onKeyDown(keyCode, event);
+            default:
+                if (!controllerVisibleFully) {
+                    playerView.showController();
+                    return true;
+                }
+                break;
         }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void seekBy(long positionMs) {

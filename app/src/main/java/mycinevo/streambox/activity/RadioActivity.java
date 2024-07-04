@@ -193,12 +193,11 @@ public class RadioActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     public void changePlayPauseIcon(Boolean isPlay) {
         if (Boolean.FALSE.equals(isPlay)) {
-            iv_min_play.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+            iv_min_play.setImageResource(R.drawable.ic_play);
         } else {
-            iv_min_play.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
+            iv_min_play.setImageResource(R.drawable.ic_pause);
         }
     }
 
@@ -332,7 +331,6 @@ public class RadioActivity extends AppCompatActivity implements View.OnClickList
         }.execute();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void setAdapterToListview() {
         Callback.playPos = 0;
         Callback.arrayList_play.addAll(arrayList);

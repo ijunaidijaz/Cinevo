@@ -25,10 +25,10 @@ import mycinevo.streambox.item.ItemUsersDB;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.util.helper.JSHelper;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class GetActivity extends AppCompatActivity {
@@ -116,7 +116,7 @@ public class GetActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onEnd(String success, ArrayList<ItemPlaylist> arrayListPlaylist) {
+                public void onEnd(String success, String msg, ArrayList<ItemPlaylist> arrayListPlaylist) {
                     progressDialog.dismiss();
                     if (!isFinishing()){
                         if (success.equals("1")) {
@@ -136,7 +136,7 @@ public class GetActivity extends AppCompatActivity {
                                 finish();
                             }
                         }  else {
-                            Toasty.makeText(GetActivity.this, getString(R.string.err_server_not_connected), Toasty.ERROR);
+                            Toasty.makeText(GetActivity.this, msg, Toasty.ERROR);
                         }
                     }
                 }
@@ -167,8 +167,7 @@ public class GetActivity extends AppCompatActivity {
                         if (success.equals("1")) {
                             try {
                                 if (Boolean.TRUE.equals(login_type.equals("xtream"))){
-                                    dbHelper.addToUserDB(new ItemUsersDB("", any_name, user_name, user_pass, dms_url,"xui")
-                                    );
+                                    dbHelper.addToUserDB(new ItemUsersDB("", any_name, user_name, user_pass, dms_url,"xui"));
                                     spHelper.setLoginDetails(
                                             username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
                                             xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
@@ -222,7 +221,7 @@ public class GetActivity extends AppCompatActivity {
 
     @Override
     public int setLayoutResourceId() {
-        return R.layout.activity_splash;
+        return R.layout.activity_launcher;
     }
 
     @Override

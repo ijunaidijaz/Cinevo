@@ -6,12 +6,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import mycinevo.streambox.R;
 import mycinevo.streambox.interfaces.LoadPlaylistListener;
 import mycinevo.streambox.item.ItemPlaylist;
 import mycinevo.streambox.util.HttpsTrustManager;
@@ -27,6 +29,7 @@ public class LoadPlaylist extends AsyncTask<String, String, String> {
     private final ArrayList<ItemPlaylist> playlist = new ArrayList<>();
     private final Boolean isFile;
     private final String filePath;
+    private String msg = "";
 
     public LoadPlaylist(Context ctx, Boolean isFile, String filePath, LoadPlaylistListener listener) {
         this.ctx = ctx;
@@ -43,31 +46,37 @@ public class LoadPlaylist extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... strings) {
+        BufferedReader reader = null;
+        InputStream inputStream = null;
         try {
-
-            BufferedReader reader;
-            InputStream inputStream = null;
             if (Boolean.TRUE.equals(isFile)){
                 inputStream = ctx.getContentResolver().openInputStream(Uri.parse(filePath));
+                if (inputStream == null) {
+                    msg = "File not found or unable to open";
+                    return "0";
+                }
                 reader = new BufferedReader(new InputStreamReader(inputStream));
             }  else {
                 HttpsTrustManager.allowAllSSL();
-
-                OkHttpClient client = new OkHttpClient.Builder()
-                        .build();
-                Request request = new Request.Builder()
-                        .url(filePath)
-                        .build();
+                OkHttpClient client = new OkHttpClient.Builder().build();
+                Request request = new Request.Builder().url(filePath).build();
                 Response response = client.newCall(request).execute();
-                if (response.body() == null){
+                if (!response.isSuccessful()) {
+                    msg = "HTTP request failed";
+                    return "0";
+                }
+                if (response.body() == null) {
+                    msg = "Response body is empty";
                     return "0";
                 }
                 reader = new BufferedReader(new InputStreamReader(response.body().byteStream()));
             }
+
             String line;
             String name = null;
             String logo = null;
             String group = null;
+
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("#EXTINF:-1")) {
                     String data = line.substring("#EXTINF:-1,".length()).trim();
@@ -122,20 +131,29 @@ public class LoadPlaylist extends AsyncTask<String, String, String> {
                     group = null;
                 }
             }
-            if (inputStream != null){
-                inputStream.close();
-            }
-            reader.close();
+            msg = "Successfully";
             return "1";
         } catch (Exception e) {
             e.printStackTrace();
+            msg = ctx.getString(R.string.err_server_not_connected);
             return "0";
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
     protected void onPostExecute(String s) {
-        listener.onEnd(s, playlist);
+        listener.onEnd(s, msg, playlist);
         super.onPostExecute(s);
     }
 

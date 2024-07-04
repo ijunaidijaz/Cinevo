@@ -11,7 +11,7 @@
 
     <uses-feature
         android:name="android.software.leanback"
-        android:required="false" />
+        android:required="true" />
     <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="false" />
@@ -21,7 +21,6 @@
     <uses-feature
         android:name="android.hardware.wifi"
         android:required="false" />
-
     <!-- Network Permission -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -51,7 +50,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/ThemeEngineLight"
@@ -297,7 +295,9 @@
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            tools:ignore="DiscouragedApi" /> <!-- Setting -->
+            tools:ignore="DiscouragedApi" />
+
+        <!-- Setting -->
         <activity
             android:name=".activity.SettingActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
@@ -334,6 +334,13 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
+            android:name=".activity.AboutUsActivity"
+            android:configChanges="keyboardHidden|locale|orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            tools:ignore="DiscouragedApi" />
+        <activity
             android:name=".activity.UI.PlaylistActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
@@ -349,13 +356,6 @@
             tools:ignore="DiscouragedApi" />
         <activity
             android:name=".activity.SearchActivity"
-            android:configChanges="keyboardHidden|locale|orientation|screenSize"
-            android:exported="false"
-            android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            tools:ignore="DiscouragedApi" />
-        <activity
-            android:name=".activity.SubscriptionActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
@@ -403,6 +403,14 @@
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".activity.YouTubePlayerActivity"
+            android:configChanges="keyboardHidden|locale|orientation|screenSize"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            tools:ignore="DiscouragedApi" />
 
         <!-- Get Data -->
         <activity
@@ -417,9 +425,7 @@
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="vnd.android.cursor.item/vnd.google.note" />
             </intent-filter>
-        </activity>
-
-        <!-- Download Service -->
+        </activity> <!-- Download Service -->
         <service
             android:name=".activity.DownloadService"
             android:exported="false"

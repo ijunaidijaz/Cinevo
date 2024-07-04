@@ -41,9 +41,9 @@ import mycinevo.streambox.item.ItemUsersDB;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.JSHelper;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class AddPlaylistActivity extends AppCompatActivity {
@@ -189,13 +189,8 @@ public class AddPlaylistActivity extends AppCompatActivity {
     }
 
     private void loadPlaylistData() {
-        String final_url;
-        if (Boolean.TRUE.equals(isFile)){
-            final_url = filePath;
-        } else {
-            final_url = et_url.getText().toString();
-        }
-        LoadPlaylist playlist = new LoadPlaylist(this, isFile, final_url, new LoadPlaylistListener() {
+        String finalUrl = isFile ? filePath : et_url.getText().toString().trim();
+        LoadPlaylist playlist = new LoadPlaylist(this, isFile, finalUrl, new LoadPlaylistListener() {
             @Override
             public void onStart() {
                 setEnabled(false);
@@ -203,7 +198,7 @@ public class AddPlaylistActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onEnd(String success, ArrayList<ItemPlaylist> arrayListPlaylist) {
+            public void onEnd(String success, String msg , ArrayList<ItemPlaylist> arrayListPlaylist) {
                 progressDialog.dismiss();
                 if (!isFinishing()){
                     if (success.equals("1")) {
@@ -216,17 +211,13 @@ public class AddPlaylistActivity extends AppCompatActivity {
                                 dbHelper.addToUserDB(new ItemUsersDB("", et_any_name.getText().toString(), et_any_name.getText().toString(),
                                         et_any_name.getText().toString(), et_url.getText().toString(),"playlist")
                                 );
-                                Toast.makeText(AddPlaylistActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
                             }
+                            Toast.makeText(AddPlaylistActivity.this, "Add successfully.", Toast.LENGTH_SHORT).show();
                             openPlaylistActivity();
                         }
                     }  else {
                         setEnabled(true);
-                        if (Boolean.FALSE.equals(isFile)){
-                            Toasty.makeText(AddPlaylistActivity.this, getString(R.string.err_server_not_connected), Toasty.ERROR);
-                        } else {
-                            Toasty.makeText(AddPlaylistActivity.this, getString(R.string.err_no_data_found), Toasty.ERROR);
-                        }
+                        Toasty.makeText(AddPlaylistActivity.this, msg, Toasty.ERROR);
                     }
                 }
             }
@@ -274,7 +265,7 @@ public class AddPlaylistActivity extends AppCompatActivity {
                 return true;
             }
         } else {
-            if ((ContextCompat.checkSelfPermission(AddPlaylistActivity.this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)) {
+            if (ContextCompat.checkSelfPermission(AddPlaylistActivity.this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
                 return false;
             }

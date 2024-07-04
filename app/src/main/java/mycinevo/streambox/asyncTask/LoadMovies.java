@@ -5,20 +5,21 @@ import android.os.AsyncTask;
 
 import org.json.JSONArray;
 
+import mycinevo.streambox.interfaces.LoadSuccessListener;
 import mycinevo.streambox.util.ApplicationUtil;
-import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.util.helper.JSHelper;
-import mycinevo.streambox.interfaces.SuccessListener;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class LoadMovies extends AsyncTask<String, String, String> {
 
     private final Helper helper;
     private final JSHelper jsHelper;
     private final SPHelper spHelper;
-    private final SuccessListener listener;
+    private final LoadSuccessListener listener;
+    private String msg = "";
 
-    public LoadMovies(Context ctx, SuccessListener listener) {
+    public LoadMovies(Context ctx, LoadSuccessListener listener) {
         this.listener = listener;
         spHelper = new SPHelper(ctx);
         helper = new Helper(ctx);
@@ -27,7 +28,7 @@ public class LoadMovies extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPreExecute() {
-        jsHelper.removeAllMovies();
+        jsHelper.removeAllMovies(); // Clear existing movie data before loading new data
         listener.onStart();
         super.onPreExecute();
     }
@@ -35,24 +36,25 @@ public class LoadMovies extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-
-            String json_category = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_vod_categories", spHelper.getUserName(), spHelper.getPassword()));
-            if (!json_category.isEmpty()){
-                JSONArray arrayCategory = new JSONArray(json_category);
-                if (arrayCategory.length() > 0){
-                    jsHelper.addToMovieCatData(json_category);
-                }
+            // Fetch movie categories
+            String jsonCategory = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_vod_categories", spHelper.getUserName(), spHelper.getPassword()));
+            JSONArray arrayCategory = new JSONArray(jsonCategory);
+            if (arrayCategory.length() != 0){
+                jsHelper.addToMovieCatData(jsonCategory);
             }  else {
-                return "2";
+                msg = "No movie categories found";
+                return "3";
             }
 
-            String json = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_vod_streams", spHelper.getUserName(), spHelper.getPassword()));
-            if (!json.isEmpty()){
-                JSONArray jsonarray = new JSONArray(json);
-                if (jsonarray.length() > 0){
-                    jsHelper.setMovieSize(jsonarray.length());
-                    jsHelper.addToMovieData(json);
-                }
+            // Fetch movie streams
+            String jsonMovies = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_vod_streams", spHelper.getUserName(), spHelper.getPassword()));
+            JSONArray jsonarray = new JSONArray(jsonMovies);
+            if (jsonarray.length() != 0){
+                jsHelper.setMovieSize(jsonarray.length());
+                jsHelper.addToMovieData(jsonMovies);
+            } else {
+                msg = "No series found";
+                return "3";
             }
 
             return "1";
@@ -64,7 +66,7 @@ public class LoadMovies extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        listener.onEnd(s);
+        listener.onEnd(s, msg);
         super.onPostExecute(s);
     }
 }

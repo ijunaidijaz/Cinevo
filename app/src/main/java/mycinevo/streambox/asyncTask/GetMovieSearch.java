@@ -33,32 +33,25 @@ public class GetMovieSearch extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            ArrayList<ItemMovies> arrayList = new ArrayList<>();
-            if (Boolean.TRUE.equals(isPlaylist)){
-                final ArrayList<ItemMovies> arrayListAll = new ArrayList<>(jsHelper.getMoviesPlaylist());
-                for (int i = 0; i < arrayListAll.size(); i++) {
-                    addOrUpdateItem(arrayList, arrayListAll.get(i));
-                }
+            ArrayList<ItemMovies> moviesList = new ArrayList<>();
+
+            if (isPlaylist) {
+                moviesList.addAll(jsHelper.getMoviesPlaylist());
             } else {
-                arrayList.addAll(jsHelper.getMoviesSearch(searchText));
+                moviesList.addAll(jsHelper.getMoviesSearch(searchText));
             }
-            int limit = Math.min(20, arrayList.size());
-            for (int j = 0; j < limit; j++) {
-                itemMovies.add(arrayList.get(j));
+
+            int limit = Math.min(20, moviesList.size());
+            for (int i = 0; i < limit; i++) {
+                ItemMovies movie = moviesList.get(i);
+                if (movie.getName().toLowerCase().contains(searchText)) {
+                    itemMovies.add(movie);
+                }
             }
             return "1";
         } catch (Exception e) {
             e.printStackTrace();
             return "0";
-        }
-    }
-
-    private void addOrUpdateItem(ArrayList<ItemMovies> arrayList, ItemMovies itemMovies) {
-        if (itemMovies != null){
-            boolean idExists = itemMovies.getName().toLowerCase().contains(searchText);
-            if (idExists) {
-                arrayList.add(itemMovies);
-            }
         }
     }
 

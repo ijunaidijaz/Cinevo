@@ -45,13 +45,14 @@ public class LoadData extends AsyncTask<String, String, String> {
                     jsHelper.setUpdateDate();
 
                     try {
-                        if (!spHelper.getCurrent(Callback.TAG_SERIES).isEmpty()){
-                            String json_series = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_series", spHelper.getUserName(), spHelper.getPassword()));
-                            if (!json_series.isEmpty()){
-                                arraySeries = new JSONArray(json_series);
-                                if (arraySeries.length() != 0 && arraySeries.length() != jsHelper.getSeriesSize()){
+                        String currentSeries = spHelper.getCurrent(Callback.TAG_SERIES);
+                        if (!currentSeries.isEmpty()) {
+                            String jsonSeries = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_series", spHelper.getUserName(), spHelper.getPassword()));
+                            if (!jsonSeries.isEmpty()) {
+                                arraySeries = new JSONArray(jsonSeries);
+                                if (arraySeries.length() != 0 && arraySeries.length() != jsHelper.getSeriesSize()) {
                                     jsHelper.setSeriesSize(arraySeries.length());
-                                    jsHelper.addToSeriesData(json_series);
+                                    jsHelper.addToSeriesData(jsonSeries);
                                     Callback.successSeries = "1";
                                 }
                             }
@@ -61,13 +62,14 @@ public class LoadData extends AsyncTask<String, String, String> {
                     }
 
                     try {
-                        if (!spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty()){
-                            String json_movie = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_vod_streams", spHelper.getUserName(), spHelper.getPassword()));
-                            if (!json_movie.isEmpty()){
-                                arrayMovies = new JSONArray(json_movie);
-                                if (arrayMovies.length() != 0 && arrayMovies.length() != jsHelper.getMoviesSize()){
+                        String currentMovies = spHelper.getCurrent(Callback.TAG_MOVIE);
+                        if (!currentMovies.isEmpty()) {
+                            String jsonMovies = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_vod_streams", spHelper.getUserName(), spHelper.getPassword()));
+                            if (!jsonMovies.isEmpty()) {
+                                arrayMovies = new JSONArray(jsonMovies);
+                                if (arrayMovies.length() != 0 && arrayMovies.length() != jsHelper.getMoviesSize()) {
                                     jsHelper.setMovieSize(arrayMovies.length());
-                                    jsHelper.addToMovieData(json_movie);
+                                    jsHelper.addToMovieData(jsonMovies);
                                     Callback.successMovies = "1";
                                 }
                             }
@@ -77,13 +79,14 @@ public class LoadData extends AsyncTask<String, String, String> {
                     }
 
                     try {
-                        if (!spHelper.getCurrent(Callback.TAG_TV).isEmpty()){
-                            String json_live = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_live_streams", spHelper.getUserName(), spHelper.getPassword()));
-                            if (!json_live.isEmpty()){
-                                arrayLive = new JSONArray(json_live);
-                                if (arrayLive.length() != 0 && arrayLive.length() != jsHelper.getLiveSize()){
+                        String currentLive = spHelper.getCurrent(Callback.TAG_TV);
+                        if (!currentLive.isEmpty()) {
+                            String jsonLive = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_live_streams", spHelper.getUserName(), spHelper.getPassword()));
+                            if (!jsonLive.isEmpty()) {
+                                arrayLive = new JSONArray(jsonLive);
+                                if (arrayLive.length() != 0 && arrayLive.length() != jsHelper.getLiveSize()) {
                                     jsHelper.setLiveSize(arrayLive.length());
-                                    jsHelper.addToLiveData(json_live);
+                                    jsHelper.addToLiveData(jsonLive);
                                     Callback.successLive = "1";
                                 }
                             }

@@ -236,7 +236,6 @@ public class SignInDeviceActivity extends AppCompatActivity {
         return AppCompat.COMPAT();
     }
 
-
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {

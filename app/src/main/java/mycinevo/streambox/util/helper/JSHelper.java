@@ -65,7 +65,7 @@ public class JSHelper {
     private static final String TAG_URL = "url";
 
     public JSHelper(@NonNull Context ctx) {
-        sp = ctx.getSharedPreferences("json_streambox", Context.MODE_PRIVATE);
+        sp = ctx.getSharedPreferences("streambox_json", Context.MODE_PRIVATE);
         ed = sp.edit();
     }
 
@@ -474,7 +474,7 @@ public class JSHelper {
 
                 String url = objectCategory.getString(TAG_URL);
                 if (pageType == 4){
-                    if (url.equalsIgnoreCase(".ts") || url.contains("/ts") || url.contains(".m3u8") || url.contains("/m3u8")){
+                    if (!url.contains(".mp4") || !url.contains(".mkv") || !url.contains(".avi") || !url.contains(".webm") || !url.contains(".mov") || !url.contains(".flv") || url.contains(".ts") || url.contains("/ts") || url.contains(".m3u8") || url.contains("/m3u8")){
                         ItemCat objItem = new ItemCat(TAG_EMPTY ,group, TAG_EMPTY);
                         arrayList.add(objItem);
                     }
@@ -503,7 +503,7 @@ public class JSHelper {
                 JSONObject jsonobject = jsonarray.getJSONObject(i);
 
                 String url = jsonobject.getString(TAG_URL);
-                if (url.equalsIgnoreCase(".ts") || url.contains("/ts") || url.contains(".m3u8") || url.contains("/m3u8")){
+                if (!url.contains(".mp4") || !url.contains(".mkv") || !url.contains(".avi") || !url.contains(".webm") || !url.contains(".mov") || !url.contains(".flv") || url.contains(".ts") || url.contains("/ts") || url.contains(".m3u8") || url.contains("/m3u8")){
                     String name = jsonobject.getString(TAG_NAME);
                     String logo = jsonobject.getString(TAG_LOGO);
                     String group = jsonobject.getString(TAG_GROUP);

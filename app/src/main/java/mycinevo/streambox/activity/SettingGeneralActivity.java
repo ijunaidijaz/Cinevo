@@ -74,7 +74,6 @@ public class SettingGeneralActivity extends AppCompatActivity {
             spHelper.setAutoUpdate(hours);
             getRecently();
         }));
-
         findViewById(R.id.ll_btn_save).setOnClickListener(v -> {
             spHelper.setAgentName(et_agent.getText().toString());
             if (!spHelper.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){

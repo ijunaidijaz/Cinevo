@@ -41,16 +41,15 @@ import mycinevo.streambox.callback.Callback;
 import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.PopupAdsDialog;
 import mycinevo.streambox.dialog.Toasty;
-import mycinevo.streambox.interfaces.LiveListener;
+import mycinevo.streambox.interfaces.LoadSuccessListener;
 import mycinevo.streambox.interfaces.LoginListener;
-import mycinevo.streambox.interfaces.SuccessListener;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.util.helper.JSHelper;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class BlackPantherActivity extends AppCompatActivity implements View.OnClickListener {
@@ -433,7 +432,7 @@ public class BlackPantherActivity extends AppCompatActivity implements View.OnCl
 
     private void getSeries() {
         if (NetworkUtils.isConnected(this)){
-            LoadSeries loadSeries = new LoadSeries(this, new SuccessListener() {
+            LoadSeries loadSeries = new LoadSeries(this, new LoadSuccessListener() {
                 @Override
                 public void onStart() {
                     progressDialog.show();
@@ -454,7 +453,7 @@ public class BlackPantherActivity extends AppCompatActivity implements View.OnCl
                 }
 
                 @Override
-                public void onEnd(String success) {
+                public void onEnd(String success, String msg) {
                     progressDialog.dismiss();
                     if (!isFinishing()){
                         if (success.equals("1")) {
@@ -479,7 +478,11 @@ public class BlackPantherActivity extends AppCompatActivity implements View.OnCl
                             spHelper.setCurrentDateEmpty(Callback.TAG_SERIES);
                             changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES,true);
                             pb_serials.setVisibility(View.GONE);
-                            Toast.makeText(BlackPantherActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
+                            if (success.equals("3")){
+                                Toasty.makeText(BlackPantherActivity.this, msg, Toasty.ERROR);
+                            } else {
+                                Toast.makeText(BlackPantherActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 }
@@ -493,7 +496,7 @@ public class BlackPantherActivity extends AppCompatActivity implements View.OnCl
 
     private void getMovies() {
         if (NetworkUtils.isConnected(this)){
-            LoadMovies loadMovies = new LoadMovies(this,  new SuccessListener() {
+            LoadMovies loadMovies = new LoadMovies(this,  new LoadSuccessListener() {
                 @Override
                 public void onStart() {
                     progressDialog.show();
@@ -514,7 +517,7 @@ public class BlackPantherActivity extends AppCompatActivity implements View.OnCl
                 }
 
                 @Override
-                public void onEnd(String success) {
+                public void onEnd(String success, String msg) {
                     progressDialog.dismiss();
                     if (!isFinishing()){
                         if (success.equals("1")) {
@@ -539,7 +542,11 @@ public class BlackPantherActivity extends AppCompatActivity implements View.OnCl
                             spHelper.setCurrentDateEmpty(Callback.TAG_MOVIE);
                             changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE,true);
                             pb_movie.setVisibility(View.GONE);
-                            Toast.makeText(BlackPantherActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
+                            if (success.equals("3")){
+                                Toasty.makeText(BlackPantherActivity.this, msg, Toasty.ERROR);
+                            } else {
+                                Toast.makeText(BlackPantherActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 }
@@ -553,7 +560,7 @@ public class BlackPantherActivity extends AppCompatActivity implements View.OnCl
 
     private void getLive() {
         if (NetworkUtils.isConnected(this)){
-            LoadLive loadLive = new LoadLive(this, new LiveListener() {
+            LoadLive loadLive = new LoadLive(this, new LoadSuccessListener() {
                 @Override
                 public void onStart() {
                     progressDialog.show();
@@ -577,7 +584,7 @@ public class BlackPantherActivity extends AppCompatActivity implements View.OnCl
                 }
 
                 @Override
-                public void onEnd(String success) {
+                public void onEnd(String success, String msg) {
                     progressDialog.dismiss();
                     if (!isFinishing()){
                         if (success.equals("1")) {
@@ -606,18 +613,12 @@ public class BlackPantherActivity extends AppCompatActivity implements View.OnCl
                             spHelper.setCurrentDateEmpty(Callback.TAG_TV);
                             changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
                             pb_live.setVisibility(View.GONE);
-                            Toast.makeText(BlackPantherActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
+                            if (success.equals("3")){
+                                Toasty.makeText(BlackPantherActivity.this, msg, Toasty.ERROR);
+                            } else {
+                                Toast.makeText(BlackPantherActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                }
-
-                @Override
-                public void onCancel(String message) {
-                    if (!isFinishing()){
-                        spHelper.setCurrentDateEmpty(Callback.TAG_TV);
-                        changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
-                        Toast.makeText(BlackPantherActivity.this, message.isEmpty() ? "" : message, Toast.LENGTH_SHORT).show();
-                        pb_live.setVisibility(View.GONE);
                     }
                 }
             });

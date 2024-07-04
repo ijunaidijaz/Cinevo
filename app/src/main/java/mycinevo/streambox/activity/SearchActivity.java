@@ -15,6 +15,8 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
+import androidx.media3.common.util.UnstableApi;
 import androidx.nemosofts.AppCompat;
 import androidx.nemosofts.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -194,7 +196,7 @@ public class SearchActivity extends AppCompatActivity {
         }).execute();
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
+    @OptIn(markerClass = UnstableApi.class)
     private void setAdapterToMovies(ArrayList<ItemMovies> arrayListMovies) {
         AdapterMovie adapter = new AdapterMovie(this, arrayListMovies, (itemCat, position) -> {
             Intent intent;
@@ -216,7 +218,7 @@ public class SearchActivity extends AppCompatActivity {
         setEmpty(false);
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
+    @OptIn(markerClass = UnstableApi.class)
     private void setAdapterToLive(ArrayList<ItemLive> arrayListLive) {
         AdapterLiveTV adapter = new AdapterLiveTV(this, arrayListLive, (itemCat, position) -> {
             Intent intent = new Intent(SearchActivity.this, PlayerLiveActivity.class);

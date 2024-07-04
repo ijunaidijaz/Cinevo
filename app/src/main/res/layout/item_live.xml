@@ -28,6 +28,7 @@
         android:layout_margin="@dimen/_5sdp"
         android:background="@drawable/bg_star" />
 
+
     <LinearLayout
         android:id="@+id/ll_card_star"
         android:gravity="center"

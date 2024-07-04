@@ -145,14 +145,18 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void sign_out() {
-        spHelper.setLoginType(Callback.TAG_LOGIN);
-        Intent intent = new Intent(PlaylistActivity.this, UsersListActivity.class);
-        new JSHelper(this).removeAllPlaylist();
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("from", "");
-        Toast.makeText(PlaylistActivity.this, getString(R.string.logout_success), Toast.LENGTH_SHORT).show();
-        startActivity(intent);
-        finish();
+        DialogUtil.LogoutDialog(PlaylistActivity.this, () -> {
+            spHelper.setLoginType(Callback.TAG_LOGIN);
+            Intent intent = new Intent(PlaylistActivity.this, UsersListActivity.class);
+            new JSHelper(this).removeAllPlaylist();
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("from", "");
+            Toast.makeText(PlaylistActivity.this, getString(R.string.logout_success), Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+            finish();
+        });
+
+
     }
 
     @Override

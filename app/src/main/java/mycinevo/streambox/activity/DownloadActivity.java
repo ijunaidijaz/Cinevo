@@ -244,7 +244,7 @@ public class DownloadActivity extends AppCompatActivity {
                 return true;
             }
         } else {
-            if ((ContextCompat.checkSelfPermission(DownloadActivity.this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)) {
+            if (ContextCompat.checkSelfPermission(DownloadActivity.this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, 1);
                 return false;
             }

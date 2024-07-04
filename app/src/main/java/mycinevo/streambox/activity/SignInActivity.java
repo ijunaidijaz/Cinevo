@@ -36,9 +36,9 @@ import mycinevo.streambox.item.ItemUsersDB;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class SignInActivity extends AppCompatActivity {
@@ -255,6 +255,7 @@ public class SignInActivity extends AppCompatActivity {
                     if (!isFinishing()){
                         if (success.equals("1")) {
                             try {
+
                                 if (Boolean.TRUE.equals(isXui)){
                                     dbHelper.addToUserDB(new ItemUsersDB("", et_any_name.getText().toString(), et_user_name.getText().toString(),
                                             et_login_password.getText().toString(), et_url.getText().toString(),"xui")
@@ -265,7 +266,7 @@ public class SignInActivity extends AppCompatActivity {
                                     );
                                     spHelper.setLoginType(Callback.TAG_LOGIN_ONE_UI);
                                 } else {
-                                    dbHelper.addToUserDB(new ItemUsersDB("", et_any_name.getText().toString(), et_user_name.getText().toString(),
+                                    dbHelper.addToUserDB(new ItemUsersDB("",et_any_name.getText().toString(), et_user_name.getText().toString(),
                                             et_login_password.getText().toString(), et_url.getText().toString(),"stream")
                                     );
                                     spHelper.setLoginDetails(

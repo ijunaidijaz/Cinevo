@@ -13,6 +13,12 @@ import mycinevo.streambox.util.helper.JSHelper;
 
 public class GetCategory extends AsyncTask<String, String, String> {
 
+    private static final int PAGE_TYPE_LIVE = 1;
+    private static final int PAGE_TYPE_MOVIE = 2;
+    private static final int PAGE_TYPE_SERIES = 3;
+    private static final int PAGE_TYPE_PLAYLIST_4 = 4;
+    private static final int PAGE_TYPE_PLAYLIST_5 = 5;
+
     private final JSHelper jsHelper;
     private final GetCategoryListener listener;
     private final ArrayList<ItemCat> itemCat = new ArrayList<>();
@@ -33,22 +39,30 @@ public class GetCategory extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            if (Boolean.TRUE.equals(pageType == 1)){
-                itemCat.addAll(jsHelper.getCategoryLive());
-            } else if (Boolean.TRUE.equals(pageType == 2)){
-                itemCat.addAll(jsHelper.getCategoryMovie());
-            } else if (Boolean.TRUE.equals(pageType == 3)){
-                itemCat.addAll(jsHelper.getCategorySeries());
-            } else if (Boolean.TRUE.equals(pageType == 4) || Boolean.TRUE.equals(pageType == 5)){
-                ArrayList<ItemCat> arrayList = new ArrayList<>(jsHelper.getCategoryPlaylist(pageType));
-                for (int i = 0; i < arrayList.size(); i++) {
-                    addOrUpdateItem(itemCat, String.valueOf(i) , arrayList.get(i).getName());
-                }
+            switch (pageType) {
+                case PAGE_TYPE_LIVE:
+                    itemCat.addAll(jsHelper.getCategoryLive());
+                    break;
+                case PAGE_TYPE_MOVIE:
+                    itemCat.addAll(jsHelper.getCategoryMovie());
+                    break;
+                case PAGE_TYPE_SERIES:
+                    itemCat.addAll(jsHelper.getCategorySeries());
+                    break;
+                case PAGE_TYPE_PLAYLIST_4:
+                case PAGE_TYPE_PLAYLIST_5:
+                    ArrayList<ItemCat> arrayList = new ArrayList<>(jsHelper.getCategoryPlaylist(pageType));
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        addOrUpdateItem(itemCat, String.valueOf(i), arrayList.get(i).getName());
+                    }
+                    break;
+                default:
+                    return "0"; // Error
             }
-            return "1";
+            return "1"; // Success
         } catch (Exception e) {
             e.printStackTrace();
-            return "0";
+            return "0"; // Error
         }
     }
 
@@ -67,7 +81,8 @@ public class GetCategory extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        listener.onEnd(s,itemCat);
+        boolean success = s.equals("1");
+        listener.onEnd(success, itemCat);
         super.onPostExecute(s);
     }
 }

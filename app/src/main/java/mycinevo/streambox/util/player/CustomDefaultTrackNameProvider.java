@@ -19,13 +19,21 @@ public class CustomDefaultTrackNameProvider extends DefaultTrackNameProvider {
     @Override
     public String getTrackName(Format format) {
         String trackName = super.getTrackName(format);
+
         if (format.sampleMimeType != null) {
+            // Get a human-readable format name from the MIME type
             String sampleFormat = formatNameFromMime(format.sampleMimeType);
+
+            // If in DEBUG mode and the sample format is null, use the MIME type as the format name
             if (BuildConfig.DEBUG && sampleFormat == null) {
                 sampleFormat = format.sampleMimeType;
             }
+
+            // Append the format name to the track name
             trackName += " (" + sampleFormat + ")";
         }
+
+        // Append the label to the track name if it's not already included
         if (format.label != null) {
             if (!trackName.startsWith(format.label)) { // HACK
                 trackName += " - " + format.label;

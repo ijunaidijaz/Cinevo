@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +49,6 @@ import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class PlaylistLiveTvActivity extends AppCompatActivity {
 
-    private static final String TAG = "PlaylistLiveTvActivity";
     private Helper helper;
     private NSoftsProgressDialog progressDialog;
     // Category
@@ -78,14 +76,22 @@ public class PlaylistLiveTvActivity extends AppCompatActivity {
         IfSupported.hideStatusBar(this);
 
         findViewById(R.id.theme_bg).setBackgroundResource(ApplicationUtil.openThemeBg(this));
-
         findViewById(R.id.iv_back_page).setOnClickListener(view -> finish());
         if (ApplicationUtil.isTvBox(this)){
             findViewById(R.id.iv_back_page).setVisibility(View.GONE);
         }
 
-        progressDialog = new NSoftsProgressDialog(PlaylistLiveTvActivity.this);
+        TextView page_title = findViewById(R.id.tv_page_title);
+        page_title.setText(getString(R.string.live_tv_home));
 
+        // Initialize UI components
+        pb = findViewById(R.id.pb);
+        frameLayout = findViewById(R.id.fl_empty);
+        rv = findViewById(R.id.rv);
+        rv_cat = findViewById(R.id.rv_cat);
+
+        // Initialize helpers and dialogs
+        progressDialog = new NSoftsProgressDialog(PlaylistLiveTvActivity.this);
         helper = new Helper(this, (position, type) -> {
             @SuppressLint("UnsafeOptInUsageError") Intent intent = new Intent(PlaylistLiveTvActivity.this, PlayerLiveActivity.class);
             Callback.playPosLive = position;
@@ -96,23 +102,23 @@ public class PlaylistLiveTvActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // Initialize RecyclerViews
+        initRecyclerViews();
+
+        // Initialize listeners
+        initListeners();
+
+        // Initialize data lists
         arrayList = new ArrayList<>();
         arrayListCat = new ArrayList<>();
 
-        TextView page_title = findViewById(R.id.tv_page_title);
-        page_title.setText(getString(R.string.live_tv_home));
+        // Fetch initial data
+        new Handler().postDelayed(this::getDataCat, 0);
+    }
 
-        pb = findViewById(R.id.pb);
-        frameLayout = findViewById(R.id.fl_empty);
-        rv = findViewById(R.id.rv);
-        GridLayoutManager grid;
-        if (ApplicationUtil.isTvBox(this)){
-            grid = new GridLayoutManager(this, 1);
-            grid.setSpanCount(6);
-        } else {
-            grid = new GridLayoutManager(this, 1);
-            grid.setSpanCount(5);
-        }
+    private void initRecyclerViews() {
+        GridLayoutManager grid = new GridLayoutManager(this, 1);
+        grid.setSpanCount(ApplicationUtil.isTvBox(this) ? 6 : 5);
         rv.setLayoutManager(grid);
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setHasFixedSize(true);
@@ -129,16 +135,14 @@ public class PlaylistLiveTvActivity extends AppCompatActivity {
             }
         });
 
-        rv_cat = findViewById(R.id.rv_cat);
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rv_cat.setLayoutManager(llm);
         rv_cat.setItemAnimator(new DefaultItemAnimator());
         rv_cat.setHasFixedSize(true);
+    }
 
+    private void initListeners() {
         findViewById(R.id.iv_filter).setOnClickListener(v -> new FilterDialog(this, 1, () -> new Handler().postDelayed(() -> recreate_data(pos), 0)));
-
-        new Handler().postDelayed(this::getDataCat, 0);
-
         findViewById(R.id.iv_search).setOnClickListener(view -> {
             Intent intent = new Intent(PlaylistLiveTvActivity.this, SearchActivity.class);
             intent.putExtra("page", "LivePlaylist");
@@ -154,20 +158,17 @@ public class PlaylistLiveTvActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onEnd(String success, ArrayList<ItemCat> itemCat) {
+            public void onEnd(boolean success, ArrayList<ItemCat> itemCat) {
                 progressDialog.dismiss();
-                if (!isFinishing()){
-                    if (success.equals("1")) {
-                        if (itemCat.isEmpty()) {
-                            setEmpty();
-                        } else {
-                            arrayListCat.addAll(itemCat);
-                            cat_name = itemCat.get(0).getName();
-                            setAdapterToCatListview();
-                        }
-                    } else {
-                        setEmpty();
+                if (success && !itemCat.isEmpty()) {
+                    if (!arrayListCat.isEmpty()){
+                        arrayListCat.clear();
                     }
+                    arrayListCat.addAll(itemCat);
+                    cat_name = itemCat.get(0).getName();
+                    setAdapterToCatListview();
+                } else {
+                    setEmpty();
                 }
             }
         });
@@ -216,17 +217,19 @@ public class PlaylistLiveTvActivity extends AppCompatActivity {
         cat_name = arrayListCat.get(0).getName();
         pos = 0;
 
-        if (ApplicationUtil.geIsAdultsCount(arrayListCat.get(0).getName())){
-            new ChildCountDialog(this, pos, pos2 -> getData());
-        } else {
-            getData();
-        }
+        // Handle adult content verification dialog or immediate data fetch
+        handleAdultContentVerification();
 
+        // Set up search functionality
+        setupSearchFunctionality();
+    }
+
+    private void setupSearchFunctionality() {
         EditText edt_search = findViewById(R.id.edt_search);
         edt_search.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH){
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputManager.hideSoftInputFromWindow(Objects.requireNonNull(this.getCurrentFocus()).getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+                inputManager.hideSoftInputFromWindow(Objects.requireNonNull(this.getCurrentFocus()).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             }
             return true;
         });
@@ -236,7 +239,7 @@ public class PlaylistLiveTvActivity extends AppCompatActivity {
     TextWatcher searchWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            // Not used, can be left empty
         }
 
         @SuppressLint("NotifyDataSetChanged")
@@ -250,7 +253,7 @@ public class PlaylistLiveTvActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-
+            // Not used, can be left empty
         }
     };
 
@@ -260,32 +263,44 @@ public class PlaylistLiveTvActivity extends AppCompatActivity {
             pos = position;
             cat_name = arrayListCat.get(position).getName();
             adapter_category.select(position);
-            if (loadLive != null){
+
+            // Cancel any ongoing task
+            if (loadLive != null) {
                 loadLive.cancel(true);
             }
+            isOver = true;
+
+            // Clear the list
             if (!arrayList.isEmpty()){
                 arrayList.clear();
             }
+
+            // Notify adapter of data change
             if (adapter != null){
                 adapter.notifyDataSetChanged();
             }
-            isOver = true;
-            new Handler().postDelayed(() -> {
-                if (!arrayList.isEmpty()){
-                    arrayList.clear();
-                }
-                isOver = false;
-                isScroll = false;
-                isLoading = false;
-                page = 1;
-                if (ApplicationUtil.geIsAdultsCount(arrayListCat.get(position).getName())){
-                    new ChildCountDialog(this, pos, pos2 -> getData());
-                } else {
-                    getData();
-                }
-            }, 0);
+
+            // Reset pagination and fetch new data
+            new Handler().postDelayed(this::resetPaginationAndFetchData, 0);
+        }
+    }
+
+    private void resetPaginationAndFetchData() {
+        isOver = false;
+        isScroll = false;
+        isLoading = false;
+        page = 1;
+
+        // Handle adult content verification dialog or immediate data fetch
+        handleAdultContentVerification();
+    }
+
+    private void handleAdultContentVerification() {
+        if (ApplicationUtil.geIsAdultsCount(arrayListCat.get(pos).getName())) {
+            new ChildCountDialog(this, pos, position -> getData());
         } else {
-            Log.e(TAG, "Invalid position: " + position);
+            // Delayed data fetch if not adult content
+            new Handler().postDelayed(this::getData, 0);
         }
     }
 

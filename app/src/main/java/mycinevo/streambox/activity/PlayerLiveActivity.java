@@ -93,6 +93,8 @@ public class PlayerLiveActivity extends AppCompatActivity {
     private PlayerLiveListDialog listDialog;
     private BroadcastReceiver batteryReceiver;
     private LinearLayout exo_resize;
+    public static boolean controllerVisible;
+    public static boolean controllerVisibleFully;
 
     private RelativeLayout rl_player_epg;
     private TextView tv_epg_title, tv_epg_time;
@@ -132,6 +134,8 @@ public class PlayerLiveActivity extends AppCompatActivity {
 
         BANDWIDTH_METER = new DefaultBandwidthMeter.Builder(this).build();
         mediaDataSourceFactory = buildDataSourceFactory(true);
+
+        // Set default cookie manager if not already set
         if (CookieHandler.getDefault() != DEFAULT_COOKIE_MANAGER) {
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
@@ -142,6 +146,7 @@ public class PlayerLiveActivity extends AppCompatActivity {
 
         DefaultTrackSelector trackSelector = new DefaultTrackSelector(this);
 
+        // Set captioning parameters if enabled
         final CaptioningManager captioningManager = (CaptioningManager) getSystemService(Context.CAPTIONING_SERVICE);
         if (!captioningManager.isEnabled()) {
             trackSelector.setParameters(trackSelector.buildUponParameters().setIgnoredTextSelectionFlags(C.SELECTION_FLAG_DEFAULT));
@@ -151,17 +156,20 @@ public class PlayerLiveActivity extends AppCompatActivity {
             trackSelector.setParameters(trackSelector.buildUponParameters().setPreferredTextLanguage(locale.getISO3Language()));
         }
 
+        // Build ExoPlayer instance
         exoPlayer = new SimpleExoPlayer.Builder(this, renderersFactory)
                 .setTrackSelector(trackSelector)
                 .setMediaSourceFactory(new DefaultMediaSourceFactory(this, extractorsFactory))
                 .build();
 
+        // Set audio attributes for the player
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setUsage(C.USAGE_MEDIA)
                 .setContentType(C.AUDIO_CONTENT_TYPE_MOVIE)
                 .build();
         exoPlayer.setAudioAttributes(audioAttributes, true);
 
+        // Attach ExoPlayer to the player view
         playerView = findViewById(R.id.nSoftsPlayerView);
         playerView.setPlayer(exoPlayer);
         playerView.setUseController(true);
@@ -170,13 +178,19 @@ public class PlayerLiveActivity extends AppCompatActivity {
         playerView.setControllerAutoShow(true);
         playerView.setBrightnessControl(new BrightnessVolumeControl(this));
 
+        // Set controller visibility listener
         playerView.setControllerVisibilityListener((PlayerView.ControllerVisibilityListener) visibility -> {
+            controllerVisible = visibility == View.VISIBLE;
+            controllerVisibleFully = playerView.isControllerFullyVisible();
+
             // https://developer.android.com/training/system-ui/immersive
             IfSupported.toggleSystemUi(PlayerLiveActivity.this, playerView, visibility == View.VISIBLE);
         });
 
+        // Set media source
         setMediaSource();
 
+        // Set player event listeners
         exoPlayer.addListener(new Player.Listener() {
 
             @Override
@@ -321,7 +335,6 @@ public class PlayerLiveActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     private void setMediaSource() {
         if (NetworkUtils.isConnected(this)){
             if (!Callback.arrayListLive.isEmpty() && spHelper.isLogged() || spHelper.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
@@ -566,37 +579,69 @@ public class PlayerLiveActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN){
-            if (keyCode == KeyEvent.KEYCODE_BACK){
-                onBackPressed();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_HOME){
-                ApplicationUtil.openHomeActivity(this);
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY || keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE || keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE) {
-                if (exoPlayer != null) {
-                    exoPlayer.setPlayWhenReady(!exoPlayer.getPlayWhenReady());
-                    iv_play.setImageResource(Boolean.TRUE.equals(exoPlayer.getPlayWhenReady()) ? R.drawable.ic_pause : R.drawable.ic_play);
-                }
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_MEDIA_NEXT) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_MEDIA_NEXT:
                 next();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PREVIOUS) {
+                break;
+            case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
                 previous();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_MEDIA_STOP) {
-                if (exoPlayer != null && exoPlayer.getPlayWhenReady()) {
-                    exoPlayer.setPlayWhenReady(false);
-                    exoPlayer.getPlaybackState();
+                break;
+            case KeyEvent.KEYCODE_MEDIA_PLAY:
+            case KeyEvent.KEYCODE_MEDIA_PAUSE:
+            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+            case KeyEvent.KEYCODE_BUTTON_SELECT:
+                if (exoPlayer == null)
+                    break;
+                if (keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE) {
+                    exoPlayer.pause();
+                } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY) {
+                    exoPlayer.play();
+                } else if (exoPlayer.isPlaying()) {
+                    exoPlayer.pause();
+                } else {
+                    exoPlayer.play();
                 }
                 return true;
-            } else {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                return true;
+            case KeyEvent.KEYCODE_BUTTON_START:
+            case KeyEvent.KEYCODE_BUTTON_A:
+            case KeyEvent.KEYCODE_ENTER:
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_NUMPAD_ENTER:
+            case KeyEvent.KEYCODE_SPACE:
+                if (exoPlayer == null)
+                    break;
+                if (!controllerVisibleFully) {
+                    if (exoPlayer.isPlaying()) {
+                        exoPlayer.pause();
+                    } else {
+                        exoPlayer.play();
+                    }
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_BACK:
+                if (ApplicationUtil.isTvBox(this)) {
+                    if (controllerVisible && exoPlayer != null && exoPlayer.isPlaying()) {
+                        playerView.hideController();
+                        return true;
+                    } else {
+                        finish();
+                    }
+                }
+                break;
+            case KeyEvent.KEYCODE_UNKNOWN:
                 return super.onKeyDown(keyCode, event);
-            }
-        } else {
-            return super.onKeyDown(keyCode, event);
+            default:
+                if (!controllerVisibleFully) {
+                    playerView.showController();
+                    return true;
+                }
+                break;
         }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

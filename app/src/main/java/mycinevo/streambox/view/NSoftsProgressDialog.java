@@ -7,8 +7,6 @@ import android.view.Window;
 
 import androidx.annotation.NonNull;
 
-import java.util.Objects;
-
 import mycinevo.streambox.R;
 import mycinevo.streambox.util.IfSupported;
 
@@ -25,12 +23,19 @@ public class NSoftsProgressDialog extends Dialog {
         setContentView(R.layout.custom_progress_dialog);
         setCancelable(false);
         setCanceledOnTouchOutside(false);
-        Objects.requireNonNull(this.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+
+        Window window = getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(android.R.color.transparent);
+            hideStatusBarIfSupported(window);
+        }
+    }
+
+    private void hideStatusBarIfSupported(Window window) {
         try {
-           Window window = this.getWindow();
-           IfSupported.hideStatusBarDialog(window);
+            IfSupported.hideStatusBarDialog(window);
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
     }
 }

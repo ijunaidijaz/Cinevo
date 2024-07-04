@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.media.metrics.PlaybackStateEvent;
 import android.net.Uri;
-import android.opengl.Visibility;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -66,9 +65,11 @@ import mycinevo.streambox.callback.Callback;
 import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.PlayerEpisodesListDialog;
 import mycinevo.streambox.dialog.Toasty;
+import mycinevo.streambox.item.ItemEpisodes;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
+import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.player.BrightnessVolumeControl;
 import mycinevo.streambox.util.player.CustomDefaultTrackNameProvider;
@@ -82,6 +83,7 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
     private CustomPlayerView playerView;
     private DefaultBandwidthMeter BANDWIDTH_METER;
     private DataSource.Factory mediaDataSourceFactory;
+    private DBHelper dbHelper;
     private SPHelper spHelper;
     private ProgressBar pb_player;
     private TextView tv_player_title;
@@ -89,6 +91,8 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
     private PlayerEpisodesListDialog listDialog;
     private BroadcastReceiver batteryReceiver;
     private ImageView exo_resize;
+    public static boolean controllerVisible;
+    public static boolean controllerVisibleFully;
 
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
     static {
@@ -107,10 +111,14 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
         IfSupported.statusBarBlackColor(this);
 
         spHelper = new SPHelper(this);
+        dbHelper = new DBHelper(this);
 
         listDialog = new PlayerEpisodesListDialog(this, position -> {
             Callback.playPosEpisodes = position;
-            setMediaSource();
+            setMediaSource(dbHelper.getSeek(DBHelper.TABLE_SEEK_EPISODES,
+                    Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getId(),
+                    Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getTitle()
+            ));
         });
 
         pb_player = findViewById(R.id.pb_player);
@@ -119,6 +127,8 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
 
         BANDWIDTH_METER = new DefaultBandwidthMeter.Builder(this).build();
         mediaDataSourceFactory = buildDataSourceFactory(true);
+
+        // Set default cookie manager if not already set
         if (CookieHandler.getDefault() != DEFAULT_COOKIE_MANAGER) {
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
@@ -129,6 +139,7 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
 
         DefaultTrackSelector trackSelector = new DefaultTrackSelector(this);
 
+        // Set captioning parameters if enabled
         final CaptioningManager captioningManager = (CaptioningManager) getSystemService(Context.CAPTIONING_SERVICE);
         if (!captioningManager.isEnabled()) {
             trackSelector.setParameters(trackSelector.buildUponParameters().setIgnoredTextSelectionFlags(C.SELECTION_FLAG_DEFAULT));
@@ -138,17 +149,20 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
             trackSelector.setParameters(trackSelector.buildUponParameters().setPreferredTextLanguage(locale.getISO3Language()));
         }
 
+        // Build ExoPlayer instance
         exoPlayer = new SimpleExoPlayer.Builder(this, renderersFactory)
                 .setTrackSelector(trackSelector)
                 .setMediaSourceFactory(new DefaultMediaSourceFactory(this, extractorsFactory))
                 .build();
 
+        // Set audio attributes for the player
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setUsage(C.USAGE_MEDIA)
                 .setContentType(C.AUDIO_CONTENT_TYPE_MOVIE)
                 .build();
         exoPlayer.setAudioAttributes(audioAttributes, true);
 
+        // Attach ExoPlayer to the player view
         playerView = findViewById(R.id.nSoftsPlayerView);
         playerView.setPlayer(exoPlayer);
         playerView.setShowVrButton(spHelper.getIsVR());
@@ -160,7 +174,12 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
         playerView.setControllerHideOnTouch(false);
         playerView.setControllerAutoShow(true);
         playerView.setBrightnessControl(new BrightnessVolumeControl(PlayerEpisodesActivity.this));
+
+        // Set controller visibility listener
         playerView.setControllerVisibilityListener((PlayerView.ControllerVisibilityListener) visibility -> {
+            controllerVisible = visibility == View.VISIBLE;
+            controllerVisibleFully = playerView.isControllerFullyVisible();
+
             findViewById(R.id.rl_player_top).setVisibility(visibility);
             if (Callback.playPosEpisodes < (Callback.arrayListEpisodes.size())) {
                 ll_skip_next.setVisibility(visibility);
@@ -174,6 +193,7 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
             }
         });
 
+        // Set custom track name provider for control view
         try {
             PlayerControlView controlView = playerView.findViewById(R.id.exo_controller);
             playerView.findViewById(R.id.exo_settings).setVisibility(View.GONE);
@@ -185,8 +205,13 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        setMediaSource();
+        // Set media source
+        setMediaSource(dbHelper.getSeek(DBHelper.TABLE_SEEK_EPISODES,
+                Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getId(),
+                Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getTitle()
+        ));
 
+        // Set player event listeners
         exoPlayer.addListener(new Player.Listener() {
             @Override
             public void onIsPlayingChanged(boolean isPlaying) {
@@ -206,15 +231,18 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
                 else if (playbackState == Player.STATE_ENDED) {
                     onCompletion();
                 }
-
             }
+
             @Override
             public void onPlayerError(@NonNull PlaybackException error) {
                 Player.Listener.super.onPlayerError(error);
                 if (playback < 5){
                     playback = playback + 1;
                     Toast.makeText(PlayerEpisodesActivity.this,"Playback error - "+ String.valueOf(playback)+"/5 " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    setMediaSource();
+                    setMediaSource(dbHelper.getSeek(DBHelper.TABLE_SEEK_EPISODES,
+                            Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getId(),
+                            Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getTitle()
+                    ));
                 } else {
                     playback = 1;
                     exoPlayer.stop();
@@ -227,7 +255,6 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
         exo_resize = findViewById(R.id.exo_resize);
         exo_resize.setOnClickListener(firstListener);
         ll_skip_next.setOnClickListener(v -> next());
-
 
         ImageView battery_info = findViewById(R.id.iv_battery_info);
         if (Boolean.FALSE.equals(ApplicationUtil.isTvBox(this))){
@@ -253,27 +280,39 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
     }
 
     private void onCompletion() {
+        removeSeekMovie();
         if (spHelper.getIsAutoplayEpisode()){
             new Handler().postDelayed(this::next, 30);
+        }
+    }
+
+    private void removeSeekMovie() {
+        try {
+            ItemEpisodes episodes = Callback.arrayListEpisodes.get(Callback.playPosEpisodes);
+            dbHelper.removeSeekID(DBHelper.TABLE_SEEK_EPISODES,episodes.getId(), episodes.getTitle());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     private void next() {
         if (Callback.playPosEpisodes < (Callback.arrayListEpisodes.size() - 1)) {
             Callback.playPosEpisodes = Callback.playPosEpisodes + 1;
-            setMediaSource();
+
+            ItemEpisodes episodes = Callback.arrayListEpisodes.get(Callback.playPosEpisodes);
+            setMediaSource(dbHelper.getSeek(DBHelper.TABLE_SEEK_EPISODES, episodes.getId(), episodes.getTitle()));
         } else {
             ll_skip_next.setVisibility(View.GONE);
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private void setMediaSource() {
+    private void setMediaSource(int currentPosition) {
         if (NetworkUtils.isConnected(this)){
             if (!Callback.arrayListEpisodes.isEmpty() && spHelper.isLogged()){
 
                 findViewById(R.id.exo_episodes).setOnClickListener(view -> {
                     playerView.hideController();
+                    ll_skip_next.setVisibility(View.GONE);
                     listDialog.showDialog();
                 });
 
@@ -287,11 +326,11 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
                 });
 
                 tv_player_title.setText(Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getTitle());
-                String episodeUrl= spHelper.getServerURL()+"series/"+ spHelper.getUserName()+"/"+ spHelper.getPassword()+"/"+Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getId()+"."+Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getContainerExtension();
+                String episodeUrl = spHelper.getServerURL()+"series/"+ spHelper.getUserName()+"/"+ spHelper.getPassword()+"/"+Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getId()+"."+Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getContainerExtension();
                 Uri uri = Uri.parse(episodeUrl);
                 MediaSource mediaSource = buildMediaSource(uri);
                 exoPlayer.setMediaSource(mediaSource);
-                exoPlayer.seekTo(0);
+                exoPlayer.seekTo(currentPosition);
                 exoPlayer.prepare();
                 exoPlayer.setPlayWhenReady(true);
 
@@ -386,6 +425,10 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
         }
     };
 
+    private long getCurrentSeekPosition() {
+        return exoPlayer.getCurrentPosition();
+    }
+
     @Override
     public int setLayoutResourceId() {
         return R.layout.activity_player_episodes;
@@ -453,6 +496,16 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         try {
+            try {
+                if (exoPlayer != null){
+                    dbHelper.addToSeek(DBHelper.TABLE_SEEK_EPISODES,String.valueOf(getCurrentSeekPosition()),
+                            Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getId(),
+                            Callback.arrayListEpisodes.get(Callback.playPosEpisodes).getTitle()
+                    );
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (exoPlayer != null) {
                 exoPlayer.setPlayWhenReady(false);
                 exoPlayer.stop();
@@ -468,39 +521,85 @@ public class PlayerEpisodesActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN){
-            if (keyCode == KeyEvent.KEYCODE_BACK){
-                onBackPressed();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_HOME){
-                ApplicationUtil.openHomeActivity(this);
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY || keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE || keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE) {
-                if (exoPlayer != null) {
-                    exoPlayer.setPlayWhenReady(!exoPlayer.getPlayWhenReady());
-                }
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_MEDIA_NEXT) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_MEDIA_NEXT:
                 next();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_MEDIA_REWIND) {
-                seekBy((long) -10 * 1000);
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_MEDIA_FAST_FORWARD) {
-                seekBy((long) 10 * 1000);
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_MEDIA_STOP) {
-                if (exoPlayer != null && exoPlayer.getPlayWhenReady()) {
-                    exoPlayer.setPlayWhenReady(false);
-                    exoPlayer.getPlaybackState();
+            case KeyEvent.KEYCODE_MEDIA_PLAY:
+            case KeyEvent.KEYCODE_MEDIA_PAUSE:
+            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+            case KeyEvent.KEYCODE_BUTTON_SELECT:
+                if (exoPlayer == null)
+                    break;
+                if (keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE) {
+                    exoPlayer.pause();
+                } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY) {
+                    exoPlayer.play();
+                } else if (exoPlayer.isPlaying()) {
+                    exoPlayer.pause();
+                } else {
+                    exoPlayer.play();
                 }
                 return true;
-            } else {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                return true;
+            case KeyEvent.KEYCODE_BUTTON_START:
+            case KeyEvent.KEYCODE_BUTTON_A:
+            case KeyEvent.KEYCODE_ENTER:
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_NUMPAD_ENTER:
+            case KeyEvent.KEYCODE_SPACE:
+                if (exoPlayer == null)
+                    break;
+                if (!controllerVisibleFully) {
+                    if (exoPlayer.isPlaying()) {
+                        exoPlayer.pause();
+                    } else {
+                        exoPlayer.play();
+                    }
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+            case KeyEvent.KEYCODE_BUTTON_L2:
+            case KeyEvent.KEYCODE_MEDIA_REWIND:
+                if (!controllerVisibleFully || keyCode == KeyEvent.KEYCODE_MEDIA_REWIND) {
+                    if (exoPlayer == null)
+                        break;
+                    seekBy((long) -10 * 1000);
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+            case KeyEvent.KEYCODE_BUTTON_R2:
+            case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
+                if (!controllerVisibleFully || keyCode == KeyEvent.KEYCODE_MEDIA_FAST_FORWARD) {
+                    if (exoPlayer == null)
+                        break;
+                    seekBy((long) 10 * 1000);
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_BACK:
+                if (ApplicationUtil.isTvBox(this)) {
+                    if (controllerVisible && exoPlayer != null && exoPlayer.isPlaying()) {
+                        playerView.hideController();
+                        return true;
+                    } else {
+                        finish();
+                    }
+                }
+                break;
+            case KeyEvent.KEYCODE_UNKNOWN:
                 return super.onKeyDown(keyCode, event);
-            }
-        } else {
-            return super.onKeyDown(keyCode, event);
+            default:
+                if (!controllerVisibleFully) {
+                    playerView.showController();
+                    return true;
+                }
+                break;
         }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void seekBy(long positionMs) {

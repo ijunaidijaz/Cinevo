@@ -3,8 +3,6 @@ package mycinevo.streambox.asyncTask;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 
 import mycinevo.streambox.interfaces.GetLiveListener;
@@ -35,31 +33,30 @@ public class GetLiveSearch extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            ArrayList<ItemLive> arrayList = new ArrayList<>();
-            if (Boolean.TRUE.equals(isPlaylist)){
-                final ArrayList<ItemLive> arrayListAll = new ArrayList<>(jsHelper.getLivePlaylist());
-                for (int i = 0; i < arrayListAll.size(); i++) {
-                    addOrUpdateItem(arrayList, arrayListAll.get(i));
+            ArrayList<ItemLive> resultList = new ArrayList<>();
+
+            if (Boolean.TRUE.equals(isPlaylist)) {
+                // Fetch and filter the live playlist
+                ArrayList<ItemLive> allItems = new ArrayList<>(jsHelper.getLivePlaylist());
+                for (ItemLive item : allItems) {
+                    if (item.getName().toLowerCase().contains(searchText.toLowerCase())) {
+                        resultList.add(item);
+                    }
                 }
             } else {
-                arrayList.addAll(jsHelper.getLivesSearch(searchText));
+                // Fetch search results directly from the helper
+                resultList.addAll(jsHelper.getLivesSearch(searchText));
             }
 
-            int limit = Math.min(20, arrayList.size());
-            for (int j = 0; j < limit; j++) {
-                itemLives.add(arrayList.get(j));
+            // Limit the results to the first 20 items
+            int limit = Math.min(20, resultList.size());
+            for (int i = 0; i < limit; i++) {
+                itemLives.add(resultList.get(i));
             }
             return "1";
         } catch (Exception e) {
             e.printStackTrace();
             return "0";
-        }
-    }
-
-    private void addOrUpdateItem(ArrayList<ItemLive> arrayList, @NonNull ItemLive itemLive) {
-        boolean idExists = itemLive.getName().toLowerCase().contains(searchText);
-        if (idExists) {
-            arrayList.add(itemLive);
         }
     }
 

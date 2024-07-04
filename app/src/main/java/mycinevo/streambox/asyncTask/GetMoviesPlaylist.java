@@ -15,13 +15,13 @@ public class GetMoviesPlaylist extends AsyncTask<String, String, String> {
     private final JSHelper jsHelper;
     private final GetMovieListener listener;
     private final ArrayList<ItemMovies> itemMovies = new ArrayList<>();
-    private final String cat_name;
+    private final String catName;
     private final int page;
-    int itemsPerPage = 10;
+    private static final int ITEMS_PER_PAGE = 10;
 
-    public GetMoviesPlaylist(Context ctx, int page, String cat_name, GetMovieListener listener) {
+    public GetMoviesPlaylist(Context ctx, int page, String catName, GetMovieListener listener) {
         this.listener = listener;
-        this.cat_name = cat_name;
+        this.catName = catName;
         this.page = page;
         jsHelper = new JSHelper(ctx);
     }
@@ -35,22 +35,23 @@ public class GetMoviesPlaylist extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            final ArrayList<ItemMovies> arrayList = new ArrayList<>();
-            final ArrayList<ItemMovies> arrayListAll = new ArrayList<>(jsHelper.getMoviesPlaylist());
+            ArrayList<ItemMovies> moviesList = new ArrayList<>(jsHelper.getMoviesPlaylist());
 
-            for (int i = 0; i < arrayListAll.size(); i++) {
-                addOrUpdateItem(arrayList, cat_name, arrayListAll.get(i));
+            for (ItemMovies movie : moviesList) {
+                addOrUpdateItem(itemMovies, catName, movie);
             }
-            if (Boolean.TRUE.equals(jsHelper.getIsMovieOrder())){
-                Collections.reverse(arrayList);
+
+            if (jsHelper.getIsMovieOrder()) {
+                Collections.reverse(itemMovies);
             }
-            if (!arrayList.isEmpty()){
-                int startIndex = (page - 1) * itemsPerPage;
-                int endIndex = Math.min(startIndex + itemsPerPage, arrayList.size());
-                for (int i = startIndex; i < endIndex; i++) {
-                    itemMovies.add(arrayList.get(i));
-                }
+
+            int startIndex = (page - 1) * ITEMS_PER_PAGE;
+            int endIndex = Math.min(startIndex + ITEMS_PER_PAGE, itemMovies.size());
+            itemMovies.clear(); // Clear the list before adding paginated items
+            for (int i = startIndex; i < endIndex; i++) {
+                itemMovies.add(moviesList.get(i));
             }
+
             return "1";
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,12 +59,9 @@ public class GetMoviesPlaylist extends AsyncTask<String, String, String> {
         }
     }
 
-    private void addOrUpdateItem(ArrayList<ItemMovies> arrayList, String catName, ItemMovies itemMovies) {
-        if (itemMovies != null){
-            boolean idExists = itemMovies.getCatName().equals(catName);
-            if (idExists) {
-                arrayList.add(itemMovies);
-            }
+    private void addOrUpdateItem(ArrayList<ItemMovies> arrayList, String catName, ItemMovies movie) {
+        if (movie != null && movie.getCatName().equals(catName)) {
+            arrayList.add(movie);
         }
     }
 

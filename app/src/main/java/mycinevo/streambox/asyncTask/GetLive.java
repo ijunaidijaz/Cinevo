@@ -14,6 +14,10 @@ import mycinevo.streambox.util.helper.JSHelper;
 
 public class GetLive extends AsyncTask<String, String, String> {
 
+    private static final int PAGE_TYPE_FAV = 1;
+    private static final int PAGE_TYPE_RECENT = 2;
+    private static final int PAGE_TYPE_RECENT_ADD = 3;
+
     private final DBHelper dbHelper;
     private final JSHelper jsHelper;
     private final GetLiveListener listener;
@@ -41,44 +45,49 @@ public class GetLive extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            if (Boolean.TRUE.equals(is_page == 1)){
-                itemLives.addAll(dbHelper.getLive(DBHelper.TABLE_FAV_LIVE, jsHelper.getIsLiveOrder()));
-            } else if (Boolean.TRUE.equals(is_page == 2)){
-                itemLives.addAll(dbHelper.getLive(DBHelper.TABLE_RECENT_LIVE, jsHelper.getIsLiveOrder()));
-            } else if (Boolean.TRUE.equals(is_page == 3)){
-                final ArrayList<ItemLive> arrayList = new ArrayList<>(jsHelper.getLiveRe());
-                if (!arrayList.isEmpty()){
-                    Collections.sort(arrayList, new Comparator<ItemLive>() {
-                        @Override
-                        public int compare(ItemLive o1, ItemLive o2) {
-                            return Integer.compare(Integer.parseInt(o1.getStreamID()), Integer.parseInt(o2.getStreamID()));
+            switch (is_page) {
+                case PAGE_TYPE_FAV:
+                    itemLives.addAll(dbHelper.getLive(DBHelper.TABLE_FAV_LIVE, jsHelper.getIsLiveOrder()));
+                    break;
+                case PAGE_TYPE_RECENT:
+                    itemLives.addAll(dbHelper.getLive(DBHelper.TABLE_RECENT_LIVE, jsHelper.getIsLiveOrder()));
+                    break;
+                case PAGE_TYPE_RECENT_ADD:
+                    final ArrayList<ItemLive> arrayListRe = new ArrayList<>(jsHelper.getLiveRe());
+                    if (!arrayListRe.isEmpty()){
+                        Collections.sort(arrayListRe, new Comparator<ItemLive>() {
+                            @Override
+                            public int compare(ItemLive o1, ItemLive o2) {
+                                return Integer.compare(Integer.parseInt(o1.getStreamID()), Integer.parseInt(o2.getStreamID()));
+                            }
+                        });
+                        Collections.reverse(arrayListRe);
+                        for (int i = 0; i < arrayListRe.size(); i++) {
+                            itemLives.add(arrayListRe.get(i));
+                            if (i == 49){
+                                break;
+                            }
                         }
-                    });
-                    Collections.reverse(arrayList);
-                    for (int i = 0; i < arrayList.size(); i++) {
-                        itemLives.add(arrayList.get(i));
-                        if (i == 49){
-                            break;
+                        if (Boolean.TRUE.equals(jsHelper.getIsLiveOrder()) && !itemLives.isEmpty()){
+                            Collections.reverse(itemLives);
                         }
                     }
-                    if (Boolean.TRUE.equals(jsHelper.getIsLiveOrder()) && !itemLives.isEmpty()){
-                        Collections.reverse(itemLives);
-                    }
-                }
-            } else {
-                final ArrayList<ItemLive> arrayList = new ArrayList<>(jsHelper.getLive(cat_id, false));
-                if (!arrayList.isEmpty()){
-                    if (Boolean.TRUE.equals(jsHelper.getIsLiveOrder())){
-                        Collections.reverse(arrayList);
-                    }
+                    break;
+                default:
+                    final ArrayList<ItemLive> arrayList = new ArrayList<>(jsHelper.getLive(cat_id, false));
                     if (!arrayList.isEmpty()){
-                        int startIndex = (page - 1) * itemsPerPage;
-                        int endIndex = Math.min(startIndex + itemsPerPage, arrayList.size());
-                        for (int i = startIndex; i < endIndex; i++) {
-                            itemLives.add(arrayList.get(i));
+                        if (Boolean.TRUE.equals(jsHelper.getIsLiveOrder())){
+                            Collections.reverse(arrayList);
+                        }
+                        if (!arrayList.isEmpty()){
+                            int startIndex = (page - 1) * itemsPerPage;
+                            int endIndex = Math.min(startIndex + itemsPerPage, arrayList.size());
+                            for (int i = startIndex; i < endIndex; i++) {
+                                itemLives.add(arrayList.get(i));
+                            }
                         }
                     }
-                }
+                    break;
             }
             return "1";
         } catch (Exception e) {

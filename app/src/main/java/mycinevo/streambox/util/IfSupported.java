@@ -22,24 +22,24 @@ public class IfSupported {
     }
 
     public static void IsRTL(Activity mContext) {
-        if (Boolean.TRUE.equals(new SPHelper(mContext).getIsRTL())) {
-            try {
+        try {
+            if (Boolean.TRUE.equals(new SPHelper(mContext).getIsRTL())) {
                 Window window = mContext.getWindow();
                 window.getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public static void IsScreenshot(Activity mContext) {
-        if (Boolean.TRUE.equals(new SPHelper(mContext).getIsScreenshot())) {
-            try {
+        try {
+            if (Boolean.TRUE.equals(new SPHelper(mContext).getIsScreenshot())) {
                 Window window = mContext.getWindow();
                 window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

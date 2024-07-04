@@ -16,7 +16,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,9 +32,6 @@ import androidx.media3.common.util.UnstableApi;
 import androidx.nemosofts.AppCompat;
 import androidx.nemosofts.AppCompatActivity;
 import androidx.nemosofts.view.BlurImage;
-import androidx.nemosofts.view.youtubeExtractor.VideoMeta;
-import androidx.nemosofts.view.youtubeExtractor.YouTubeExtractor;
-import androidx.nemosofts.view.youtubeExtractor.YtFile;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,10 +59,11 @@ import mycinevo.streambox.item.ItemVideoDownload;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
+
 
 @UnstableApi
 public class DetailsMovieActivity extends AppCompatActivity {
@@ -159,7 +156,7 @@ public class DetailsMovieActivity extends AppCompatActivity {
         });
 
         TextView play_movie = findViewById(R.id.tv_play_movie);
-        if (Boolean.TRUE.equals(dbHelper.checkSeekMovie(stream_id, stream_name))){
+        if (Boolean.TRUE.equals(dbHelper.checkSeek(DBHelper.TABLE_SEEK_MOVIE, stream_id, stream_name))){
             play_movie.setText(R.string.resume);
         } else {
             play_movie.setText(R.string.play);
@@ -168,7 +165,12 @@ public class DetailsMovieActivity extends AppCompatActivity {
         findViewById(R.id.ll_play_movie).setOnClickListener(v -> play());
         findViewById(R.id.ll_play_trailer).setOnClickListener(v -> {
             if (findViewById(R.id.pb_trailer).getVisibility() == View.GONE){
-                showYouTubeExtractor();
+                if (itemMovies != null && !itemMovies.getYoutubeTrailer().isEmpty()) {
+                    String videoId = itemMovies.getYoutubeTrailer();
+                    Intent intent = new Intent(DetailsMovieActivity.this, YouTubePlayerActivity.class);
+                    intent.putExtra("stream_id", videoId);
+                    startActivity(intent);
+                }
             }
         });
         findViewById(R.id.iv_feedback).setOnClickListener(v -> {
@@ -313,8 +315,7 @@ public class DetailsMovieActivity extends AppCompatActivity {
         tv_duration.setText(ApplicationUtil.TimeFormat(itemMovies.getEpisodeRunTime()));
         tv_plot.setText(itemMovies.getPlot());
 
-//        findViewById(R.id.ll_play_trailer).setVisibility(itemMovies.getYoutubeTrailer().isEmpty() ? View.GONE : View.VISIBLE);
-        findViewById(R.id.ll_play_trailer).setVisibility( View.GONE);
+        findViewById(R.id.ll_play_trailer).setVisibility(itemMovies.getYoutubeTrailer().isEmpty() ? View.GONE : View.VISIBLE);
         findViewById(R.id.ll_download).setOnClickListener(v -> {
             if (Boolean.TRUE.equals(checkPer())) {
                 if (itemData != null){
@@ -491,50 +492,6 @@ public class DetailsMovieActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private void showYouTubeExtractor() {
-        findViewById(R.id.tv_trailer).setVisibility(View.GONE);
-        findViewById(R.id.pb_trailer).setVisibility(View.VISIBLE);
-        if (itemMovies != null && !itemMovies.getYoutubeTrailer().isEmpty()) {
-            String youtube = "https://www.youtube.com/watch?v=" + itemMovies.getYoutubeTrailer();
-            new YouTubeExtractor(this) {
-
-                @Override
-                public void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta vMeta) {
-                    if (!isFinishing()){
-                        findViewById(R.id.tv_trailer).setVisibility(View.VISIBLE);
-                        findViewById(R.id.pb_trailer).setVisibility(View.GONE);
-                        new Handler().postDelayed(() -> {
-                            if (ytFiles != null) {
-                                try {
-                                    String downloadUrl = youtube;
-                                    Intent intent = new Intent(DetailsMovieActivity.this, PlayerSingleURLActivity.class);
-                                    intent.putExtra("channel_title", itemMovies.getName());
-                                    intent.putExtra("channel_url", downloadUrl);
-                                    startActivity(intent);
-                                } catch (Exception e1) {
-                                    e1.printStackTrace();
-                                }
-                            }
-                        }, 10);
-                    }
-                }
-
-                @Override
-                protected void onCancelled(SparseArray<YtFile> ytFileSparseArray) {
-                    super.onCancelled(ytFileSparseArray);
-                    findViewById(R.id.tv_trailer).setVisibility(View.VISIBLE);
-                    findViewById(R.id.pb_trailer).setVisibility(View.GONE);
-                }
-
-            }.extract(youtube, true, true);
-        } else {
-            findViewById(R.id.tv_trailer).setVisibility(View.VISIBLE);
-            findViewById(R.id.pb_trailer).setVisibility(View.GONE);
-            Toasty.makeText(DetailsMovieActivity.this, "No YouTube trailer available", Toasty.ERROR);
-        }
-    }
-
     public Boolean checkPer() {
         if (Build.VERSION.SDK_INT >= 33){
             if ((ContextCompat.checkSelfPermission(DetailsMovieActivity.this, READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED)) {
@@ -551,7 +508,7 @@ public class DetailsMovieActivity extends AppCompatActivity {
                 return true;
             }
         } else {
-            if ((ContextCompat.checkSelfPermission(DetailsMovieActivity.this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)) {
+            if (ContextCompat.checkSelfPermission(DetailsMovieActivity.this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, 1);
                 return false;
             }
@@ -586,41 +543,51 @@ public class DetailsMovieActivity extends AppCompatActivity {
     public void seekUpdating() {
         try {
             if (DownloadService.arrayListVideo != null && !DownloadService.arrayListVideo.isEmpty()){
-                boolean flag = false;
+                boolean found = false;
                 int pos = 0;
+
+                // Find the position of the stream_id in arrayListVideo
                 for (int i = 0; i < DownloadService.arrayListVideo.size(); i++) {
                     if (stream_id.equals(DownloadService.arrayListVideo.get(i).getStreamID())) {
                         pos = i;
-                        flag = true;
+                        found = true;
                         break;
                     }
                 }
-                if (flag) {
-                    if (itemData != null){
+
+                // If stream_id is found in arrayListVideo
+                if (found) {
+                    // Update itemData if not null
+                    if (itemData != null) {
                         itemData.setDownload(true);
                     }
-                    try {
-                        if (pb_download.getVisibility() == View.GONE){
-                            pb_download.setVisibility(View.VISIBLE);
-                            iv_download_close.setVisibility(View.VISIBLE);
-                        }
-                        pb_download.setProgress(DownloadService.arrayListVideo.get(pos).getProgress());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+
+                    // Show progress bar and close button
+                    pb_download.setVisibility(View.VISIBLE);
+                    iv_download_close.setVisibility(View.VISIBLE);
+
+                    // Set progress to progress bar
+                    pb_download.setProgress(DownloadService.arrayListVideo.get(pos).getProgress());
                 } else {
-                    pb_download.setVisibility(View.GONE);
-                    iv_download_close.setVisibility(View.GONE);
+                    // Hide progress bar and close button if stream_id is not found
+                    hideDownloadViews();
                 }
             } else {
-                pb_download.setVisibility(View.GONE);
-                iv_download_close.setVisibility(View.GONE);
+                // Hide progress bar and close button if arrayListVideo is null or empty
+                hideDownloadViews();
             }
-            seekHandler.removeCallbacks(run);
-            seekHandler.postDelayed(run, 1000);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            // Schedule next update after 1 second (1000 milliseconds)
+            seekHandler.removeCallbacks(run);
+            seekHandler.postDelayed(run, 1000);
         }
+    }
+
+    private void hideDownloadViews() {
+        pb_download.setVisibility(View.GONE);
+        iv_download_close.setVisibility(View.GONE);
     }
 
     @Override

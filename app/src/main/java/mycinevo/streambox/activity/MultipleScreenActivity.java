@@ -51,6 +51,7 @@ import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.helper.SPHelper;
 
+
 @UnstableApi
 public class MultipleScreenActivity extends AppCompatActivity {
 
@@ -60,25 +61,9 @@ public class MultipleScreenActivity extends AppCompatActivity {
     private DataSource.Factory mediaDataSourceFactory;
     private Boolean is_player = false;
 
-    // Player One
-    private SimpleExoPlayer exoPlayer_one;
-    private ImageView add_btn_one, iv_volume_one;
-    private ProgressBar pb_one;
-
-    // Player Tow
-    private SimpleExoPlayer exoPlayer_tow;
-    private ImageView add_btn_tow, iv_volume_tow;
-    private ProgressBar pb_tow;
-
-    // Player Three
-    private SimpleExoPlayer exoPlayer_three;
-    private ImageView add_btn_three, iv_volume_three;
-    private ProgressBar pb_three;
-
-    // Player Four
-    private SimpleExoPlayer exoPlayer_four;
-    private ImageView add_btn_four, iv_volume_four;
-    private ProgressBar pb_four;
+    private SimpleExoPlayer exoPlayer_one, exoPlayer_two, exoPlayer_three, exoPlayer_four;
+    private ImageView add_btn_one, iv_volume_one, add_btn_two, iv_volume_two, add_btn_three, iv_volume_three, add_btn_four, iv_volume_four;
+    private ProgressBar pb_one, pb_two, pb_three, pb_four;
 
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
     static {
@@ -113,18 +98,7 @@ public class MultipleScreenActivity extends AppCompatActivity {
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
 
-        add_btn_one = findViewById(R.id.iv_add_btn_one);
-        add_btn_tow = findViewById(R.id.iv_add_btn_tow);
-        add_btn_three = findViewById(R.id.iv_add_btn_three);
-        add_btn_four = findViewById(R.id.iv_add_btn_four);
-        iv_volume_one = findViewById(R.id.iv_volume_one);
-        iv_volume_tow = findViewById(R.id.iv_volume_tow);
-        iv_volume_three = findViewById(R.id.iv_volume_three);
-        iv_volume_four = findViewById(R.id.iv_volume_four);
-        pb_one = findViewById(R.id.pb_one);
-        pb_tow = findViewById(R.id.pb_tow);
-        pb_three = findViewById(R.id.pb_three);
-        pb_four = findViewById(R.id.pb_four);
+        initializeViews();
 
         if (Boolean.TRUE.equals(is_player)){
             setScreen(spHelper.getScreen());
@@ -145,10 +119,29 @@ public class MultipleScreenActivity extends AppCompatActivity {
             } else {
                 setScreen(spHelper.getScreen());
             }
-        }
 
+            setOnClickListeners();
+        }
+    }
+
+    private void initializeViews() {
+        add_btn_one = findViewById(R.id.iv_add_btn_one);
+        add_btn_two = findViewById(R.id.iv_add_btn_tow);
+        add_btn_three = findViewById(R.id.iv_add_btn_three);
+        add_btn_four = findViewById(R.id.iv_add_btn_four);
+        iv_volume_one = findViewById(R.id.iv_volume_one);
+        iv_volume_two = findViewById(R.id.iv_volume_tow);
+        iv_volume_three = findViewById(R.id.iv_volume_three);
+        iv_volume_four = findViewById(R.id.iv_volume_four);
+        pb_one = findViewById(R.id.pb_one);
+        pb_two = findViewById(R.id.pb_tow);
+        pb_three = findViewById(R.id.pb_three);
+        pb_four = findViewById(R.id.pb_four);
+    }
+
+    private void setOnClickListeners(){
         add_btn_one.setOnClickListener(v -> openFilterActivity(101));
-        add_btn_tow.setOnClickListener(v -> openFilterActivity(102));
+        add_btn_two.setOnClickListener(v -> openFilterActivity(102));
         add_btn_three.setOnClickListener(v -> openFilterActivity(103));
         add_btn_four.setOnClickListener(v -> openFilterActivity(104));
 
@@ -158,59 +151,19 @@ public class MultipleScreenActivity extends AppCompatActivity {
         findViewById(R.id.vw_player_four).setOnClickListener(v -> setVolume(4));
 
         findViewById(R.id.vw_player_one).setOnLongClickListener(v -> {
-            if ((exoPlayer_one != null)) {
-                exoPlayer_one.stop();
-                exoPlayer_one.release();
-                pb_one.setVisibility(View.GONE);
-                add_btn_one.setVisibility(View.VISIBLE);
-                findViewById(R.id.vw_player_one).setVisibility(View.INVISIBLE);
-                findViewById(R.id.player_one).setVisibility(View.GONE);
-                iv_volume_one.setImageResource(R.drawable.ic_volume_off);
-                iv_volume_one.setVisibility(View.GONE);
-                Toast.makeText(MultipleScreenActivity.this,"Removed", Toast.LENGTH_LONG).show();
-            }
+            releasePlayer(exoPlayer_one, pb_one, add_btn_one, R.id.vw_player_one, R.id.player_one, iv_volume_one);
             return true;
         });
         findViewById(R.id.vw_player_tow).setOnLongClickListener(v -> {
-            if ((exoPlayer_tow != null)) {
-                exoPlayer_tow.stop();
-                exoPlayer_tow.release();
-                pb_tow.setVisibility(View.GONE);
-                add_btn_tow.setVisibility(View.VISIBLE);
-                findViewById(R.id.vw_player_tow).setVisibility(View.INVISIBLE);
-                findViewById(R.id.player_tow).setVisibility(View.GONE);
-                iv_volume_tow.setImageResource(R.drawable.ic_volume_off);
-                iv_volume_tow.setVisibility(View.GONE);
-                Toast.makeText(MultipleScreenActivity.this,"Removed", Toast.LENGTH_LONG).show();
-            }
+            releasePlayer(exoPlayer_two, pb_two, add_btn_two, R.id.vw_player_tow, R.id.player_tow, iv_volume_two);
             return true;
         });
         findViewById(R.id.vw_player_three).setOnLongClickListener(v -> {
-            if ((exoPlayer_three != null)) {
-                exoPlayer_three.stop();
-                exoPlayer_three.release();
-                pb_three.setVisibility(View.GONE);
-                add_btn_three.setVisibility(View.VISIBLE);
-                findViewById(R.id.vw_player_three).setVisibility(View.INVISIBLE);
-                findViewById(R.id.player_three).setVisibility(View.GONE);
-                iv_volume_three.setImageResource(R.drawable.ic_volume_off);
-                iv_volume_three.setVisibility(View.GONE);
-                Toast.makeText(MultipleScreenActivity.this,"Removed", Toast.LENGTH_LONG).show();
-            }
+            releasePlayer(exoPlayer_three, pb_three, add_btn_three, R.id.vw_player_three, R.id.player_three, iv_volume_three);
             return true;
         });
         findViewById(R.id.vw_player_four).setOnLongClickListener(v -> {
-            if ((exoPlayer_four != null)) {
-                exoPlayer_four.stop();
-                exoPlayer_four.release();
-                pb_four.setVisibility(View.GONE);
-                add_btn_four.setVisibility(View.VISIBLE);
-                findViewById(R.id.vw_player_four).setVisibility(View.INVISIBLE);
-                findViewById(R.id.player_four).setVisibility(View.GONE);
-                iv_volume_four.setImageResource(R.drawable.ic_volume_off);
-                iv_volume_four.setVisibility(View.GONE);
-                Toast.makeText(MultipleScreenActivity.this,"Removed", Toast.LENGTH_LONG).show();
-            }
+            releasePlayer(exoPlayer_four, pb_four, add_btn_four, R.id.vw_player_four, R.id.player_four, iv_volume_four);
             return true;
         });
     }
@@ -226,89 +179,19 @@ public class MultipleScreenActivity extends AppCompatActivity {
     }
 
     private void setVolume(int player) {
-        if (player == 1){
-            if (exoPlayer_one != null) {
-                exoPlayer_one.setVolume(1);
-            }
-            if (exoPlayer_tow != null) {
-                exoPlayer_tow.setVolume(0);
-            }
-            if (exoPlayer_three != null) {
-                exoPlayer_three.setVolume(0);
-            }
-            if (exoPlayer_four != null) {
-                exoPlayer_four.setVolume(0);
-            }
-        } else if (player == 2){
-            if (exoPlayer_one != null) {
-                exoPlayer_one.setVolume(0);
-            }
-            if (exoPlayer_tow != null) {
-                exoPlayer_tow.setVolume(1);
-            }
-            if (exoPlayer_three != null) {
-                exoPlayer_three.setVolume(0);
-            }
-            if (exoPlayer_four != null) {
-                exoPlayer_four.setVolume(0);
-            }
-        } else if (player == 3){
-            if (exoPlayer_one != null) {
-                exoPlayer_one.setVolume(0);
-            }
-            if (exoPlayer_tow != null) {
-                exoPlayer_tow.setVolume(0);
-            }
-            if (exoPlayer_three != null) {
-                exoPlayer_three.setVolume(1);
-            }
-            if (exoPlayer_four != null) {
-                exoPlayer_four.setVolume(0);
-            }
-        } else if (player == 4){
-            if (exoPlayer_one != null) {
-                exoPlayer_one.setVolume(0);
-            }
-            if (exoPlayer_tow != null) {
-                exoPlayer_tow.setVolume(0);
-            }
-            if (exoPlayer_three != null) {
-                exoPlayer_three.setVolume(0);
-            }
-            if (exoPlayer_four != null) {
-                exoPlayer_four.setVolume(1);
-            }
-        }
-        setVolumeIcon(player);
+        if (exoPlayer_one != null) exoPlayer_one.setVolume(player == 1 ? 1 : 0);
+        if (exoPlayer_two != null) exoPlayer_two.setVolume(player == 2 ? 1 : 0);
+        if (exoPlayer_three != null) exoPlayer_three.setVolume(player == 3 ? 1 : 0);
+        if (exoPlayer_four != null) exoPlayer_four.setVolume(player == 4 ? 1 : 0);
+
+        setVolumeIcon();
     }
 
-    private void setVolumeIcon(int player) {
-        if (player == 1){
-            iv_volume_one.setImageResource(exoPlayer_one != null && exoPlayer_one.getVolume() == 0f ? R.drawable.ic_volume_off : R.drawable.ic_volume_up);
-            iv_volume_tow.setImageResource(R.drawable.ic_volume_off);
-            iv_volume_three.setImageResource(R.drawable.ic_volume_off);
-            iv_volume_four.setImageResource(R.drawable.ic_volume_off);
-        } else if (player == 2){
-            iv_volume_one.setImageResource(R.drawable.ic_volume_off);
-            iv_volume_tow.setImageResource(exoPlayer_tow != null && exoPlayer_tow.getVolume() == 0f ? R.drawable.ic_volume_off : R.drawable.ic_volume_up);
-            iv_volume_three.setImageResource(R.drawable.ic_volume_off);
-            iv_volume_four.setImageResource(R.drawable.ic_volume_off);
-        } else if (player == 3){
-            iv_volume_one.setImageResource(R.drawable.ic_volume_off);
-            iv_volume_tow.setImageResource(R.drawable.ic_volume_off);
-            iv_volume_three.setImageResource(exoPlayer_three != null && exoPlayer_three.getVolume() == 0f ? R.drawable.ic_volume_off : R.drawable.ic_volume_up);
-            iv_volume_four.setImageResource(R.drawable.ic_volume_off);
-        } else if (player == 4){
-            iv_volume_one.setImageResource(R.drawable.ic_volume_off);
-            iv_volume_tow.setImageResource(R.drawable.ic_volume_off);
-            iv_volume_three.setImageResource(R.drawable.ic_volume_off);
-            iv_volume_four.setImageResource(exoPlayer_four != null && exoPlayer_four.getVolume() == 0f ? R.drawable.ic_volume_off : R.drawable.ic_volume_up);
-        } else {
-            iv_volume_one.setImageResource(R.drawable.ic_volume_off);
-            iv_volume_tow.setImageResource(R.drawable.ic_volume_off);
-            iv_volume_three.setImageResource(R.drawable.ic_volume_off);
-            iv_volume_four.setImageResource(R.drawable.ic_volume_off);
-        }
+    private void setVolumeIcon() {
+        iv_volume_one.setImageResource(exoPlayer_one != null && exoPlayer_one.getVolume() == 1f ? R.drawable.ic_volume_up : R.drawable.ic_volume_off);
+        iv_volume_two.setImageResource(exoPlayer_two != null && exoPlayer_two.getVolume() == 1f ? R.drawable.ic_volume_up : R.drawable.ic_volume_off);
+        iv_volume_three.setImageResource(exoPlayer_three != null && exoPlayer_three.getVolume() == 1f ? R.drawable.ic_volume_up : R.drawable.ic_volume_off);
+        iv_volume_four.setImageResource(exoPlayer_four != null && exoPlayer_four.getVolume() == 1f ? R.drawable.ic_volume_up : R.drawable.ic_volume_off);
     }
 
     private void setScreen(int screen) {
@@ -331,49 +214,53 @@ public class MultipleScreenActivity extends AppCompatActivity {
             findViewById(R.id.rl_player_two).setVisibility(View.VISIBLE);
             findViewById(R.id.rl_player_four).setVisibility(View.GONE);
         } else {
+            // Default case: show all screens and players
             findViewById(R.id.ll_screen_one_two).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_screen_three_four).setVisibility(View.VISIBLE);
             findViewById(R.id.rl_player_two).setVisibility(View.VISIBLE);
             findViewById(R.id.rl_player_four).setVisibility(View.VISIBLE);
         }
 
+        // Request focus for player one if running on TV Box
         if (ApplicationUtil.isTvBox(this)){
             findViewById(R.id.vw_player_one).requestFocus();
         }
     }
 
     private String getChannelUrl(String streamId) {
-        if (streamId != null && !streamId.isEmpty()){
-            String channelUrl;
-            if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)){
-                channelUrl = streamId;
+        if (streamId != null && !streamId.isEmpty()) {
+            if (spHelper.getLoginType().equals(Callback.TAG_LOGIN_PLAYLIST)) {
+                return streamId;
             } else {
-                if (Boolean.TRUE.equals(spHelper.getIsXuiUser())){
-                    channelUrl = spHelper.getServerURL()+ spHelper.getUserName()+"/"+ spHelper.getPassword()+"/"+streamId+".m3u8";
-                } else {
-                    channelUrl = spHelper.getServerURL()+"live/"+ spHelper.getUserName()+"/"+ spHelper.getPassword()+"/"+streamId+".m3u8";
-                }
+                return spHelper.getServerURL() + (Boolean.TRUE.equals(spHelper.getIsXuiUser()) ? "" : "live/") + spHelper.getUserName() + "/" + spHelper.getPassword() + "/" + streamId + ".m3u8";
             }
-            return channelUrl;
         } else {
-            return streamId;
+            return "";
         }
     }
 
     private void setPlayerOne(String channelUrl) {
         if (channelUrl != null && !channelUrl.isEmpty()){
+            // Hide add button
             add_btn_one.setVisibility(View.GONE);
+
+            // Release existing player if it exists
             if (exoPlayer_one != null) {
                 exoPlayer_one.setPlayWhenReady(false);
                 exoPlayer_one.stop();
                 exoPlayer_one.release();
                 exoPlayer_one = null; // Set to null after release
             }
+            // Initialize a new ExoPlayer instance
             exoPlayer_one = new SimpleExoPlayer.Builder(this).build();
+
+            // Set up PlayerView for the ExoPlayer
             PlayerView playerView = findViewById(R.id.player_one);
             playerView.setPlayer(exoPlayer_one);
             playerView.setUseController(true);
             playerView.requestFocus();
+
+            // Add listener to ExoPlayer to handle player state changes
             exoPlayer_one.addListener(new Player.Listener(){
                 @Override
                 public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
@@ -384,6 +271,8 @@ public class MultipleScreenActivity extends AppCompatActivity {
                         iv_volume_one.setVisibility(View.VISIBLE);
                         is_player = false;
                     }
+
+                    // Handle buffering state
                     if (playbackState == PlaybackStateEvent.STATE_PLAYING) {
                         pb_one.setVisibility(View.GONE);
                     } else if (playbackState == Player.STATE_BUFFERING) {
@@ -407,12 +296,16 @@ public class MultipleScreenActivity extends AppCompatActivity {
                     Player.Listener.super.onPlayerError(error);
                 }
             });
+
+            // Prepare media source and start playing
             Uri uri = Uri.parse(channelUrl);
             MediaSource mediaSource = buildMediaSource(uri);
             exoPlayer_one.setMediaSource(mediaSource);
             exoPlayer_one.prepare();
             exoPlayer_one.setPlayWhenReady(true);
-            exoPlayer_one.setVolume(0);
+            exoPlayer_one.setVolume(0); // Mute player initially
+
+            // If is_player is true, set volume to 1 (unmute)
             if (Boolean.TRUE.equals(is_player)){
                 setVolume(1);
             }
@@ -420,72 +313,94 @@ public class MultipleScreenActivity extends AppCompatActivity {
     }
     private void setPlayerTow(String channelUrl) {
         if (channelUrl != null && !channelUrl.isEmpty()){
-            add_btn_tow.setVisibility(View.GONE);
-            if (exoPlayer_tow != null) {
-                exoPlayer_tow.setPlayWhenReady(false);
-                exoPlayer_tow.stop();
-                exoPlayer_tow.release();
-                exoPlayer_tow = null; // Set to null after release
+            // Hide add button
+            add_btn_two.setVisibility(View.GONE);
+
+            // Release existing player if it exists
+            if (exoPlayer_two != null) {
+                exoPlayer_two.setPlayWhenReady(false);
+                exoPlayer_two.stop();
+                exoPlayer_two.release();
+                exoPlayer_two = null; // Set to null after release
             }
-            exoPlayer_tow = new SimpleExoPlayer.Builder(this).build();
+
+            // Initialize a new ExoPlayer instance
+            exoPlayer_two = new SimpleExoPlayer.Builder(this).build();
+
+            // Set up PlayerView for the ExoPlayer
             PlayerView playerView = findViewById(R.id.player_tow);
-            playerView.setPlayer(exoPlayer_tow);
+            playerView.setPlayer(exoPlayer_two);
             playerView.setUseController(true);
             playerView.requestFocus();
-            exoPlayer_tow.addListener(new Player.Listener(){
+
+            // Add listener to ExoPlayer to handle player state changes
+            exoPlayer_two.addListener(new Player.Listener(){
                 @Override
                 public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
                     Player.Listener.super.onPlayerStateChanged(playWhenReady, playbackState);
                     if (playbackState == Player.STATE_READY) {
                         findViewById(R.id.vw_player_tow).setVisibility(View.VISIBLE);
                         findViewById(R.id.player_tow).setVisibility(View.VISIBLE);
-                        iv_volume_tow.setVisibility(View.VISIBLE);
+                        iv_volume_two.setVisibility(View.VISIBLE);
                     }
+
+                    // Handle buffering state
                     if (playbackState == PlaybackStateEvent.STATE_PLAYING) {
-                        pb_tow.setVisibility(View.GONE);
+                        pb_two.setVisibility(View.GONE);
                     } else if (playbackState == Player.STATE_BUFFERING) {
-                        pb_tow.setVisibility(View.VISIBLE);
+                        pb_two.setVisibility(View.VISIBLE);
                     }
                 }
 
                 @Override
                 public void onPlayerError(@NonNull PlaybackException error) {
-                    if (exoPlayer_tow != null) {
-                        exoPlayer_tow.setPlayWhenReady(false);
-                        exoPlayer_tow.stop();
-                        exoPlayer_tow.release();
-                        exoPlayer_tow = null; // Set to null after release
+                    if (exoPlayer_two != null) {
+                        exoPlayer_two.setPlayWhenReady(false);
+                        exoPlayer_two.stop();
+                        exoPlayer_two.release();
+                        exoPlayer_two = null; // Set to null after release
                     }
-                    pb_tow.setVisibility(View.GONE);
-                    add_btn_tow.setVisibility(View.VISIBLE);
+                    pb_two.setVisibility(View.GONE);
+                    add_btn_two.setVisibility(View.VISIBLE);
                     findViewById(R.id.vw_player_tow).setVisibility(View.INVISIBLE);
                     findViewById(R.id.player_tow).setVisibility(View.GONE);
                     Toast.makeText(MultipleScreenActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     Player.Listener.super.onPlayerError(error);
                 }
             });
+
+            // Prepare media source and start playing
             Uri uri = Uri.parse(channelUrl);
             MediaSource mediaSource = buildMediaSource(uri);
-            exoPlayer_tow.setMediaSource(mediaSource);
-            exoPlayer_tow.prepare();
-            exoPlayer_tow.setPlayWhenReady(true);
-            exoPlayer_tow.setVolume(0);
+            exoPlayer_two.setMediaSource(mediaSource);
+            exoPlayer_two.prepare();
+            exoPlayer_two.setPlayWhenReady(true);
+            exoPlayer_two.setVolume(0); // Mute player initially
         }
     }
     private void setPlayerThree(String channelUrl) {
         if (channelUrl != null && !channelUrl.isEmpty()){
+            // Hide add button
             add_btn_three.setVisibility(View.GONE);
+
+            // Release existing player if it exists
             if (exoPlayer_three != null) {
                 exoPlayer_three.setPlayWhenReady(false);
                 exoPlayer_three.stop();
                 exoPlayer_three.release();
                 exoPlayer_three = null; // Set to null after release
             }
+
+            // Initialize a new ExoPlayer instance
             exoPlayer_three = new SimpleExoPlayer.Builder(this).build();
+
+            // Set up PlayerView for the ExoPlayer
             PlayerView playerView = findViewById(R.id.player_three);
             playerView.setPlayer(exoPlayer_three);
             playerView.setUseController(true);
             playerView.requestFocus();
+
+            // Add listener to ExoPlayer to handle player state changes
             exoPlayer_three.addListener(new Player.Listener(){
                 @Override
                 public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
@@ -495,6 +410,8 @@ public class MultipleScreenActivity extends AppCompatActivity {
                         iv_volume_three.setVisibility(View.VISIBLE);
                         findViewById(R.id.player_three).setVisibility(View.VISIBLE);
                     }
+
+                    // Handle buffering state
                     if (playbackState == PlaybackStateEvent.STATE_PLAYING) {
                         pb_three.setVisibility(View.GONE);
                     } else if (playbackState == Player.STATE_BUFFERING) {
@@ -518,37 +435,51 @@ public class MultipleScreenActivity extends AppCompatActivity {
                     Player.Listener.super.onPlayerError(error);
                 }
             });
+
+            // Prepare media source and start playing
             Uri uri = Uri.parse(channelUrl);
             MediaSource mediaSource = buildMediaSource(uri);
             exoPlayer_three.setMediaSource(mediaSource);
             exoPlayer_three.prepare();
             exoPlayer_three.setPlayWhenReady(true);
-            exoPlayer_three.setVolume(0);
+            exoPlayer_three.setVolume(0); // Mute player initially
         }
     }
     private void setPlayerFour(String channelUrl) {
         if (channelUrl != null && !channelUrl.isEmpty()){
+            // Hide add button
             add_btn_four.setVisibility(View.GONE);
+
+            // Release existing player if it exists
             if (exoPlayer_four != null) {
                 exoPlayer_four.setPlayWhenReady(false);
                 exoPlayer_four.stop();
                 exoPlayer_four.release();
                 exoPlayer_four = null; // Set to null after release
             }
+
+            // Initialize a new ExoPlayer instance
             exoPlayer_four = new SimpleExoPlayer.Builder(this).build();
+
+            // Set up PlayerView for the ExoPlayer
             PlayerView playerView = findViewById(R.id.player_four);
             playerView.setPlayer(exoPlayer_four);
             playerView.setUseController(true);
             playerView.requestFocus();
+
+            // Add listener to ExoPlayer to handle player state changes
             exoPlayer_four.addListener(new Player.Listener(){
                 @Override
                 public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
                     Player.Listener.super.onPlayerStateChanged(playWhenReady, playbackState);
+
                     if (playbackState == Player.STATE_READY) {
                         findViewById(R.id.vw_player_four).setVisibility(View.VISIBLE);
                         iv_volume_four.setVisibility(View.VISIBLE);
                         findViewById(R.id.player_four).setVisibility(View.VISIBLE);
                     }
+
+                    // Handle buffering state
                     if (playbackState == PlaybackStateEvent.STATE_PLAYING) {
                         pb_four.setVisibility(View.GONE);
                     } else if (playbackState == Player.STATE_BUFFERING) {
@@ -572,12 +503,14 @@ public class MultipleScreenActivity extends AppCompatActivity {
                     Player.Listener.super.onPlayerError(error);
                 }
             });
+
+            // Prepare media source and start playing
             Uri uri = Uri.parse(channelUrl);
             MediaSource mediaSource = buildMediaSource(uri);
             exoPlayer_four.setMediaSource(mediaSource);
             exoPlayer_four.prepare();
             exoPlayer_four.setPlayWhenReady(true);
-            exoPlayer_four.setVolume(0);
+            exoPlayer_four.setVolume(0); // Mute player initially
         }
     }
 
@@ -622,6 +555,30 @@ public class MultipleScreenActivity extends AppCompatActivity {
                 .setKeepPostFor302Redirects(true);
     }
 
+    private void releasePlayer(SimpleExoPlayer exoPlayer, ProgressBar progressBar, ImageView addButton, int volumeView, int playerView, ImageView volumeIcon) {
+        try {
+            if (exoPlayer != null) {
+                // Stop and release the ExoPlayer instance
+                exoPlayer.setPlayWhenReady(false);
+                exoPlayer.stop();
+                exoPlayer.release();
+                exoPlayer = null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Update UI elements after releasing player
+        progressBar.setVisibility(View.GONE);
+        addButton.setVisibility(View.VISIBLE);
+        findViewById(volumeView).setVisibility(View.INVISIBLE);
+        findViewById(playerView).setVisibility(View.GONE);
+        volumeIcon.setVisibility(View.GONE);
+
+        // Show a toast message indicating player release
+        Toast.makeText(MultipleScreenActivity.this,"Removed", Toast.LENGTH_LONG).show();
+    }
+
     @Override
     public int setLayoutResourceId() {
         return R.layout.activity_multiple_screen;
@@ -639,9 +596,9 @@ public class MultipleScreenActivity extends AppCompatActivity {
             exoPlayer_one.setPlayWhenReady(false);
             exoPlayer_one.getPlaybackState();
         }
-        if (exoPlayer_tow != null && exoPlayer_tow.getPlayWhenReady()) {
-            exoPlayer_tow.setPlayWhenReady(false);
-            exoPlayer_tow.getPlaybackState();
+        if (exoPlayer_two != null && exoPlayer_two.getPlayWhenReady()) {
+            exoPlayer_two.setPlayWhenReady(false);
+            exoPlayer_two.getPlaybackState();
         }
         if (exoPlayer_three != null && exoPlayer_three.getPlayWhenReady()) {
             exoPlayer_three.setPlayWhenReady(false);
@@ -660,9 +617,9 @@ public class MultipleScreenActivity extends AppCompatActivity {
             exoPlayer_one.setPlayWhenReady(false);
             exoPlayer_one.getPlaybackState();
         }
-        if (exoPlayer_tow != null && exoPlayer_tow.getPlayWhenReady()) {
-            exoPlayer_tow.setPlayWhenReady(false);
-            exoPlayer_tow.getPlaybackState();
+        if (exoPlayer_two != null && exoPlayer_two.getPlayWhenReady()) {
+            exoPlayer_two.setPlayWhenReady(false);
+            exoPlayer_two.getPlaybackState();
         }
         if (exoPlayer_three != null && exoPlayer_three.getPlayWhenReady()) {
             exoPlayer_three.setPlayWhenReady(false);
@@ -681,9 +638,9 @@ public class MultipleScreenActivity extends AppCompatActivity {
             exoPlayer_one.setPlayWhenReady(true);
             exoPlayer_one.getPlaybackState();
         }
-        if (exoPlayer_tow != null) {
-            exoPlayer_tow.setPlayWhenReady(true);
-            exoPlayer_tow.getPlaybackState();
+        if (exoPlayer_two != null) {
+            exoPlayer_two.setPlayWhenReady(true);
+            exoPlayer_two.getPlaybackState();
         }
         if (exoPlayer_three != null) {
             exoPlayer_three.setPlayWhenReady(true);
@@ -703,10 +660,10 @@ public class MultipleScreenActivity extends AppCompatActivity {
             exoPlayer_one.stop();
             exoPlayer_one.release();
         }
-        if (exoPlayer_tow != null) {
-            exoPlayer_tow.setPlayWhenReady(false);
-            exoPlayer_tow.stop();
-            exoPlayer_tow.release();
+        if (exoPlayer_two != null) {
+            exoPlayer_two.setPlayWhenReady(false);
+            exoPlayer_two.stop();
+            exoPlayer_two.release();
         }
         if (exoPlayer_three != null) {
             exoPlayer_three.setPlayWhenReady(false);

@@ -17,5 +17,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "cinevo"
+rootProject.name = "Cinevo"
 include ':app'

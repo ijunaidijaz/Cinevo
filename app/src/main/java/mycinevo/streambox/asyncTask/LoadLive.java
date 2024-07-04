@@ -5,20 +5,21 @@ import android.os.AsyncTask;
 
 import org.json.JSONArray;
 
-import mycinevo.streambox.interfaces.LiveListener;
+import mycinevo.streambox.interfaces.LoadSuccessListener;
 import mycinevo.streambox.util.ApplicationUtil;
-import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.util.helper.JSHelper;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class LoadLive extends AsyncTask<String, String, String> {
 
     private final JSHelper jsHelper;
     private final Helper helper;
     private final SPHelper spHelper;
-    private final LiveListener listener;
+    private final LoadSuccessListener listener;
+    private String msg = "";
 
-    public LoadLive(Context ctx, LiveListener listener) {
+    public LoadLive(Context ctx, LoadSuccessListener listener) {
         this.listener = listener;
         spHelper = new SPHelper(ctx);
         helper = new Helper(ctx);
@@ -27,7 +28,7 @@ public class LoadLive extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPreExecute() {
-        jsHelper.removeAllLive();
+        jsHelper.removeAllLive(); // Clear existing live data before loading new data
         listener.onStart();
         super.onPreExecute();
     }
@@ -35,25 +36,24 @@ public class LoadLive extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            String json_category = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_live_categories", spHelper.getUserName(), spHelper.getPassword()));
-
-            if (!json_category.isEmpty()){
-                JSONArray arrayCategory = new JSONArray(json_category);
-                if (arrayCategory.length() > 0){
-                    jsHelper.addToCatLiveList(json_category);
-                }
-            } else {
-                return "2";
+            // Fetch live stream categories
+            String jsonCategory = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_live_categories", spHelper.getUserName(), spHelper.getPassword()));
+            JSONArray arrayCategory = new JSONArray(jsonCategory);
+            if (arrayCategory.length() != 0){
+                jsHelper.addToCatLiveList(jsonCategory);
+            }  else {
+                msg = "No live categories found";
+                return "3";
             }
 
-            String json = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_live_streams", spHelper.getUserName(), spHelper.getPassword()));
-            if (!json.isEmpty()){
-                JSONArray jsonarray = new JSONArray(json);
-                if (jsonarray.length() > 0){
-                    jsHelper.setLiveSize(jsonarray.length());
-                    jsHelper.addToLiveData(json);
-                }
-
+            String jsonLive = ApplicationUtil.responsePost(spHelper.getAPI(), helper.getAPIRequest("get_live_streams", spHelper.getUserName(), spHelper.getPassword()));
+            JSONArray jsonarray = new JSONArray(jsonLive);
+            if (jsonarray.length() != 0){
+                jsHelper.setLiveSize(jsonarray.length());
+                jsHelper.addToLiveData(jsonLive );
+            } else {
+                msg = "No series found";
+                return "3";
             }
             return "1";
         } catch (Exception e) {
@@ -64,13 +64,13 @@ public class LoadLive extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        listener.onEnd(s);
+        listener.onEnd(s, msg);
         super.onPostExecute(s);
     }
 
     @Override
     protected void onCancelled(String s) {
-        listener.onCancel(s);
+        listener.onEnd(s, msg);
         super.onCancelled(s);
     }
 }

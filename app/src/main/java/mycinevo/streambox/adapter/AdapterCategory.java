@@ -25,7 +25,7 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
     private List<ItemCat> arrayList;
     private final List<ItemCat> filteredArrayList;
     private final RecyclerItemClickListener listener;
-    private int row_index = 0;
+    private int row_index = -1;
     private NameFilter filter;
     private final Boolean isTvBox;
 
@@ -56,29 +56,28 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
         return new ViewHolder(v);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ItemCat currentItem = arrayList.get(position);
 
         holder.tv_cat.setText(currentItem.getName());
-        holder.tv_cat.setOnClickListener(v -> listener.onClickListener(getPosition(currentItem.getId())));
+        holder.tv_cat.setOnClickListener(v -> {
+            row_index = position;
+            notifyDataSetChanged(); // Highlight selected item
+            listener.onClickListener(getPosition(currentItem.getId()));
+        });
 
-        if (row_index > -1) {
-            if (row_index == position) {
-                if (Boolean.TRUE.equals(isTvBox)){
-                    holder.tv_cat.requestFocus();
-                }
-                holder.tv_cat.setTextColor(ContextCompat.getColor(context, R.color.color_select));
-                holder.vw_cat.setVisibility(View.VISIBLE);
-            } else {
-                holder.tv_cat.setTextColor(ContextCompat.getColor(context, R.color.white));
-                holder.vw_cat.setVisibility(View.GONE);
+        if (row_index == position) {
+            if (isTvBox) {
+                holder.tv_cat.requestFocus();
             }
+            holder.tv_cat.setTextColor(ContextCompat.getColor(context, R.color.color_select));
+            holder.vw_cat.setVisibility(View.VISIBLE);
         } else {
             holder.tv_cat.setTextColor(ContextCompat.getColor(context, R.color.white));
             holder.vw_cat.setVisibility(View.GONE);
         }
-
     }
 
     @Override
@@ -97,14 +96,12 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
     }
 
     private int getPosition(String id) {
-        int count = 0;
         for (int i = 0; i < filteredArrayList.size(); i++) {
             if (id.equals(filteredArrayList.get(i).getId())) {
-                count = i;
-                break;
+                return i;
             }
         }
-        return count;
+        return -1; // Not found
     }
 
     public Filter getFilter() {

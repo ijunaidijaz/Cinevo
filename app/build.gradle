@@ -12,8 +12,8 @@ android {
         applicationId "mycinevo.streambox"
         minSdk 23
         targetSdk 34
-        versionCode 42
-        versionName "1.0.0"
+        versionCode 52
+        versionName "2.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -53,22 +53,20 @@ android {
 
 dependencies {
     implementation libs.bundles.nemosofts
+    implementation libs.bundles.network.security
     implementation libs.androidx.multidex
-    implementation libs.gson
-    implementation libs.okhttp
     implementation libs.recyclerview
     implementation libs.androidx.palette
     implementation libs.scytale
-    implementation libs.picasso
     implementation libs.commons.io
     implementation(platform(libs.firebase.bom))
     implementation libs.bundles.firebase
     implementation libs.oneSignal
     implementation libs.androidx.activity
+    implementation libs.bundles.youtubeplayer
     implementation libs.bundles.media3
     implementation(libs.bundles.exoplayer) {
         exclude group: "androidx.media3", module: "media3-exoplayer"
     }
     implementation fileTree(dir: "libs", include: ["lib-*.aar"])
-
 }

@@ -7,6 +7,7 @@ import androidx.multidex.MultiDex;
 import androidx.nemosofts.Application;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.onesignal.Continue;
 import com.onesignal.OneSignal;
 
 import mycinevo.streambox.BuildConfig;
@@ -34,6 +35,10 @@ public class MyApplication extends Application {
 
         // OneSignal Initialization
         OneSignal.initWithContext(this, getString(R.string.onesignal_app_id));
+
+        // requestPermission will show the native Android notification permission prompt.
+        // NOTE: It's recommended to use a OneSignal In-App Message to prompt instead.
+        OneSignal.getNotifications().requestPermission(false, Continue.none());
     }
 
     @Override

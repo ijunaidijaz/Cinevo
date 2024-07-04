@@ -127,6 +127,8 @@ public class SettingActivity extends AppCompatActivity {
                 startActivity(new Intent(SettingActivity.this, SettingGeneralActivity.class));
             } else if (name.equals(getResources().getString(R.string.ui))){
                 startActivity(new Intent(SettingActivity.this, SettingUIActivity.class));
+            }  else if (name.equals(getResources().getString(R.string.about))){
+                startActivity(new Intent(SettingActivity.this, AboutUsActivity.class));
             }
         }
     }
@@ -170,6 +172,7 @@ public class SettingActivity extends AppCompatActivity {
         }
         arrayList.add(new ItemSetting(getResources().getString(R.string.speed_test), "", R.drawable.ic_speed));
         arrayList.add(new ItemSetting(getResources().getString(R.string.feedback), "", R.drawable.ic_feedback));
+        arrayList.add(new ItemSetting(getResources().getString(R.string.about), "", R.drawable.ic_information));
     }
 
     private void initializeCache() {

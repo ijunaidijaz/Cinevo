@@ -1,6 +1,5 @@
 package mycinevo.streambox.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -8,6 +7,8 @@ import android.os.Handler;
 import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
+import androidx.media3.common.util.UnstableApi;
 import androidx.nemosofts.AppCompat;
 import androidx.nemosofts.AppCompatActivity;
 
@@ -64,7 +65,8 @@ public class DialogActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
+
+    @OptIn(markerClass = UnstableApi.class)
     private void openSelectPlayer() {
         Intent intent = new Intent(DialogActivity.this, SelectPlayerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -73,7 +75,7 @@ public class DialogActivity extends AppCompatActivity {
         finish();
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
+    @OptIn(markerClass = UnstableApi.class)
     private void openSingleStream() {
         Intent intent = new Intent(DialogActivity.this, SingleStreamActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -83,7 +85,7 @@ public class DialogActivity extends AppCompatActivity {
 
     @Override
     public int setLayoutResourceId() {
-        return R.layout.activity_splash;
+        return R.layout.activity_launcher;
     }
 
     @Override

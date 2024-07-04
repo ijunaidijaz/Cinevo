@@ -1,6 +1,5 @@
 package mycinevo.streambox.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,8 +96,7 @@ public class AdapterEpisodes extends RecyclerView.Adapter<AdapterEpisodes.MyView
             // Adding null check before parsing the rating
             String ratingString = arrayList.get(position).getRating().isEmpty() ? "0" : arrayList.get(position).getRating();
             double newRating = 0.0; // default value
-            if (ratingString != null && !ratingString.isEmpty()&& !ratingString.equals("null")) {
-                Log.d("TAG", "ratingString: "+ ratingString.toString());
+            if (ratingString != null && !ratingString.isEmpty()) {
                 newRating = convertToFiveRating(Double.parseDouble(ratingString));
             }
             holder.rb_episodes.setRating((float) newRating);

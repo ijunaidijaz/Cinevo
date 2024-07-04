@@ -17,21 +17,25 @@ public class BrightnessVolumeControl {
         this.activity = activity;
     }
 
+    // Gets the current screen brightness
     public float getScreenBrightness() {
         return activity.getWindow().getAttributes().screenBrightness;
     }
 
+    // Sets the screen brightness
     public void setScreenBrightness(final float brightness) {
         WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
         lp.screenBrightness = brightness;
         activity.getWindow().setAttributes(lp);
     }
 
+    // Converts a brightness level to a screen brightness value
     public float levelToBrightness(final float level) {
         final double d = 0.064 + 0.936 / (double) 30 * (double) level;
         return (float) (d * d);
     }
 
+    // Changes the screen brightness based on user input
     public void changeBrightness(final CustomPlayerView playerView, final boolean increase, final boolean canSetAuto) {
         int newBrightnessLevel = increase ? currentBrightnessLevel + 1 : currentBrightnessLevel - 1;
 
@@ -55,6 +59,7 @@ public class BrightnessVolumeControl {
         }
     }
 
+    // Adjusts the volume level based on user input
     public void adjustVolume(AudioManager audioManager, final CustomPlayerView playerView, final boolean increase) {
         if (audioManager != null){
             int volume_max = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);

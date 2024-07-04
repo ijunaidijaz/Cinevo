@@ -50,7 +50,6 @@ public class CategoriesActivity extends AppCompatActivity {
         IfSupported.hideStatusBar(this);
 
         findViewById(R.id.theme_bg).setBackgroundResource(ApplicationUtil.openThemeBg(this));
-
         findViewById(R.id.iv_back_page).setOnClickListener(view -> finish());
         if (ApplicationUtil.isTvBox(this)){
             findViewById(R.id.iv_back_page).setVisibility(View.GONE);
@@ -71,14 +70,9 @@ public class CategoriesActivity extends AppCompatActivity {
 
         frameLayout = findViewById(R.id.fl_empty);
         rv = findViewById(R.id.rv);
-        GridLayoutManager grid;
-        if (ApplicationUtil.isTvBox(this)){
-            grid = new GridLayoutManager(this, 5);
-            grid.setSpanCount(5);
-        } else {
-            grid = new GridLayoutManager(this, 3);
-            grid.setSpanCount(3);
-        }
+        boolean isTvBox  = ApplicationUtil.isTvBox(this);
+        GridLayoutManager grid = new GridLayoutManager(this, isTvBox ? 5 : 3);
+        grid.setSpanCount(isTvBox ? 5 : 3);
         rv.setLayoutManager(grid);
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setHasFixedSize(true);

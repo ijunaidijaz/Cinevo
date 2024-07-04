@@ -69,10 +69,6 @@ public class SelectPlayerActivity extends AppCompatActivity {
         arrayList.add(new ItemSelect(getString(R.string.list_users), R.drawable.ic_user_octagon,true));
         arrayList.add(new ItemSelect(getString(R.string._downloads), R.drawable.iv_downloading,true));
 
-//        if (Boolean.TRUE.equals(sharedPref.getIsSelect(SharedPref.TAG_SELECT_SUBSCRIPTION))){
-//            arrayList.add(new ItemSelect(getString(R.string._subscription), R.drawable.ic_shopping_cart,true));
-//        }
-
         AdapterSelect adapterSelect = new AdapterSelect(arrayList, (item, position) -> select(arrayList.get(position).getTitle()));
         rv.setAdapter(adapterSelect);
         if (ApplicationUtil.isTvBox(this)){
@@ -126,8 +122,6 @@ public class SelectPlayerActivity extends AppCompatActivity {
             finish();
         } else if (title.equals(getString(R.string._downloads))){
             startActivity(new Intent(SelectPlayerActivity.this, DownloadActivity.class));
-        } else if (title.equals(getString(R.string._subscription))){
-            startActivity(new Intent(SelectPlayerActivity.this, SubscriptionActivity.class));
         }
     }
 

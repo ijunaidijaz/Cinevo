@@ -14,19 +14,23 @@ import mycinevo.streambox.util.helper.JSHelper;
 
 public class GetMovies extends AsyncTask<String, String, String> {
 
+    private static final int PAGE_TYPE_FAV = 1;
+    private static final int PAGE_TYPE_RECENT = 2;
+    private static final int PAGE_TYPE_RECENT_ADD = 3;
+
     private final DBHelper dbHelper;
     private final JSHelper jsHelper;
     private final GetMovieListener listener;
     private final ArrayList<ItemMovies> itemMovies = new ArrayList<>();
-    private final int is_page;
-    private final String cat_id;
+    private final int isPage;
+    private final String catId;
     private final int page;
-    int itemsPerPage = 15;
+    private static final int ITEMS_PER_PAGE = 15;
 
-    public GetMovies(Context ctx, int page, String cat_id, int is_page, GetMovieListener listener) {
+    public GetMovies(Context ctx, int page, String catId , int isPage, GetMovieListener listener) {
         this.listener = listener;
-        this.is_page = is_page;
-        this.cat_id = cat_id;
+        this.isPage = isPage;
+        this.catId  = catId ;
         this.page = page;
         jsHelper = new JSHelper(ctx);
         dbHelper = new DBHelper(ctx);
@@ -41,42 +45,48 @@ public class GetMovies extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            if (Boolean.TRUE.equals(is_page == 1)){
-                itemMovies.addAll(dbHelper.getMovies(DBHelper.TABLE_FAV_MOVIE, jsHelper.getIsLiveOrder()));
-            } else  if (Boolean.TRUE.equals(is_page == 2)){
-                itemMovies.addAll(dbHelper.getMovies(DBHelper.TABLE_RECENT_MOVIE, jsHelper.getIsLiveOrder()));
-            } else if (Boolean.TRUE.equals(is_page == 3)){
-                final ArrayList<ItemMovies> arrayList = new ArrayList<>(jsHelper.getMoviesRe());
-                if (!arrayList.isEmpty()){
-                    Collections.sort(arrayList, new Comparator<ItemMovies>() {
-                        @Override
-                        public int compare(ItemMovies o1, ItemMovies o2) {
-                            return Integer.compare(Integer.parseInt(o1.getStreamID()), Integer.parseInt(o2.getStreamID()));
+            switch (isPage) {
+                case PAGE_TYPE_FAV:
+                    // Fetch favorite movies
+                    itemMovies.addAll(dbHelper.getMovies(DBHelper.TABLE_FAV_MOVIE, jsHelper.getIsLiveOrder()));
+                    break;
+                case PAGE_TYPE_RECENT:
+                    // Fetch recent movies
+                    itemMovies.addAll(dbHelper.getMovies(DBHelper.TABLE_RECENT_MOVIE, jsHelper.getIsLiveOrder()));
+                    break;
+                case PAGE_TYPE_RECENT_ADD:
+                    // Fetch and sort recommended movies
+                    ArrayList<ItemMovies> recommendedMovies = new ArrayList<>(jsHelper.getMoviesRe());
+                    if (!recommendedMovies.isEmpty()) {
+                        Collections.sort(recommendedMovies, new Comparator<ItemMovies>() {
+                            @Override
+                            public int compare(ItemMovies o1, ItemMovies o2) {
+                                return Integer.compare(Integer.parseInt(o1.getStreamID()), Integer.parseInt(o2.getStreamID()));
+                            }
+                        });
+                        Collections.reverse(recommendedMovies);
+                        for (int i = 0; i < Math.min(50, recommendedMovies.size()); i++) {
+                            itemMovies.add(recommendedMovies.get(i));
                         }
-                    });
-                    Collections.reverse(arrayList);
-                    for (int i = 0; i < arrayList.size(); i++) {
-                        itemMovies.add(arrayList.get(i));
-                        if (i == 49){
-                            break;
+                        if (Boolean.TRUE.equals(jsHelper.getIsMovieOrder())) {
+                            Collections.reverse(itemMovies);
                         }
                     }
-                    if (Boolean.TRUE.equals(jsHelper.getIsMovieOrder()) && !itemMovies.isEmpty()){
-                        Collections.reverse(itemMovies);
+                    break;
+                default:
+                    // Fetch movies by category with pagination
+                    ArrayList<ItemMovies> categoryMovies = new ArrayList<>(jsHelper.getMovies(catId));
+                    if (Boolean.TRUE.equals(jsHelper.getIsMovieOrder())) {
+                        Collections.reverse(categoryMovies);
                     }
-                }
-            } else {
-                final ArrayList<ItemMovies> arrayList = new ArrayList<>(jsHelper.getMovies(cat_id));
-                if (Boolean.TRUE.equals(jsHelper.getIsMovieOrder())){
-                    Collections.reverse(arrayList);
-                }
-                if (!arrayList.isEmpty()){
-                    int startIndex = (page - 1) * itemsPerPage;
-                    int endIndex = Math.min(startIndex + itemsPerPage, arrayList.size());
-                    for (int i = startIndex; i < endIndex; i++) {
-                        itemMovies.add(arrayList.get(i));
+                    if (!categoryMovies.isEmpty()) {
+                        int startIndex = (page - 1) * ITEMS_PER_PAGE;
+                        int endIndex = Math.min(startIndex + ITEMS_PER_PAGE, categoryMovies.size());
+                        for (int i = startIndex; i < endIndex; i++) {
+                            itemMovies.add(categoryMovies.get(i));
+                        }
                     }
-                }
+                    break;
             }
             return "1";
         } catch (Exception e) {

@@ -141,7 +141,6 @@ public class EPGActivity extends AppCompatActivity {
         }.execute();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void setAdapterToListview() {
         adapter = new AdapterLiveEpg(this, arrayList, (itemCat, position) -> {
             adapter.select(position);

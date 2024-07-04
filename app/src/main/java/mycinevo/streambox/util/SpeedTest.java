@@ -27,29 +27,28 @@ public class SpeedTest extends AsyncTask<String, String, String> {
     protected String doInBackground(String... strings) {
         try {
             String downloadUrl = "https://download.envatonemosofts.com/sample.txt";
-
             downloadSpeedKbps = 0;
             long startTime = System.currentTimeMillis();
 
             URL url = new URL(downloadUrl);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.connect();
 
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            long totalBytesRead = 0;
-            while ((bytesRead = in.read(buffer)) != -1) {
-                totalBytesRead += bytesRead;
+            try (InputStream in = new BufferedInputStream(urlConnection.getInputStream())) {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                long totalBytesRead = 0;
+                while ((bytesRead = in.read(buffer)) != -1) {
+                    totalBytesRead += bytesRead;
+                }
+
+                long endTime = System.currentTimeMillis();
+                long totalTimeInMillis = endTime - startTime;
+
+                // Calculate download speed in Kbps (kilobits per second)
+                downloadSpeedKbps = (long) ((totalBytesRead * 8 / 1024.0) / (totalTimeInMillis / 1000.0));
+            } finally {
+                urlConnection.disconnect();
             }
-            in .close();
-            urlConnection.disconnect();
-
-            long endTime = System.currentTimeMillis();
-            long totalTimeInMillis = endTime - startTime;
-
-            // Calculate download speed in Kbps (kilobits per second)
-            downloadSpeedKbps = (long) ((totalBytesRead / 1024.0) / (totalTimeInMillis / 1000.0));
 
             return "1";
         } catch (Exception e) {
@@ -59,9 +58,9 @@ public class SpeedTest extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        listener.onEnd(s, "Download Speed: " + ApplicationUtil.readableFileSize(downloadSpeedKbps));
-        super.onPostExecute(s);
+    protected void onPostExecute(String result) {
+        listener.onEnd(result, "Download Speed: " + ApplicationUtil.readableFileSize(downloadSpeedKbps) + " Kbps");
+        super.onPostExecute(result);
     }
 
     public interface OnSpeedCheckListener {

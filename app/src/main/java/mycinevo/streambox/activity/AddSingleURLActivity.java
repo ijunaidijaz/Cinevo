@@ -147,7 +147,6 @@ public class AddSingleURLActivity extends AppCompatActivity {
                         Toasty.makeText(AddSingleURLActivity.this, getString(R.string.err_file_invalid), Toasty.ERROR);
                     }
                 }
-
                 super.onPostExecute(s);
             }
         }.execute();

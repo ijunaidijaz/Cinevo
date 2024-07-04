@@ -1,6 +1,5 @@
 package mycinevo.streambox.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
@@ -9,7 +8,6 @@ import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.OptIn;
@@ -42,8 +40,8 @@ import mycinevo.streambox.interfaces.DataListener;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.Helper;
+import mycinevo.streambox.util.helper.SPHelper;
 
 public class LauncherActivity extends AppCompatActivity implements LauncherListener {
 
@@ -56,7 +54,7 @@ public class LauncherActivity extends AppCompatActivity implements LauncherListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.activity_launcher);
         if (Boolean.TRUE.equals(Callback.isLandscape)){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
@@ -193,12 +191,14 @@ public class LauncherActivity extends AppCompatActivity implements LauncherListe
 
                 @Override
                 public void onEnd(String success, JSONArray arrayLive, JSONArray arraySeries, JSONArray arrayMovies) {
-                    pb.setVisibility(View.GONE);
-                    if (Boolean.TRUE.equals(spHelper.getIsSplashAudio())){
-                        playAudio();
-                        new Handler().postDelayed(()-> ApplicationUtil.openThemeActivity(LauncherActivity.this), delayMillis);
-                    } else {
-                        ApplicationUtil.openThemeActivity(LauncherActivity.this);
+                    if (!isFinishing()){
+                        pb.setVisibility(View.GONE);
+                        if (Boolean.TRUE.equals(spHelper.getIsSplashAudio())){
+                            playAudio();
+                            new Handler().postDelayed(()-> ApplicationUtil.openThemeActivity(LauncherActivity.this), delayMillis);
+                        } else {
+                            ApplicationUtil.openThemeActivity(LauncherActivity.this);
+                        }
                     }
                 }
             });
@@ -213,7 +213,7 @@ public class LauncherActivity extends AppCompatActivity implements LauncherListe
         }
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
+    @OptIn(markerClass = UnstableApi.class)
     private void openSelectPlayer() {
         Intent intent = new Intent(LauncherActivity.this, SelectPlayerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -222,7 +222,7 @@ public class LauncherActivity extends AppCompatActivity implements LauncherListe
         finish();
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
+    @OptIn(markerClass = UnstableApi.class)
     private void openSingleStream() {
         Intent intent = new Intent(LauncherActivity.this, SingleStreamActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -260,11 +260,6 @@ public class LauncherActivity extends AppCompatActivity implements LauncherListe
     public void onUnauthorized(String message) {
         pb.setVisibility(View.GONE);
         errorDialog(getString(R.string.err_unauthorized_access), message);
-    }
-
-    @Override
-    public void onReconnect() {
-        Toast.makeText(LauncherActivity.this, "Please wait a minute", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import mycinevo.streambox.R;
-import mycinevo.streambox.activity.CatchUpActivity;
 import mycinevo.streambox.activity.CategoriesActivity;
 import mycinevo.streambox.activity.DownloadActivity;
 import mycinevo.streambox.activity.LiveTvActivity;
@@ -44,17 +43,16 @@ import mycinevo.streambox.callback.Callback;
 import mycinevo.streambox.dialog.DialogUtil;
 import mycinevo.streambox.dialog.PopupAdsDialog;
 import mycinevo.streambox.dialog.Toasty;
-import mycinevo.streambox.interfaces.LiveListener;
+import mycinevo.streambox.interfaces.LoadSuccessListener;
 import mycinevo.streambox.interfaces.LoginListener;
-import mycinevo.streambox.interfaces.SuccessListener;
 import mycinevo.streambox.item.ItemUsersDB;
 import mycinevo.streambox.util.ApplicationUtil;
 import mycinevo.streambox.util.IfSupported;
 import mycinevo.streambox.util.NetworkUtils;
-import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.util.helper.DBHelper;
 import mycinevo.streambox.util.helper.Helper;
 import mycinevo.streambox.util.helper.JSHelper;
+import mycinevo.streambox.util.helper.SPHelper;
 import mycinevo.streambox.view.NSoftsProgressDialog;
 
 public class OneUIActivity extends AppCompatActivity implements View.OnClickListener {
@@ -65,7 +63,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
     private JSHelper jsHelper;
     private NSoftsProgressDialog progressDialog;
     private TextView tv_tv_auto_renew, tv_movie_auto_renew, tv_series_auto_renew;
-    private ImageView iv_tv_auto_renew, iv_movie_auto_renew,iv_series_auto_renew;
+    private ImageView iv_tv_auto_renew, iv_movie_auto_renew, iv_series_auto_renew;
     private TextView tv_total_serials, tv_total_movies, tv_total_live;
     private ProgressBar pb_live, pb_movie, pb_serials;
     private final Handler handlerLive = new Handler();
@@ -73,12 +71,12 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
     private final Handler handlerSeries = new Handler();
     private int progressStatusLive = 0, progressStatusMovie = 0, progressStatusSeries = 0;
     private ShimmerFrameLayout shimmer_live, shimmer_movie, shimmer_serials;
-    static   String username;
+    static String username;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Boolean.TRUE.equals(Callback.isLandscape)){
+        if (Boolean.TRUE.equals(Callback.isLandscape)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
         IfSupported.IsRTL(this);
@@ -103,9 +101,9 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
         iv_movie_auto_renew = findViewById(R.id.iv_movie_auto_renew);
         iv_series_auto_renew = findViewById(R.id.iv_series_auto_renew);
 
-        tv_total_serials= findViewById(R.id.tv_total_serials);
-        tv_total_movies= findViewById(R.id.tv_total_movies);
-        tv_total_live= findViewById(R.id.tv_total_live);
+        tv_total_serials = findViewById(R.id.tv_total_serials);
+        tv_total_movies = findViewById(R.id.tv_total_movies);
+        tv_total_live = findViewById(R.id.tv_total_live);
 
         shimmer_live = findViewById(R.id.shimmer_view_live);
         shimmer_movie = findViewById(R.id.shimmer_view_movie);
@@ -122,12 +120,12 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
         changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE, true);
         changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES, true);
 
-        if (spHelper.isLogged()){
+        if (spHelper.isLogged()) {
             TextView tv_user_name = findViewById(R.id.tv_user_name);
-            String user_name = getString(R.string.user_list_user_name)+" "+ spHelper.getAnyName();
+            String user_name = getString(R.string.user_list_user_name) + " " + spHelper.getAnyName();
             tv_user_name.setText(user_name);
 
-            String exp_date = getString(R.string.expiration)+" "+ ApplicationUtil.convertIntToDate(spHelper.getExpDate(), "MMMM dd, yyyy");
+            String exp_date = getString(R.string.expiration) + " " + ApplicationUtil.convertIntToDate(spHelper.getExpDate(), "MMMM dd, yyyy");
             TextView tv_exp_date = findViewById(R.id.tv_exp_date);
             tv_exp_date.setText(exp_date);
         }
@@ -135,7 +133,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
         loadLogin();
         chalkedData();
 
-        if (ApplicationUtil.isTvBox(this)){
+        if (ApplicationUtil.isTvBox(this)) {
             findViewById(R.id.select_live).requestFocus();
         }
 
@@ -160,10 +158,10 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.ll_movie_auto_renew).setOnClickListener(this);
         findViewById(R.id.ll_series_auto_renew).setOnClickListener(this);
 
-        if (!spHelper.getIsDownload()){
+        if (!spHelper.getIsDownload()) {
             findViewById(R.id.iv_file_download).setVisibility(View.GONE);
         }
-        if (Boolean.FALSE.equals(spHelper.getIsRadio())){
+        if (Boolean.FALSE.equals(spHelper.getIsRadio())) {
             findViewById(R.id.iv_radio).setVisibility(View.GONE);
         }
 
@@ -190,7 +188,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void chalkedData() {
-        if (Boolean.TRUE.equals(Callback.successLive.equals("1"))){
+        if (Boolean.TRUE.equals(Callback.successLive.equals("1"))) {
             try {
                 Callback.successLive = "0";
                 pb_live.setVisibility(View.VISIBLE);
@@ -206,7 +204,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                         if (progressStatusLive < 100) {
                             progressStatusLive++;
                             pb_live.setProgress(progressStatusLive);
-                            if (progressStatusLive == 99){
+                            if (progressStatusLive == 99) {
                                 findViewById(R.id.vw_live_tv).setVisibility(View.GONE);
                                 findViewById(R.id.vw_live_epg).setVisibility(View.GONE);
                                 findViewById(R.id.vw_catch_up).setVisibility(View.GONE);
@@ -224,7 +222,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        if (Boolean.TRUE.equals(Callback.successMovies.equals("1"))){
+        if (Boolean.TRUE.equals(Callback.successMovies.equals("1"))) {
             try {
                 Callback.successMovies = "0";
                 pb_movie.setVisibility(View.VISIBLE);
@@ -237,7 +235,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                         if (progressStatusMovie < 100) {
                             progressStatusMovie++;
                             pb_movie.setProgress(progressStatusMovie);
-                            if (progressStatusMovie == 99){
+                            if (progressStatusMovie == 99) {
                                 findViewById(R.id.vw_movie).setVisibility(View.GONE);
                                 pb_movie.setVisibility(View.GONE);
                             }
@@ -252,7 +250,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        if (Boolean.TRUE.equals(Callback.successSeries.equals("1"))){
+        if (Boolean.TRUE.equals(Callback.successSeries.equals("1"))) {
             try {
                 Callback.successSeries = "0";
                 pb_serials.setVisibility(View.VISIBLE);
@@ -265,7 +263,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                         if (progressStatusSeries < 100) {
                             progressStatusSeries++;
                             pb_serials.setProgress(progressStatusSeries);
-                            if (progressStatusSeries == 99){
+                            if (progressStatusSeries == 99) {
                                 findViewById(R.id.vw_serials).setVisibility(View.GONE);
                                 pb_serials.setVisibility(View.GONE);
                             }
@@ -283,7 +281,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
 
     @SuppressLint({"UseCompatLoadingForDrawables", "StaticFieldLeak"})
     public void changeIcon(Boolean isDownload, String type, boolean is_view) {
-        if (type != null){
+        if (type != null) {
             int id = Boolean.TRUE.equals(isDownload) ? R.drawable.ic_file_download : R.drawable.ic_repeate;
             int visibility = Boolean.TRUE.equals(isDownload) ? View.VISIBLE : View.GONE;
             switch (type) {
@@ -296,7 +294,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                         findViewById(R.id.vw_catch_up).setVisibility(visibility);
                         findViewById(R.id.vw_multiple_screen).setVisibility(visibility);
                     }
-                    if (Boolean.TRUE.equals(isDownload) || Boolean.FALSE.equals(spHelper.getIsShimmeringHome())){
+                    if (Boolean.TRUE.equals(isDownload) || Boolean.FALSE.equals(spHelper.getIsShimmeringHome())) {
                         shimmer_live.setVisibility(View.GONE);
                     } else {
                         shimmer_live.setVisibility(View.VISIBLE);
@@ -308,7 +306,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                     if (is_view) {
                         findViewById(R.id.vw_movie).setVisibility(visibility);
                     }
-                    if (Boolean.TRUE.equals(isDownload) || Boolean.FALSE.equals(spHelper.getIsShimmeringHome())){
+                    if (Boolean.TRUE.equals(isDownload) || Boolean.FALSE.equals(spHelper.getIsShimmeringHome())) {
                         shimmer_movie.setVisibility(View.GONE);
                     } else {
                         shimmer_movie.setVisibility(View.VISIBLE);
@@ -320,7 +318,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                     if (is_view) {
                         findViewById(R.id.vw_serials).setVisibility(visibility);
                     }
-                    if (Boolean.TRUE.equals(isDownload) || Boolean.FALSE.equals(spHelper.getIsShimmeringHome())){
+                    if (Boolean.TRUE.equals(isDownload) || Boolean.FALSE.equals(spHelper.getIsShimmeringHome())) {
                         shimmer_serials.setVisibility(View.GONE);
                     } else {
                         shimmer_serials.setVisibility(View.VISIBLE);
@@ -352,7 +350,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 protected void onPostExecute(String s) {
                     super.onPostExecute(s);
-                    if (!isFinishing()){
+                    if (!isFinishing()) {
                         tv_total_serials.setText(ApplicationUtil.format(seriesSize));
                         tv_total_movies.setText(ApplicationUtil.format(moviesSize));
                         tv_total_live.setText(ApplicationUtil.format(liveSize));
@@ -412,10 +410,10 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
             case R.id.select_catch_up -> {
-                reloadSignOut();
 //                if (isDownloadLive()) {
 //                    startActivity(new Intent(OneUIActivity.this, CatchUpActivity.class));
 //                }
+                reloadSignOut();
             }
             case R.id.ll_tv_auto_renew -> getLive();
             case R.id.ll_movie_auto_renew -> getMovies();
@@ -444,54 +442,17 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private boolean isDownloadLive() {
-        if (!spHelper.getCurrent(Callback.TAG_TV).isEmpty()){
+        if (!spHelper.getCurrent(Callback.TAG_TV).isEmpty()) {
             return true;
         } else {
             DialogUtil.LiveDownloadDialog(this, this::getLive);
             return false;
         }
     }
-    @SuppressLint("StaticFieldLeak")
-    private void reload() {
-        ArrayList<ItemUsersDB> arrayList=new ArrayList<>();
 
-        new AsyncTask<String, String, String>() {
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected String doInBackground(String... strings) {
-                try {
-                    DBHelper dbHelper = new DBHelper(OneUIActivity.this);
-                    arrayList.addAll(dbHelper.loadUsersDB());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                if (!isFinishing()){
-                    if (arrayList != null && !arrayList.isEmpty()){
-                        for (int i=0; i<arrayList.size();i++){
-                            if (arrayList.get(i).getUseName().equals(username)){
-                                loadLogin(arrayList.get(i));
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }.execute();
-    }
     private void loadLogin() {
         try {
-            if (NetworkUtils.isConnected(this)){
+            if (NetworkUtils.isConnected(this)) {
                 LoadLogin login = new LoadLogin(new LoginListener() {
                     @Override
                     public void onStart() {
@@ -499,9 +460,9 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
 
                     @Override
                     public void onEnd(String success, String username, String password, String message, int auth, String status, String exp_date, String is_trial, String active_cons, String created_at, String max_connections, String allowed_output_formats, boolean xui, String version, int revision, String url, String port, String https_port, String server_protocol, String rtmp_port, int timestamp_now, String time_now, String timezone) {
-                        if (!isFinishing()){
-                            spHelper.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
-                                    xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
+                        if (!isFinishing()) {
+                            spHelper.setLoginDetails(username, password, message, auth, status, exp_date, is_trial, active_cons, created_at, max_connections,
+                                    xui, version, revision, url, port, https_port, server_protocol, rtmp_port, timestamp_now, time_now, timezone
                             );
                             spHelper.setIsLogged(true);
                         }
@@ -513,8 +474,9 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
             e.printStackTrace();
         }
     }
+
     private void loadLogin(ItemUsersDB itemUsersDB) {
-        if (NetworkUtils.isConnected(this)){
+        if (NetworkUtils.isConnected(this)) {
             LoadLogin login = new LoadLogin(new LoginListener() {
                 @Override
                 public void onStart() {
@@ -524,23 +486,23 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void onEnd(String success, String username, String password, String message, int auth, String status, String exp_date, String is_trial, String active_cons, String created_at, String max_connections, String allowed_output_formats, boolean xui, String version, int revision, String url, String port, String https_port, String server_protocol, String rtmp_port, int timestamp_now, String time_now, String timezone) {
                     progressDialog.dismiss();
-                    if (!isFinishing()){
+                    if (!isFinishing()) {
                         if (success.equals("1")) {
                             try {
-                                if (Boolean.TRUE.equals(itemUsersDB.getUserType().equals("xui"))){
-                                    spHelper.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
-                                            xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
+                                if (Boolean.TRUE.equals(itemUsersDB.getUserType().equals("xui"))) {
+                                    spHelper.setLoginDetails(username, password, message, auth, status, exp_date, is_trial, active_cons, created_at, max_connections,
+                                            xui, version, revision, url, port, https_port, server_protocol, rtmp_port, timestamp_now, time_now, timezone
                                     );
                                     spHelper.setLoginType(Callback.TAG_LOGIN_ONE_UI);
                                 } else {
-                                    spHelper.setLoginDetails(username,password,message,auth,status, exp_date, is_trial, active_cons,created_at,max_connections,
-                                            xui,version,revision,url,port,https_port,server_protocol,rtmp_port,timestamp_now,time_now,timezone
+                                    spHelper.setLoginDetails(username, password, message, auth, status, exp_date, is_trial, active_cons, created_at, max_connections,
+                                            xui, version, revision, url, port, https_port, server_protocol, rtmp_port, timestamp_now, time_now, timezone
                                     );
                                     spHelper.setLoginType(Callback.TAG_LOGIN_STREAM);
                                 }
 
-                                if (!allowed_output_formats.isEmpty()){
-                                    if (allowed_output_formats.contains("m3u8")){
+                                if (!allowed_output_formats.isEmpty()) {
+                                    if (allowed_output_formats.contains("m3u8")) {
                                         spHelper.setLiveFormat(2);
                                     } else {
                                         spHelper.setLiveFormat(1);
@@ -564,20 +526,21 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                                 e.printStackTrace();
                             }
                             ApplicationUtil.openThemeActivity(OneUIActivity.this);
-                        }  else {
+                        } else {
                             Toasty.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toasty.ERROR);
                         }
                     }
                 }
 
-            },itemUsersDB.getUserURL(), helper.getAPIRequestLogin(itemUsersDB.getUseName(),itemUsersDB.getUserPass()));
+            }, itemUsersDB.getUserURL(), helper.getAPIRequestLogin(itemUsersDB.getUseName(), itemUsersDB.getUserPass()));
             login.execute();
-        }  else {
+        } else {
             Toasty.makeText(this, getString(R.string.err_internet_not_connected), Toasty.ERROR);
         }
     }
+
     private void reloadSignOut() {
-        username=spHelper.getUserName();
+        username = spHelper.getUserName();
         if (spHelper.isLogged()) {
             new JSHelper(OneUIActivity.this).removeAllData();
             dbHelper.removeAllData();
@@ -587,15 +550,53 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
+    private void reload() {
+        ArrayList<ItemUsersDB> arrayList = new ArrayList<>();
+
+        new AsyncTask<String, String, String>() {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected String doInBackground(String... strings) {
+                try {
+                    DBHelper dbHelper = new DBHelper(OneUIActivity.this);
+                    arrayList.addAll(dbHelper.loadUsersDB());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if (!isFinishing()) {
+                    if (arrayList != null && !arrayList.isEmpty()) {
+                        for (int i = 0; i < arrayList.size(); i++) {
+                            if (arrayList.get(i).getUseName().equals(username)) {
+                                loadLogin(arrayList.get(i));
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }.execute();
+    }
 
     private void getInfo() {
         ImageView iv_wifi = findViewById(R.id.iv_wifi);
         if (NetworkUtils.isConnected(this)) {
-            if (NetworkUtils.isConnectedMobile(this)){
+            if (NetworkUtils.isConnectedMobile(this)) {
                 iv_wifi.setImageResource(R.drawable.bar_selector_none);
-            } else if (NetworkUtils.isConnectedWifi(this)){
+            } else if (NetworkUtils.isConnectedWifi(this)) {
                 iv_wifi.setImageResource(R.drawable.ic_wifi);
-            } else if (NetworkUtils.isConnectedEthernet(this)){
+            } else if (NetworkUtils.isConnectedEthernet(this)) {
                 iv_wifi.setImageResource(R.drawable.ic_ethernet);
             }
         } else {
@@ -612,8 +613,8 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void getSeries() {
-        if (NetworkUtils.isConnected(this)){
-            LoadSeries loadSeries = new LoadSeries(this, new SuccessListener() {
+        if (NetworkUtils.isConnected(this)) {
+            LoadSeries loadSeries = new LoadSeries(this, new LoadSuccessListener() {
                 @Override
                 public void onStart() {
                     progressDialog.show();
@@ -634,9 +635,9 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                 }
 
                 @Override
-                public void onEnd(String success) {
+                public void onEnd(String success, String msg) {
                     progressDialog.dismiss();
-                    if (!isFinishing()){
+                    if (!isFinishing()) {
                         if (success.equals("1")) {
                             handlerSeries.postDelayed(new Runnable() {
                                 @Override
@@ -644,7 +645,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                                     if (progressStatusSeries < 100) {
                                         progressStatusSeries++;
                                         pb_serials.setProgress(progressStatusSeries);
-                                        if (progressStatusSeries == 99){
+                                        if (progressStatusSeries == 99) {
                                             findViewById(R.id.vw_serials).setVisibility(View.GONE);
                                             pb_serials.setVisibility(View.GONE);
                                         }
@@ -653,13 +654,17 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                                 }
                             }, 10);
                             spHelper.setCurrentDate(Callback.TAG_SERIES);
-                            changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES,false);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES, false);
                             Toast.makeText(OneUIActivity.this, getString(R.string.added_success), Toast.LENGTH_SHORT).show();
-                        }  else {
+                        } else {
                             spHelper.setCurrentDateEmpty(Callback.TAG_SERIES);
-                            changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES,true);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_SERIES).isEmpty(), Callback.TAG_SERIES, true);
                             pb_serials.setVisibility(View.GONE);
-                            Toast.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
+                            if (success.equals("3")) {
+                                Toasty.makeText(OneUIActivity.this, msg, Toasty.ERROR);
+                            } else {
+                                Toast.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
 
@@ -673,8 +678,8 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void getMovies() {
-        if (NetworkUtils.isConnected(this)){
-            LoadMovies loadMovies = new LoadMovies(this,  new SuccessListener() {
+        if (NetworkUtils.isConnected(this)) {
+            LoadMovies loadMovies = new LoadMovies(this, new LoadSuccessListener() {
                 @Override
                 public void onStart() {
                     progressDialog.show();
@@ -695,9 +700,9 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                 }
 
                 @Override
-                public void onEnd(String success) {
+                public void onEnd(String success, String msg) {
                     progressDialog.dismiss();
-                    if (!isFinishing()){
+                    if (!isFinishing()) {
                         if (success.equals("1")) {
                             handlerMovie.postDelayed(new Runnable() {
                                 @Override
@@ -705,7 +710,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                                     if (progressStatusMovie < 100) {
                                         progressStatusMovie++;
                                         pb_movie.setProgress(progressStatusMovie);
-                                        if (progressStatusMovie == 99){
+                                        if (progressStatusMovie == 99) {
                                             findViewById(R.id.vw_movie).setVisibility(View.GONE);
                                             pb_movie.setVisibility(View.GONE);
                                         }
@@ -714,13 +719,17 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                                 }
                             }, 10);
                             spHelper.setCurrentDate(Callback.TAG_MOVIE);
-                            changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE,false);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE, false);
                             Toast.makeText(OneUIActivity.this, getString(R.string.added_success), Toast.LENGTH_SHORT).show();
-                        }  else {
+                        } else {
                             spHelper.setCurrentDateEmpty(Callback.TAG_MOVIE);
-                            changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE,true);
+                            changeIcon(spHelper.getCurrent(Callback.TAG_MOVIE).isEmpty(), Callback.TAG_MOVIE, true);
                             pb_movie.setVisibility(View.GONE);
-                            Toast.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
+                            if (success.equals("3")) {
+                                Toasty.makeText(OneUIActivity.this, msg, Toasty.ERROR);
+                            } else {
+                                Toast.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 }
@@ -733,8 +742,8 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void getLive() {
-        if (NetworkUtils.isConnected(this)){
-            LoadLive loadLive = new LoadLive(this, new LiveListener() {
+        if (NetworkUtils.isConnected(this)) {
+            LoadLive loadLive = new LoadLive(this, new LoadSuccessListener() {
                 @Override
                 public void onStart() {
                     progressDialog.show();
@@ -758,9 +767,9 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                 }
 
                 @Override
-                public void onEnd(String success) {
+                public void onEnd(String success, String msg) {
                     progressDialog.dismiss();
-                    if (!isFinishing()){
+                    if (!isFinishing()) {
                         if (success.equals("1")) {
                             pb_live.setProgress(progressStatusLive);
                             handlerLive.postDelayed(new Runnable() {
@@ -769,7 +778,7 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                                     if (progressStatusLive < 100) {
                                         progressStatusLive++;
                                         pb_live.setProgress(progressStatusLive);
-                                        if (progressStatusLive == 99){
+                                        if (progressStatusLive == 99) {
                                             findViewById(R.id.vw_live_tv).setVisibility(View.GONE);
                                             findViewById(R.id.vw_live_epg).setVisibility(View.GONE);
                                             findViewById(R.id.vw_catch_up).setVisibility(View.GONE);
@@ -783,22 +792,16 @@ public class OneUIActivity extends AppCompatActivity implements View.OnClickList
                             spHelper.setCurrentDate(Callback.TAG_TV);
                             changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, false);
                             Toast.makeText(OneUIActivity.this, getString(R.string.added_success), Toast.LENGTH_SHORT).show();
-                        }  else {
+                        } else {
                             spHelper.setCurrentDateEmpty(Callback.TAG_TV);
                             changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
                             pb_live.setVisibility(View.GONE);
-                            Toast.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
+                            if (success.equals("3")) {
+                                Toasty.makeText(OneUIActivity.this, msg, Toasty.ERROR);
+                            } else {
+                                Toast.makeText(OneUIActivity.this, getString(R.string.err_server_not_connected), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                }
-
-                @Override
-                public void onCancel(String message) {
-                    if (!isFinishing()){
-                        spHelper.setCurrentDateEmpty(Callback.TAG_TV);
-                        changeIcon(spHelper.getCurrent(Callback.TAG_TV).isEmpty(), Callback.TAG_TV, true);
-                        pb_live.setVisibility(View.GONE);
-                        Toast.makeText(OneUIActivity.this, message.isEmpty() ? "" : message, Toast.LENGTH_SHORT).show();
                     }
                 }
             });

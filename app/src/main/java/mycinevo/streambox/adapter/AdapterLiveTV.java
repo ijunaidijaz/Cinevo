@@ -25,7 +25,6 @@ public class AdapterLiveTV extends RecyclerView.Adapter<AdapterLiveTV.MyViewHold
 
     private final List<ItemLive> arrayList;
     private final RecyclerItemClickListener listener;
-    private final Boolean isTvBox;
     private final int columnWidth;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -47,7 +46,7 @@ public class AdapterLiveTV extends RecyclerView.Adapter<AdapterLiveTV.MyViewHold
     public AdapterLiveTV(Context context, List<ItemLive> arrayList, RecyclerItemClickListener listener) {
         this.arrayList = arrayList;
         this.listener = listener;
-        isTvBox  = ApplicationUtil.isTvBox(context);
+        Boolean isTvBox  = ApplicationUtil.isTvBox(context);
         columnWidth = ApplicationUtil.getColumnWidth(context, Boolean.TRUE.equals(isTvBox)? 8 : 7, 0);
     }
 

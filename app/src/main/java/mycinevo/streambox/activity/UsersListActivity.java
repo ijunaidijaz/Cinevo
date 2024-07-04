@@ -161,7 +161,7 @@ public class UsersListActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onEnd(String success, ArrayList<ItemPlaylist> arrayListPlaylist) {
+                public void onEnd(String success, String msg, ArrayList<ItemPlaylist> arrayListPlaylist) {
                     progressDialog.dismiss();
                     if (!isFinishing()){
                         if (success.equals("1")) {
@@ -181,7 +181,7 @@ public class UsersListActivity extends AppCompatActivity {
                                 finish();
                             }
                         }  else {
-                            Toasty.makeText(UsersListActivity.this, getString(R.string.err_server_not_connected), Toasty.ERROR);
+                            Toasty.makeText(UsersListActivity.this, msg, Toasty.ERROR);
                         }
                     }
                 }

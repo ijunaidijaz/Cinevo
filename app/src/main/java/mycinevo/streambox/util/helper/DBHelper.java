@@ -23,7 +23,7 @@ import mycinevo.streambox.util.Encrypter.EncryptData;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    static String DB_NAME = "streambox.db";
+    static String DB_NAME = "streambox_db.db";
 
     SQLiteDatabase db;
     final Context context;
@@ -33,21 +33,24 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // Table Name ----------------------------------------------------------------------------------
     private static final String TABLE_USERS = "users";
-    private static final String TABLE_MOVIE_SEEK = "movie_seek";
     private static final String TABLE_SINGLE = "single";
-    // DNS
+    // DNS -----------------------------------------------------------------------------------------
     public static final String TABLE_DNS_XUI = "tbl_dns_xui";
     public static final String TABLE_DNS_STREAM = "tbl_dns_stream";
-    // Fav
+    // Fav -----------------------------------------------------------------------------------------
     public static final String TABLE_FAV_LIVE = "fav_live";
     public static final String TABLE_FAV_MOVIE = "fav_movie";
     public static final String TABLE_FAV_SERIES = "fav_series";
-    // RECENT
+    // RECENT --------------------------------------------------------------------------------------
     public static final String TABLE_RECENT_LIVE = "recent_live";
     public static final String TABLE_RECENT_MOVIE = "recent_movie";
     public static final String TABLE_RECENT_SERIES = "recent_series";
-    // DOWNLOAD
+    // DOWNLOAD ------------------------------------------------------------------------------------
     public static final String TABLE_DOWNLOAD_MOVIES = "download_movie";
+
+    // DOWNLOAD ------------------------------------------------------------------------------------
+    public static final String TABLE_SEEK_MOVIE = "movie_seek";
+    public static final String TABLE_SEEK_EPISODES = "epi_seek";
 
     // TAG -----------------------------------------------------------------------------------------
     private static final String TAG_DNS_TITLE = "dns_title", TAG_DNS_BASE = "dns_base";
@@ -55,6 +58,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TAG_USERS_ANY_NAME = "any_name", TAG_USERS_NAME = "user_name", TAG_USERS_PASSWORD = "user_pass",
             TAG_USERS_URL = "user_url", TAG_USERS_TYPE = "user_type";
     private static final String TAG_MOVIE_STREAM_ID = "stream_id", TAG_MOVIE_TITLE = "title", TAG_MOVIE_SEEK = "seek";
+
     // FAV AND RECENT ------------------------------------------------------------------------------
     private static final String TAG_LIVE_NAME = "name", TAG_LIVE_ID = "stream_id", TAG_LIVE_ICON = "stream_icon";
     private static final String TAG_MOVIE_NAME = "name", TAG_MOVIE_ID = "stream_id", TAG_MOVIE_ICON = "stream_icon", TAG_MOVIE_RATING = "rating";
@@ -68,11 +72,12 @@ public class DBHelper extends SQLiteOpenHelper {
     private final String[] columns_movie = new String[]{TAG_ID, TAG_MOVIE_NAME, TAG_MOVIE_ID, TAG_MOVIE_ICON, TAG_MOVIE_RATING};
     private final String[] columns_series = new String[]{TAG_ID, TAG_SERIES_NAME, TAG_SERIES_ID, TAG_SERIES_COVER, TAG_SERIES_RATING};
     private final String[] columns_single = new String[]{TAG_ID, TAG_SINGLE_ANY_NAME, TAG_SINGLE_URL};
-    private final String[] columns_movie_seek = new String[]{TAG_ID, TAG_MOVIE_STREAM_ID, TAG_MOVIE_TITLE, TAG_MOVIE_SEEK};
-    private final String[] columns_users = new String[]{TAG_ID, TAG_USERS_ANY_NAME, TAG_USERS_NAME, TAG_USERS_PASSWORD, TAG_USERS_URL, TAG_USERS_TYPE};
+    private final String[] columns_seek = new String[]{TAG_ID, TAG_MOVIE_STREAM_ID, TAG_MOVIE_TITLE, TAG_MOVIE_SEEK};
+
     private final String[] columns_dns = new String[]{TAG_ID, TAG_DNS_TITLE, TAG_DNS_BASE};
     private final String[] columns_download = new String[]{TAG_ID, TAG_DOWNLOAD_NAME, TAG_DOWNLOAD_ID, TAG_DOWNLOAD_ICON,
             TAG_DOWNLOAD_URL, TAG_DOWNLOAD_CONTAINER, TAG_DOWNLOAD_TEMP_NAME};
+    private final String[] columns_users = new String[]{TAG_ID, TAG_USERS_ANY_NAME, TAG_USERS_NAME, TAG_USERS_PASSWORD, TAG_USERS_URL, TAG_USERS_TYPE};
 
     // Creating Table Query DOWNLOAD ---------------------------------------------------------------
     private static final String CREATE_TABLE_DOWNLOAD_MOVIES = "create table " + TABLE_DOWNLOAD_MOVIES + "(" +
@@ -148,7 +153,14 @@ public class DBHelper extends SQLiteOpenHelper {
             TAG_USERS_TYPE + " TEXT);";
 
     // Creating table query ------------------------------------------------------------------------
-    private static final String CREATE_TABLE_MOVIE_SEEK = "create table " + TABLE_MOVIE_SEEK + "(" +
+    private static final String CREATE_TABLE_MOVIE_SEEK = "create table " + TABLE_SEEK_MOVIE + "(" +
+            TAG_ID + " integer PRIMARY KEY AUTOINCREMENT," +
+            TAG_MOVIE_STREAM_ID + " TEXT," +
+            TAG_MOVIE_TITLE + " TEXT," +
+            TAG_MOVIE_SEEK + " TEXT);";
+
+    // Creating table query ------------------------------------------------------------------------
+    private static final String CREATE_TABLE_EPISODES_SEEK = "create table " + TABLE_SEEK_EPISODES + "(" +
             TAG_ID + " integer PRIMARY KEY AUTOINCREMENT," +
             TAG_MOVIE_STREAM_ID + " TEXT," +
             TAG_MOVIE_TITLE + " TEXT," +
@@ -179,6 +191,9 @@ public class DBHelper extends SQLiteOpenHelper {
             // SERIES
             db.execSQL(CREATE_TABLE_FAV_SERIES);
             db.execSQL(CREATE_TABLE_RECENT_SERIES);
+
+
+            db.execSQL(CREATE_TABLE_EPISODES_SEEK);
 
             // DNS
             db.execSQL(CREATE_TABLE_DNS_XUI);
@@ -225,6 +240,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    // Live TV -------------------------------------------------------------------------------------
     @SuppressLint("Range")
     public void addToLive(String table, ItemLive itemLive, int limit) {
         try {
@@ -277,6 +293,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    // Movies --------------------------------------------------------------------------------------
     @SuppressLint("Range")
     public List<ItemMovies> getMovies(String table, boolean IsOrder) {
         ArrayList<ItemMovies> arrayList = new ArrayList<>();
@@ -357,6 +374,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    // Series --------------------------------------------------------------------------------------
     @SuppressLint("Range")
     public List<ItemSeries> getSeries(String table, boolean IsOrder) {
         ArrayList<ItemSeries> arrayList = new ArrayList<>();
@@ -546,7 +564,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     String user_url = encryptData.decrypt(cursor.getString(cursor.getColumnIndex(TAG_USERS_URL)));
                     String user_type = cursor.getString(cursor.getColumnIndex(TAG_USERS_TYPE));
 
-                    ItemUsersDB objItem = new ItemUsersDB(id, any_name, user_name, user_pass,user_url, user_type);
+                    ItemUsersDB objItem = new ItemUsersDB(id, any_name, user_name, user_pass, user_url, user_type);
                     arrayList.add(objItem);
 
                     cursor.moveToNext();
@@ -587,12 +605,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // Seek Movie ----------------------------------------------------------------------------------
     @SuppressLint("Range")
-    public int getSeekMovie(String streamId, String stream_name) {
+    public int getSeek(String table,String streamID, String streamName) {
         String seekTo = "0";
         try {
             String where = TAG_MOVIE_STREAM_ID + "=? AND " + TAG_MOVIE_TITLE + "=?";
-            String[] args = new String[]{streamId, stream_name.replace("'", "%27")};
-            Cursor cursor = db.query(TABLE_MOVIE_SEEK, columns_movie_seek, where, args, null, null,  null,null);
+            String[] args = new String[]{streamID, streamName.replace("'", "%27")};
+            Cursor cursor = db.query(table, columns_seek, where, args, null, null,  null,null);
             if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 if (!cursor.getString(cursor.getColumnIndex(TAG_MOVIE_SEEK)).isEmpty()){
@@ -602,33 +620,33 @@ public class DBHelper extends SQLiteOpenHelper {
             }
             return Integer.parseInt(seekTo);
         } catch (Exception e) {
-            return Integer.parseInt("0");
+            return 0;
         }
     }
-    public void addToSeekMovie(String currentPosition, String streamId, String stream_name) {
+    public void addToSeek(String table, String currentPosition, String streamID, String streamName) {
         try {
             String where = TAG_MOVIE_STREAM_ID + "=? AND " + TAG_MOVIE_TITLE + "=?";
-            String[] args = new String[]{streamId, stream_name.replace("'", "%27")};
+            String[] args = new String[]{streamID, streamName.replace("'", "%27")};
 
-            if (Boolean.TRUE.equals(checkSeekMovie(streamId, stream_name))) {
-                db.delete(TABLE_MOVIE_SEEK, where, args);
+            if (Boolean.TRUE.equals(checkSeek(table, streamID, streamName))) {
+                db.delete(table, where, args);
             }
 
             ContentValues contentValues = new ContentValues();
-            contentValues.put(TAG_MOVIE_STREAM_ID, streamId);
-            contentValues.put(TAG_MOVIE_TITLE, stream_name);
+            contentValues.put(TAG_MOVIE_STREAM_ID, streamID);
+            contentValues.put(TAG_MOVIE_TITLE, streamName);
             contentValues.put(TAG_MOVIE_SEEK, currentPosition);
-            db.insert(TABLE_MOVIE_SEEK, null, contentValues);
+            db.insert(table, null, contentValues);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public Boolean checkSeekMovie(String streamId, String stream_name) {
+    public Boolean checkSeek(String table,String streamID, String streamName) {
         boolean isSeekMovie = false;
         try {
             String where = TAG_MOVIE_STREAM_ID + "=? AND " + TAG_MOVIE_TITLE + "=?";
-            String[] args = new String[]{streamId, stream_name.replace("'", "%27")};
-            Cursor cursor = db.query(TABLE_MOVIE_SEEK, columns_movie_seek, where, args, null, null, null);
+            String[] args = new String[]{streamID, streamName.replace("'", "%27")};
+            Cursor cursor = db.query(table, columns_seek, where, args, null, null, null);
             isSeekMovie = cursor != null && cursor.getCount() > 0;
             if (cursor != null) {
                 cursor.close();
@@ -638,12 +656,12 @@ public class DBHelper extends SQLiteOpenHelper {
             return isSeekMovie;
         }
     }
-    public void removeSeekMovieID(String streamId, String stream_name) {
+    public void removeSeekID(String table, String streamID, String streamName) {
         try {
-            if (Boolean.TRUE.equals(checkSeekMovie(streamId, stream_name))) {
+            if (Boolean.TRUE.equals(checkSeek(table,streamID, streamName))) {
                 String where = TAG_MOVIE_STREAM_ID + "=? AND " + TAG_MOVIE_TITLE + "=?";
-                String[] args = new String[]{streamId, stream_name.replace("'", "%27")};
-                db.delete(TABLE_MOVIE_SEEK, where, args);
+                String[] args = new String[]{streamID, streamName.replace("'", "%27")};
+                db.delete(table, where, args);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -733,7 +751,8 @@ public class DBHelper extends SQLiteOpenHelper {
     // Remove All Data -----------------------------------------------------------------------------
     public void removeAllData() {
         try {
-            db.delete(TABLE_MOVIE_SEEK, null, null);
+            db.delete(TABLE_SEEK_MOVIE, null, null);
+            db.delete(TABLE_SEEK_EPISODES, null, null);
 
             db.delete(TABLE_FAV_LIVE, null, null);
             db.delete(TABLE_FAV_MOVIE, null, null);

@@ -12,7 +12,6 @@ import java.util.Calendar;
 import mycinevo.streambox.callback.Callback;
 import mycinevo.streambox.util.Encrypter.EncryptData;
 
-
 public class SPHelper {
 
     private final EncryptData encryptData;
@@ -47,7 +46,7 @@ public class SPHelper {
 
     public SPHelper(@NonNull Context ctx) {
         encryptData = new EncryptData(ctx);
-        sharedPreferences = ctx.getSharedPreferences("setting_streambox", Context.MODE_PRIVATE);
+        sharedPreferences = ctx.getSharedPreferences("streambox_sph", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 
@@ -80,7 +79,6 @@ public class SPHelper {
             // server_info
             boolean xui, String version, int revision, String url, String port, String https_port,
             String server_protocol, String rtmp_port, int timestamp_now, String time_now, String timezone) {
-
         // user_info
         editor.putString("username", encryptData.encrypt(username));
         editor.putString("password", encryptData.encrypt(password));
@@ -186,7 +184,6 @@ public class SPHelper {
     public String getCurrent(String type) {
         return sharedPreferences.getString(type, "");
     }
-
 
     public String getLoginType() {
         return sharedPreferences.getString("login_type", Callback.TAG_LOGIN);
