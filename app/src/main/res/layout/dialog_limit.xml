@@ -71,8 +71,7 @@
                 android:textSize="@dimen/_13ssp"
                 android:textAlignment="viewStart"
                 android:textColor="?ns_title_sub"
-                android:buttonTint="?ns_title"
-                android:layout_marginBottom="@dimen/_5sdp"
+                style="@style/Widget.App.RadioButton"
                 tools:ignore="HardcodedText"/>
 
             <RadioButton
@@ -84,8 +83,7 @@
                 android:textSize="@dimen/_13ssp"
                 android:textAlignment="viewStart"
                 android:textColor="?ns_title_sub"
-                android:buttonTint="?ns_title"
-                android:layout_marginBottom="@dimen/_5sdp"
+                style="@style/Widget.App.RadioButton"
                 tools:ignore="HardcodedText"/>
 
             <RadioButton
@@ -97,8 +95,7 @@
                 android:textSize="@dimen/_13ssp"
                 android:textAlignment="viewStart"
                 android:textColor="?ns_title_sub"
-                android:buttonTint="?ns_title"
-                android:layout_marginBottom="@dimen/_5sdp"
+                style="@style/Widget.App.RadioButton"
                 tools:ignore="HardcodedText"/>
 
             <RadioButton
@@ -110,8 +107,7 @@
                 android:textSize="@dimen/_13ssp"
                 android:textAlignment="viewStart"
                 android:textColor="?ns_title_sub"
-                android:buttonTint="?ns_title"
-                android:layout_marginBottom="@dimen/_5sdp"
+                style="@style/Widget.App.RadioButton"
                 tools:ignore="HardcodedText"/>
 
             <RadioButton
@@ -124,6 +120,7 @@
                 android:textAlignment="viewStart"
                 android:textColor="?ns_title_sub"
                 android:buttonTint="?ns_title"
+                style="@style/Widget.App.RadioButton"
                 tools:ignore="HardcodedText"/>
 
         </RadioGroup>
@@ -132,7 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/_10sdp">
+            android:padding="@dimen/_5sdp">
 
             <TextView
                 android:id="@+id/tv_cancel_limit"

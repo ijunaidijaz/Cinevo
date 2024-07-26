@@ -11,7 +11,7 @@
 
     <uses-feature
         android:name="android.software.leanback"
-        android:required="true" />
+        android:required="false" />
     <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="false" />
@@ -21,6 +21,7 @@
     <uses-feature
         android:name="android.hardware.wifi"
         android:required="false" />
+
     <!-- Network Permission -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -39,8 +40,9 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!-- Advertising Permission -->
     <uses-permission android:name="android.permission.Ad_ID" />
+
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-<!--    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -52,7 +54,7 @@
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
-        android:theme="@style/ThemeEngineLight"
+        android:theme="@style/Nemosofts.ThemeEngine.Light"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
 
@@ -68,40 +70,46 @@
             tools:ignore="DiscouragedApi">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.UI.BlackPantherActivity"
+            android:name=".activity.ui.BlackPantherActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.UI.GlossyActivity"
-            android:configChanges="keyboardHidden|locale|orientation|screenSize"
-            android:exported="false"
-            android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            tools:ignore="DiscouragedApi" />
-        <activity
-            android:name=".activity.UI.OneUIActivity"
+            android:name=".activity.ui.GlossyActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.UI.MovieUIActivity"
+            android:name=".activity.ui.OneUIActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.UI.SingleStreamActivity"
+            android:name=".activity.ui.MovieUIActivity"
+            android:configChanges="keyboardHidden|locale|orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".activity.ui.SingleStreamActivity"
+            android:configChanges="keyboardHidden|locale|orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".activity.ui.LocalStorageActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
@@ -213,7 +221,14 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.EPGActivity"
+            android:name=".activity.epg.EPGTwoActivity"
+            android:configChanges="keyboardHidden|locale|orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".activity.epg.EPGOneActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
@@ -299,35 +314,35 @@
 
         <!-- Setting -->
         <activity
-            android:name=".activity.SettingActivity"
+            android:name=".activity.setting.SettingActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.SettingGeneralActivity"
+            android:name=".activity.setting.SettingGeneralActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.SettingMultiScreenActivity"
+            android:name=".activity.setting.SettingMultiScreenActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.SettingFormatActivity"
+            android:name=".activity.setting.SettingFormatActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.SettingUIActivity"
+            android:name=".activity.setting.SettingUIActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
@@ -341,7 +356,7 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.UI.PlaylistActivity"
+            android:name=".activity.ui.PlaylistActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="sensorLandscape"
@@ -364,7 +379,7 @@
 
         <!-- Player -->
         <activity
-            android:name=".activity.PlayerLiveActivity"
+            android:name=".activity.player.PlayerLiveActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:launchMode="singleTask"
@@ -372,7 +387,7 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.PlayerMovieActivity"
+            android:name=".activity.player.PlayerMovieActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:launchMode="singleTask"
@@ -380,7 +395,7 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.PlayerEpisodesActivity"
+            android:name=".activity.player.PlayerEpisodesActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:launchMode="singleTask"
@@ -388,7 +403,7 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.PlayerSingleURLActivity"
+            android:name=".activity.player.PlayerSingleURLActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:launchMode="singleTask"
@@ -396,7 +411,7 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.PlayerDownloadActivity"
+            android:name=".activity.player.PlayerDownloadActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:launchMode="singleTask"
@@ -404,7 +419,15 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             tools:ignore="DiscouragedApi" />
         <activity
-            android:name=".activity.YouTubePlayerActivity"
+            android:name=".activity.player.YouTubePlayerActivity"
+            android:configChanges="keyboardHidden|locale|orientation|screenSize"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".activity.player.PlayerLocalActivity"
             android:configChanges="keyboardHidden|locale|orientation|screenSize"
             android:exported="false"
             android:launchMode="singleTask"

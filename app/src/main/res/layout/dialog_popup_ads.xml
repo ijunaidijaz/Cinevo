@@ -28,7 +28,7 @@
                 android:contentDescription="@string/todo"
                 android:padding="@dimen/_5sdp"
                 android:src="@drawable/ic_ads_click"
-                app:tint="?ns_body_dark" />
+                app:tint="?ns_bg_dark" />
 
             <TextView
                 android:id="@+id/tv_ads_title"

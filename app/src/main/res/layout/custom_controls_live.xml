@@ -62,7 +62,6 @@
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_toStartOf="@+id/iv_media_info"
             android:layout_centerVertical="true"
             android:contentDescription="@string/todo"

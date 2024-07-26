@@ -10,7 +10,7 @@
     android:paddingEnd="@dimen/_15sdp"
     android:background="@drawable/bg_dark"
     android:id="@+id/theme_bg"
-    tools:context=".activity.SettingGeneralActivity">
+    tools:context=".activity.setting.SettingGeneralActivity">
 
     <RelativeLayout
         android:layout_marginBottom="@dimen/_5sdp"
@@ -131,9 +131,9 @@
                         android:textSize="@dimen/_12ssp"
                         tools:ignore="InefficientWeight"
                         android:textColor="?ns_title"
-                        android:buttonTint="?ns_title"
                         android:background="@drawable/focused_edt"
-                        android:padding="@dimen/_6sdp"/>
+                        android:padding="@dimen/_6sdp"
+                        style="@style/Widget.App.CheckBox" />
 
                     <LinearLayout
                         android:layout_marginTop="@dimen/_5sdp"
@@ -259,8 +259,7 @@
                         android:layout_width="@dimen/_240sdp"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_login"
-                        android:backgroundTint="@color/white"
+                        android:background="@drawable/bg_edit_text"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -288,7 +287,7 @@
                             android:textColorHint="?ns_title_sub"
                             android:textSize="@dimen/_10ssp"
                             android:layout_marginEnd="@dimen/_3sdp"
-                            android:background="@drawable/focused_edt"/>
+                            android:background="@drawable/focused_edit_text"/>
 
                     </LinearLayout>
 
@@ -318,10 +317,10 @@
                     android:text="@string/splash_screen_music"
                     android:textSize="@dimen/_12ssp"
                     android:textColor="?ns_title"
-                    android:buttonTint="?ns_title"
                     tools:ignore="InefficientWeight"
                     android:background="@drawable/focused_edt"
-                    android:padding="@dimen/_6sdp"/>
+                    android:padding="@dimen/_6sdp"
+                    style="@style/Widget.App.CheckBox"/>
 
             </LinearLayout>
 

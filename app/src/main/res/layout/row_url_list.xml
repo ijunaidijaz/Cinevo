@@ -28,7 +28,7 @@
             android:layout_margin="@dimen/_5sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_play_arrow"
+            android:src="@drawable/ic_play"
             app:riv_border_color="@color/md_border"
             app:tint="@color/white"
             android:contentDescription="@string/todo" />
@@ -50,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/md_title"
+            android:maxLines="2"
             android:textSize="@dimen/_10ssp"/>
 
         <TextView

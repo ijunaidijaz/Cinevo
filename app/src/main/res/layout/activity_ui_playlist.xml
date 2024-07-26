@@ -9,7 +9,7 @@
     android:paddingStart="@dimen/_15sdp"
     android:paddingEnd="@dimen/_15sdp"
     android:background="@drawable/bg_dark"
-    tools:context=".activity.UI.PlaylistActivity"
+    tools:context=".activity.ui.PlaylistActivity"
     android:id="@+id/theme_bg">
 
     <RelativeLayout
@@ -153,7 +153,7 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/todo" />
 
-            <androidx.nemosofts.view.ShimmerFrameLayout
+            <androidx.nemosofts.view.ShimmerView
                 android:visibility="visible"
                 android:id="@+id/shimmer_view_live"
                 android:layout_width="wrap_content"
@@ -171,7 +171,7 @@
                     android:layout_height="match_parent"
                     android:contentDescription="@string/todo" />
 
-            </androidx.nemosofts.view.ShimmerFrameLayout>
+            </androidx.nemosofts.view.ShimmerView>
 
             <RelativeLayout
                 android:id="@+id/select_live"
@@ -241,7 +241,7 @@
                     android:layout_height="match_parent"
                     android:contentDescription="@string/todo" />
 
-                <androidx.nemosofts.view.ShimmerFrameLayout
+                <androidx.nemosofts.view.ShimmerView
                     android:id="@+id/shimmer_view_movie"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -258,7 +258,7 @@
                         android:layout_height="match_parent"
                         android:contentDescription="@string/todo" />
 
-                </androidx.nemosofts.view.ShimmerFrameLayout>
+                </androidx.nemosofts.view.ShimmerView>
 
                 <RelativeLayout
                     android:id="@+id/select_movie"
@@ -340,7 +340,7 @@
                         android:layout_height="match_parent"
                         android:contentDescription="@string/todo" />
 
-                    <androidx.nemosofts.view.ShimmerFrameLayout
+                    <androidx.nemosofts.view.ShimmerView
                         android:id="@+id/shimmer_view_serials"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -357,7 +357,7 @@
                             android:layout_height="match_parent"
                             android:contentDescription="@string/todo" />
 
-                    </androidx.nemosofts.view.ShimmerFrameLayout>
+                    </androidx.nemosofts.view.ShimmerView>
 
                     <LinearLayout
                         android:orientation="horizontal"

@@ -5,15 +5,15 @@ plugins {
 }
 
 android {
-    namespace 'mycinevo.streambox'
+    namespace 'nemosofts.streambox'
     compileSdk 34
 
     defaultConfig {
         applicationId "mycinevo.streambox"
         minSdk 23
         targetSdk 34
-        versionCode 52
-        versionName "2.0.4"
+        versionCode 1
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

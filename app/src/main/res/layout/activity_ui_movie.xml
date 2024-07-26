@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg_dark"
-    tools:context=".activity.UI.MovieUIActivity"
+    tools:context=".activity.ui.MovieUIActivity"
     android:id="@+id/theme_bg">
 
     <ImageView

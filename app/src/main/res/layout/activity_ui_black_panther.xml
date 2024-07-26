@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_dark_panther"
-    tools:context=".activity.UI.BlackPantherActivity"
+    tools:context=".activity.ui.BlackPantherActivity"
     android:id="@+id/theme_bg">
 
     <include layout="@layout/row_black_panther"/>
@@ -282,6 +282,7 @@
                                     android:layout_height="@dimen/_20sdp"
                                     android:background="@drawable/bg_autorenew"
                                     android:src="@drawable/ic_repeate"
+                                    android:tint="?ns_black"
                                     android:contentDescription="@string/todo"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"/>
@@ -404,6 +405,7 @@
                                     android:layout_height="@dimen/_20sdp"
                                     android:background="@drawable/bg_autorenew"
                                     android:src="@drawable/ic_repeate"
+                                    android:tint="?ns_black"
                                     android:contentDescription="@string/todo"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"/>
@@ -518,6 +520,7 @@
                                     android:layout_height="@dimen/_20sdp"
                                     android:background="@drawable/bg_autorenew"
                                     android:src="@drawable/ic_repeate"
+                                    android:tint="?ns_black"
                                     android:contentDescription="@string/todo"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"/>

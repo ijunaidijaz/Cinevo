@@ -9,7 +9,7 @@
         <item name="android:textColorAlertDialogListItem">?ns_title</item>
         <item name="android:textColorSecondary">?ns_title</item>
         <!-- Used for the background -->
-        <item name="android:background">?ns_dialog_body</item>
+        <item name="android:background">?ns_dialog_bg</item>
         <!-- Used for the Button -->
         <item name="buttonBarNegativeButtonStyle">@style/ButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/ButtonStyle</item>
@@ -30,9 +30,19 @@
     </style>
 
     <style name="CustomRadioTheme" parent="Widget.AppCompat.CompoundButton.RadioButton">
-        <item name="android:colorControlNormal">?ns_body_dark</item>
+        <item name="android:colorControlNormal">?ns_bg_dark</item>
         <item name="android:colorControlActivated">?ns_primary</item>
         <item name="android:colorControlHighlight">?ns_primary</item>
+    </style>
+
+    <style name="Widget.App.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
+        <item name="buttonTint">?ns_title</item>
+        <item name="buttonIconTint">?ns_bg</item>
+    </style>
+
+    <style name="Widget.App.RadioButton" parent="Widget.Material3.CompoundButton.RadioButton">
+        <item name="buttonTint">?ns_white</item>
+        <item name="buttonIconTint">?ns_white</item>
     </style>
 
 </resources>

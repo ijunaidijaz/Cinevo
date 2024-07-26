@@ -390,7 +390,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/err_no_episodes_found"
                         android:textSize="@dimen/_12ssp"
-                        android:textColor="@color/md_classic_primary"
+                        android:textColor="@color/ns_classic_primary"
                         android:background="@drawable/bg_episodes_card"
                         android:textStyle="bold"
                         android:layout_margin="@dimen/_6sdp"

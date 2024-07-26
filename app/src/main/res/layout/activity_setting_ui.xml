@@ -10,7 +10,7 @@
     android:paddingEnd="@dimen/_15sdp"
     android:background="@drawable/bg_dark"
     android:id="@+id/theme_bg"
-    tools:context=".activity.SettingUIActivity">
+    tools:context=".activity.setting.SettingUIActivity">
 
     <RelativeLayout
         android:layout_marginBottom="@dimen/_5sdp"
@@ -203,9 +203,9 @@
                         android:textSize="@dimen/_12ssp"
                         tools:ignore="InefficientWeight"
                         android:textColor="?ns_title"
-                        android:buttonTint="?ns_title"
                         android:background="@drawable/focused_edt"
-                        android:padding="@dimen/_6sdp"/>
+                        android:padding="@dimen/_6sdp"
+                        style="@style/Widget.App.CheckBox"/>
 
                     <CheckBox
                         android:id="@+id/cbox_cast"
@@ -215,9 +215,9 @@
                         android:textSize="@dimen/_12ssp"
                         tools:ignore="InefficientWeight"
                         android:textColor="?ns_title"
-                        android:buttonTint="?ns_title"
                         android:background="@drawable/focused_edt"
-                        android:padding="@dimen/_6sdp"/>
+                        android:padding="@dimen/_6sdp"
+                        style="@style/Widget.App.CheckBox"/>
 
                     <CheckBox
                         android:id="@+id/cbox_download"
@@ -227,9 +227,9 @@
                         android:textSize="@dimen/_12ssp"
                         tools:ignore="InefficientWeight"
                         android:textColor="?ns_title"
-                        android:buttonTint="?ns_title"
                         android:background="@drawable/focused_edt"
-                        android:padding="@dimen/_6sdp"/>
+                        android:padding="@dimen/_6sdp"
+                        style="@style/Widget.App.CheckBox"/>
 
                     <TextView
                         android:layout_marginTop="@dimen/_2sdp"
@@ -248,9 +248,9 @@
                         android:textSize="@dimen/_12ssp"
                         tools:ignore="InefficientWeight"
                         android:textColor="?ns_title"
-                        android:buttonTint="?ns_title"
                         android:background="@drawable/focused_edt"
-                        android:padding="@dimen/_6sdp"/>
+                        android:padding="@dimen/_6sdp"
+                        style="@style/Widget.App.CheckBox"/>
 
                     <CheckBox
                         android:id="@+id/cbox_vr"
@@ -260,9 +260,10 @@
                         android:textSize="@dimen/_12ssp"
                         tools:ignore="InefficientWeight"
                         android:textColor="?ns_title"
-                        android:buttonTint="?ns_title"
                         android:background="@drawable/focused_edt"
-                        android:padding="@dimen/_6sdp"/>
+                        android:padding="@dimen/_6sdp"
+                        style="@style/Widget.App.CheckBox"/>
+
 
                 </LinearLayout>
 
@@ -298,10 +299,10 @@
                     android:text="Home Page"
                     android:textSize="@dimen/_12ssp"
                     android:textColor="?ns_title"
-                    android:buttonTint="?ns_title"
                     tools:ignore="InefficientWeight"
                     android:background="@drawable/focused_edt"
-                    android:padding="@dimen/_6sdp"/>
+                    android:padding="@dimen/_6sdp"
+                    style="@style/Widget.App.CheckBox"/>
 
                 <CheckBox
                     android:id="@+id/cbox_shimmering_details"
@@ -310,10 +311,10 @@
                     android:text="Details Page"
                     android:textSize="@dimen/_12ssp"
                     android:textColor="?ns_title"
-                    android:buttonTint="?ns_title"
                     tools:ignore="InefficientWeight"
                     android:background="@drawable/focused_edt"
-                    android:padding="@dimen/_6sdp"/>
+                    android:padding="@dimen/_6sdp"
+                    style="@style/Widget.App.CheckBox"/>
 
             </LinearLayout>
 

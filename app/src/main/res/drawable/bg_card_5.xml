@@ -8,5 +8,5 @@
 
     <stroke
         android:width="@dimen/_2sdp"
-        android:color="@color/md_classic_primary" />
+        android:color="@color/ns_classic_primary" />
 </shape>

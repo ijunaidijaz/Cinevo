@@ -28,7 +28,7 @@
 
     <ImageView
         android:padding="@dimen/_12sdp"
-        android:src="@drawable/ic_play_arrow"
+        android:src="@drawable/ic_play"
         android:layout_margin="@dimen/_6sdp"
         android:layout_width="@dimen/_110sdp"
         android:layout_height="match_parent"

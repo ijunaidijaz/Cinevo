@@ -66,8 +66,8 @@
             android:lines="1"
             android:inputType="numberPassword"
             android:padding="12dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/md_classic_title_sub"
+            android:textColor="?ns_title"
+            android:textColorHint="?ns_title_sub"
             android:textSize="@dimen/_12ssp"
             android:imeOptions="actionDone|flagNoFullscreen"
             tools:ignore="Autofill,TextFields"/>

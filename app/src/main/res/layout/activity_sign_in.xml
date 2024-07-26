@@ -53,6 +53,7 @@
                         android:layout_height="@dimen/_30sdp"
                         android:padding="@dimen/_4sdp"
                         android:src="@drawable/ic_user_octagon"
+                        android:tint="?ns_black"
                         android:contentDescription="@string/todo" />
 
                     <TextView
@@ -62,7 +63,7 @@
                         android:layout_marginEnd="@dimen/_6sdp"
                         android:layout_toEndOf="@+id/iv_logo_3"
                         android:text="@string/list_users"
-                        android:textColor="@color/black"
+                        android:textColor="?ns_black"
                         android:textSize="@dimen/_10ssp"
                         android:textStyle="bold" />
 

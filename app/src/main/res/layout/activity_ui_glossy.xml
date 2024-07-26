@@ -9,7 +9,7 @@
     android:paddingStart="@dimen/_15sdp"
     android:paddingEnd="@dimen/_15sdp"
     android:background="@drawable/bg_ui_glossy"
-    tools:context=".activity.UI.GlossyActivity"
+    tools:context=".activity.ui.GlossyActivity"
     android:id="@+id/theme_bg">
 
     <RelativeLayout
@@ -512,7 +512,8 @@
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:padding="@dimen/_2sdp"
-                                android:src="@drawable/ic_repeate"/>
+                                android:src="@drawable/ic_repeate"
+                                android:tint="?ns_black"/>
 
                         </LinearLayout>
 
@@ -644,7 +645,8 @@
                                 android:src="@drawable/ic_repeate"
                                 android:contentDescription="@string/todo"
                                 android:focusable="false"
-                                android:focusableInTouchMode="false"/>
+                                android:focusableInTouchMode="false"
+                                android:tint="?ns_black"/>
 
                         </LinearLayout>
 
@@ -777,7 +779,8 @@
                                 android:src="@drawable/ic_repeate"
                                 android:contentDescription="@string/todo"
                                 android:focusable="false"
-                                android:focusableInTouchMode="false"/>
+                                android:focusableInTouchMode="false"
+                                android:tint="?ns_black"/>
 
                         </LinearLayout>
 

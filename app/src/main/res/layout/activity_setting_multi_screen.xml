@@ -120,9 +120,9 @@
                 android:textSize="@dimen/_12ssp"
                 tools:ignore="InefficientWeight"
                 android:textColor="?ns_title"
-                android:buttonTint="?ns_title"
                 android:background="@drawable/focused_edt"
-                android:padding="@dimen/_6sdp"/>
+                android:padding="@dimen/_6sdp"
+                style="@style/Widget.App.CheckBox"/>
 
             <View
                 android:layout_width="wrap_content"

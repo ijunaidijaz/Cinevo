@@ -56,9 +56,9 @@
                 android:lines="1"/>
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_users_url"
                 android:text="@string/user_list_url"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/md_title_sub"

@@ -9,7 +9,7 @@
     android:paddingStart="@dimen/_16sdp"
     android:paddingEnd="@dimen/_16sdp"
     android:background="@drawable/bg_dark"
-    tools:context=".activity.UI.OneUIActivity"
+    tools:context=".activity.ui.OneUIActivity"
     android:id="@+id/theme_bg">
 
     <RelativeLayout
@@ -197,7 +197,7 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/todo" />
 
-            <androidx.nemosofts.view.ShimmerFrameLayout
+            <androidx.nemosofts.view.ShimmerView
                 android:visibility="visible"
                 android:id="@+id/shimmer_view_live"
                 android:layout_width="wrap_content"
@@ -215,7 +215,7 @@
                     android:layout_height="match_parent"
                     android:contentDescription="@string/todo" />
 
-            </androidx.nemosofts.view.ShimmerFrameLayout>
+            </androidx.nemosofts.view.ShimmerView>
 
             <RelativeLayout
                 android:id="@+id/select_live"
@@ -289,6 +289,7 @@
                         android:layout_height="@dimen/_20sdp"
                         android:background="@drawable/bg_autorenew"
                         android:src="@drawable/ic_repeate"
+                        android:tint="?ns_black"
                         android:contentDescription="@string/todo"
                         android:focusable="false"
                         android:focusableInTouchMode="false"/>
@@ -365,7 +366,7 @@
                         android:layout_height="match_parent"
                         android:contentDescription="@string/todo" />
 
-                    <androidx.nemosofts.view.ShimmerFrameLayout
+                    <androidx.nemosofts.view.ShimmerView
                         android:id="@+id/shimmer_view_movie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -382,7 +383,7 @@
                             android:layout_height="match_parent"
                             android:contentDescription="@string/todo" />
 
-                    </androidx.nemosofts.view.ShimmerFrameLayout>
+                    </androidx.nemosofts.view.ShimmerView>
 
                     <RelativeLayout
                         android:id="@+id/select_movie"
@@ -456,6 +457,7 @@
                                 android:layout_height="@dimen/_20sdp"
                                 android:background="@drawable/bg_autorenew"
                                 android:src="@drawable/ic_repeate"
+                                android:tint="?ns_black"
                                 android:contentDescription="@string/todo"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"/>
@@ -518,7 +520,7 @@
                         android:layout_height="match_parent"
                         android:contentDescription="@string/todo" />
 
-                    <androidx.nemosofts.view.ShimmerFrameLayout
+                    <androidx.nemosofts.view.ShimmerView
                         android:id="@+id/shimmer_view_serials"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -535,7 +537,7 @@
                             android:layout_height="match_parent"
                             android:contentDescription="@string/todo" />
 
-                    </androidx.nemosofts.view.ShimmerFrameLayout>
+                    </androidx.nemosofts.view.ShimmerView>
 
                     <RelativeLayout
                         android:id="@+id/select_serials"
@@ -610,6 +612,7 @@
                                 android:layout_height="@dimen/_20sdp"
                                 android:background="@drawable/bg_autorenew"
                                 android:src="@drawable/ic_repeate"
+                                android:tint="?ns_black"
                                 android:contentDescription="@string/todo"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"/>

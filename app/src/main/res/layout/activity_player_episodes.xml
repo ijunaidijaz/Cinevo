@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="?ns_black"
     android:gravity="center"
     android:keepScreenOn="true">
 
-    <mycinevo.streambox.util.player.CustomPlayerView
+    <nemosofts.streambox.util.player.CustomPlayerView
         android:id="@+id/nSoftsPlayerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -55,6 +55,7 @@
             android:layout_toEndOf="@+id/iv_back_player"
             android:padding="@dimen/_10sdp"
             android:text="@string/app_name"
+            android:lines="1"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold" />

@@ -31,6 +31,11 @@
           <theme>@style/ThemeEngineLight</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_live.xml">
+        <config>
+          <theme>@style/ThemeEngineLight</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_movie.xml">
         <config>
           <theme>@style/ThemeEngineDark</theme>
@@ -58,94 +63,310 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="510ca9c6-dd11-41d8-b21e-0885d4911ee1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/release/app-release.aab" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/app-release.aab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/libs/lib-decoder-av1-release.aar" beforeDir="false" afterPath="$PROJECT_DIR$/app/libs/lib-decoder-av1-release.aar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/libs/lib-decoder-ffmpeg-release.aar" beforeDir="false" afterPath="$PROJECT_DIR$/app/libs/lib-decoder-ffmpeg-release.aar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/libs/lib-exoplayer-release.aar" beforeDir="false" afterPath="$PROJECT_DIR$/app/libs/lib-exoplayer-release.aar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/libs/lib-extractor-release.aar" beforeDir="false" afterPath="$PROJECT_DIR$/app/libs/lib-extractor-release.aar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/libs/lib-ui-release.aar" beforeDir="false" afterPath="$PROJECT_DIR$/app/libs/lib-ui-release.aar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/release/app-release.aab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/mycinevo/streambox/ExampleInstrumentedTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/AddPlaylistActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/AddPlaylistActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/AddSingleURLActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/AddSingleURLActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/CategoriesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/CategoriesActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/DetailsMovieActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/DetailsMovieActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/DetailsSeriesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/DetailsSeriesActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/DialogActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/DialogActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/DownloadActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/DownloadActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/EPGActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/EPGActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/FilterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/FilterActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/FilterPlaylistActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/FilterPlaylistActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/GetActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/GetActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/LauncherActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/LauncherActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/LiveTvActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/LiveTvActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/MovieActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/MovieActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/MultipleScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/MultipleScreenActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/MyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/MyApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerDownloadActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerDownloadActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerEpisodesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerEpisodesActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerLiveActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerLiveActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerMovieActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerMovieActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerSingleURLActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerSingleURLActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlaylistLiveTvActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlaylistLiveTvActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlaylistMovieActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlaylistMovieActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/RadioActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/RadioActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SearchActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SearchActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SelectPlayerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SelectPlayerActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SeriesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SeriesActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SettingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SettingActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SettingGeneralActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SettingGeneralActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SignInActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SignInActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SignInDeviceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SignInDeviceActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SubscriptionActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/BlackPantherActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/BlackPantherActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/GlossyActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/GlossyActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/MovieUIActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/MovieUIActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/OneUIActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/OneUIActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/PlaylistActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/PlaylistActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UsersListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UsersListActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterCategory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterEpisodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterEpisodes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterLiveTV.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterLiveTV.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetCategory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetLive.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetLive.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetLivePlaylist.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetLivePlaylist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetLiveSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetLiveSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetMovieSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetMovieSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetMovies.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetMovies.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetMoviesPlaylist.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetMoviesPlaylist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetSeries.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetSeries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetSeriesSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetSeriesSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadLive.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadLive.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadMovies.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadMovies.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadPlaylist.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadPlaylist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadSeries.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadSeries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadUsers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/GetCategoryListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/GetCategoryListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/LiveListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/LoadPlaylistListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/LoadPlaylistListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/ApplicationUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/ApplicationUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/HttpsTrustManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/HttpsTrustManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/IfSupported.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/IfSupported.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/SpeedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/SpeedTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/helper/DBHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/helper/DBHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/helper/JSHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/helper/JSHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/helper/SPHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/helper/SPHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/player/BrightnessVolumeControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/player/BrightnessVolumeControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/player/CustomDefaultTrackNameProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/player/CustomDefaultTrackNameProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/view/NSoftsProgressDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/view/NSoftsProgressDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_global.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_global.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_live_tv.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_live_tv.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_subscription.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/AboutUsActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/AddPlaylistActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/AddSingleURLActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/CatchUpActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/CategoriesActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/DetailsMovieActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/DetailsSeriesActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/DialogActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/DownloadActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/DownloadService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/EPGActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/FilterActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/FilterPlaylistActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/GetActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/InterstitialActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/LauncherActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/LiveTvActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/MovieActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/MultipleScreenActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/MyApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/NetworkSpeedActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/NotificationsActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/NotificationsWebActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerDownloadActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerEpisodesActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerLiveActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerMovieActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlayerSingleURLActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlaylistLiveTvActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/PlaylistMovieActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/ProfileActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/RadioActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SearchActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SelectPlayerActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SeriesActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SettingActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SettingFormatActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SettingGeneralActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SettingMultiScreenActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SettingUIActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SignInActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/SignInDeviceActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/BlackPantherActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/GlossyActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/MovieUIActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/OneUIActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/PlaylistActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UI/SingleStreamActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/UsersListActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/WebActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/YouTubePlayerActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterCast.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterCat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterCategory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterDNS.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterDeviceID.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterDownload.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterEpisodes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterLiveTV.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterMovie.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterNotification.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterRadio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterSeason.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterSelect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterSeries.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterSetting.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterSingleURL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/AdapterUsers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/epg/AdapterEpg.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/epg/AdapterEpgListings.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/epg/AdapterEpgLogo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/epg/AdapterLiveEpg.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/epg/ItemPost.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/player/AdapterEpisodesPlayer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/adapter/player/AdapterLivePlayer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetCategory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetLive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetLivePlaylist.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetLiveSearch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetMovieSearch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetMovies.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetMoviesPlaylist.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetSeries.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/GetSeriesSearch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadAbout.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadEpg.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadInterstitial.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadLive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadLogin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadMovieID.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadMovies.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadPlaylist.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadPoster.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadSeries.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadSeriesID.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadUsers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/callback/Callback.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/dialog/AdultsCountDialog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/dialog/ChildCountDialog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/dialog/DialogUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/dialog/FeedBackDialog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/dialog/FilterDialog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/dialog/HoursDialog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/dialog/LimitDialog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/dialog/PlayerEpisodesListDialog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/dialog/PlayerLiveListDialog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/dialog/PopupAdsDialog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/dialog/Toasty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/AboutListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/DataListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/EpgListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/GetCategoryListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/GetLiveListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/GetMovieListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/GetSeriesListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/InterAdListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/LoadPlaylistListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/LoadSuccessListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/LoginListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/MovieIDListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/PosterListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/SeriesIDListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/StatusListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/SuccessListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/interfaces/UsersListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemCast.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemCat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemDns.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemEpg.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemEpisodes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemInfoMovies.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemInfoSeasons.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemLive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemMovies.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemMoviesData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemNotification.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemPlaylist.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemPoster.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemSeasons.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemSelect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemSeries.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemSetting.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemSingleURL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemUsers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemUsersDB.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/item/ItemVideoDownload.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/ApplicationUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/BootReceiver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/Encrypter/EncryptData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/Encrypter/EncryptedFileDataSource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/Encrypter/EncryptedFileDataSourceFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/Encrypter/Encrypter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/HttpsTrustManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/IfSupported.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/NetworkUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/SpeedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/helper/DBHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/helper/Helper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/helper/JSHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/helper/SPHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/player/BrightnessVolumeControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/player/CustomDefaultTrackNameProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/player/CustomPlayerView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/player/CustomYouTubePlayerView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/recycler/EndlessRecyclerViewScrollListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/util/recycler/RecyclerItemClickListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/view/NSoftsProgressDialog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bar_next_selector_focused.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bar_next_selector_focused.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg_blue.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_blue.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg_btn_filter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_btn_filter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg_btn_filter_focused.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_btn_filter_focused.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg_card_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_card_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg_classic.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_classic.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_dialog.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg_edit_text_feedback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_edit_text_feedback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg_edit_text_feedback_focused.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_edit_text_feedback_focused.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg_grey.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_grey.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg_light.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_light.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg_player_live_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_player_live_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg_sub_light.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_sub_light.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_add_circle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_add_circle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_ads_click.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_ads_click.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_arrow_right.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_arrow_right.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_aspect_ratio.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_aspect_ratio.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_check.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_check.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_clean_code.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_clean_code.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_close.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_close.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_devices.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_devices.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_error.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_error.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_ethernet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_ethernet.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_exit_to_app.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_exit_to_app.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_feedback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_feedback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_file_download.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_file_download.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_file_download_not.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_file_download_not.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_filter_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_filter_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_folder_connection.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_folder_connection.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_grid_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_grid_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_link.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_link.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_list_numbered.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_list_numbered.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_lock.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_lock.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_login_visibility.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_login_visibility.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_login_visibility_off.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_login_visibility_off.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_mist_line.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_mist_line.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_note.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_note.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_outline_person.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_outline_person.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_pause.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_pause.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_people.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_people.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_play.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_play.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_play_arrow.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_play_arrow.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_play_circle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_play_circle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_play_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_play_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_player_back.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_player_back.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_player_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_player_setting.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_playlist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_playlist.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_radio.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_radio.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_repeate.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_repeate.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_reset.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_reset.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_round_arrow_down.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_round_arrow_down.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_round_notification.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_round_notification.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_round_notifications.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_round_notifications.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_sd_storage.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_sd_storage.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_search_off.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_search_off.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_skip_next.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_skip_next.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_skip_previous.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_skip_previous.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_smart_display.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_smart_display.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_speed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_speed.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_timer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_timer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_timer_start.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_timer_start.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_trash.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_trash.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_upgrade.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_upgrade.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_user_add.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_user_add.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_user_octagon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_user_octagon.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_video_circle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_video_circle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_video_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_video_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_wifi.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_wifi.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_wifi_off.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_wifi_off.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/iv_downloading.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/iv_downloading.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/list_channels.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/list_channels.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_playlist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_playlist.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_single_url.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_single_url.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_details_series.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_details_series.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_epg.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_network_speed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_network_speed.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_player_episodes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_player_episodes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_player_live.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_player_live.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_player_movie.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_player_movie.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_player_single.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_player_single.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_radio.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_radio.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_select_player.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_select_player.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_setting_format.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_setting_format.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_setting_general.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_setting_general.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_setting_multi_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_setting_multi_screen.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_setting_ui.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_setting_ui.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_in.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_in.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_in_device.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_in_device.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_ui_black_panther.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_ui_black_panther.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_ui_glossy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_ui_glossy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_ui_movie.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_ui_movie.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_ui_one_ui.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_ui_one_ui.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_ui_playlist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_ui_playlist.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_youtube_player.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_youtube_player.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/custom_controls_live.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/custom_controls_live.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_adults_count.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_adults_count.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_child_count.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_child_count.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_feed_back.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_feed_back.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_filter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_filter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_hours.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_hours.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_limit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_limit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_popup_ads.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_popup_ads.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_toast.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_toast.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_live.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_live.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_movie.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_movie.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_player_epi.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_player_epi.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_player_live.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_player_live.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/row_episodes_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/row_episodes_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/row_url_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/row_url_list.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/row_users_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/row_users_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/shimmer_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/shimmer_row.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/notification.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/notification.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/network_security_config.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/mycinevo/streambox/ExampleUnitTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +376,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=/Users/junaidijaz/.android/avd/Pixel_8_API_34.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=/Users/junaidijaz/.android/avd/Pixel_8_Pro_API_34.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -197,7 +418,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Android App.app.executor": "Run",
+    "Android App.app.executor": "Debug",
     "ApkExportedModule": "Streambox.app",
     "BundleExportedModule": "Cinevo.app",
     "DEBUGGABLE_DEVICE": "Pixel_5_API_31 [emulator-5554]",
@@ -215,7 +436,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "update-2-july-24",
+    "git-widget-placeholder": "latest-26-july-update",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/junaidijaz/Documents/GitHub/Cinevo",
     "show.migrate.to.gradle.popup": "false"
@@ -348,6 +569,26 @@
           <url>file://$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/AddPlaylistActivity.java</url>
           <line>104</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/LauncherActivity.java</url>
+          <line>105</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/activity/LauncherActivity.java</url>
+          <line>96</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadAbout.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/mycinevo/streambox/asyncTask/LoadAbout.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
